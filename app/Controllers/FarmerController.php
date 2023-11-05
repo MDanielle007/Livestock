@@ -107,7 +107,26 @@ class FarmerController extends ResourceController
             // kung meron, i-return mo yung mga nakuha mong records
             return $this->respond($livestockRecords, 200);
         }else{
-            return $this->respond("May mali",404); // mag return ka na lang ng null kung wala kang nakuha
+            return $this->respond(null,404); // mag return ka na lang ng null kung wala kang nakuha
+        }
+    }
+
+    public function getOneLivestock($farmerID,$livestockID){
+        $livestockRecord = $this->livestocks
+            ->select('livestocks.Livestock_ID, 
+                    livestocks.Livestock_Type, 
+                    livestocks.Breed, livestocks.Age, 
+                    livestocks.Sex,livestocks.Date_Of_Birth, 
+                    farmerlivestocks.Acquired_Date')
+            ->join('farmerlivestocks','livestocks.Livestock_ID = farmerlivestocks.Livestock_ID')
+            ->where('farmerlivestocks.Farmer_ID',$farmerID)
+            ->where('livestocks.Livestock_ID',$livestockID)
+            ->first();
+        
+        if($livestockRecord){
+            return $this->respond($livestockRecord, 200);
+        }else{
+            return $this->respond(null,404);
         }
     }
 }
