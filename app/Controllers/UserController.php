@@ -35,10 +35,10 @@ class UserController extends ResourceController
     public function register()
     {
         $json = $this->request->getJSON();
-        // Get the input data using the request object
+        // // Get the input data using the request object
         $data = [
             'Username' => $json->Username,
-            'Password' => password_hash($json->Password, PASSWORD_DEFAULT),
+            // 'Password' => password_hash($json->Password, PASSWORD_DEFAULT),
             'Email' => $json->Email,
             'Firstname' => $json->Firstname,
             'Middlename' => $json->Middlename,
@@ -53,9 +53,9 @@ class UserController extends ResourceController
             'Phone_Number' => $json->Phone_Number,
         ];
 
-        $result = $this->userAccounts->save($data);
+        //$result = $this->userAccounts->save($data);
 
-        return $this->respond($result,200);
+        return $this->respond("heheh",200);
     }
 
     public function loginAuth(){
