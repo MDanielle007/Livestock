@@ -35,10 +35,10 @@ class UserController extends ResourceController
     public function register()
     {
         $json = $this->request->getJSON();
-        // // Get the input data using the request object
+        // Get the input data using the request object
         $data = [
             'Username' => $json->Username,
-            // 'Password' => password_hash($json->Password, PASSWORD_DEFAULT),
+            'Password' => password_hash($json->Password, PASSWORD_DEFAULT),
             'Email' => $json->Email,
             'Firstname' => $json->Firstname,
             'Middlename' => $json->Middlename,
@@ -53,9 +53,9 @@ class UserController extends ResourceController
             'Phone_Number' => $json->Phone_Number,
         ];
 
-        //$result = $this->userAccounts->save($data);
+        $result = $this->userAccounts->save($data);
 
-        return $this->respond("heheh",200);
+        return $this->respond($result,200);
     }
 
     public function loginAuth(){
@@ -71,7 +71,7 @@ class UserController extends ResourceController
             return $this->respond(['error' => 'Invalid username or password.'], 401);
         }
 
-        $pwd_verify = password_verify($password, $user['password']);
+        $pwd_verify = password_verify($password, $user['Password']);
 
         if(!$pwd_verify) {
             return $this->respond(['error' => 'Invalid username or password.'], 401);
@@ -82,12 +82,12 @@ class UserController extends ResourceController
         $exp = $iat + 3600;
 
         $payload = array(
-            "iss" => "Issuer of the JWT",
-            "aud" => "Audience that the JWT",
-            "sub" => "Subject of the JWT",
+            "iss" => "Livestock Outlook",
+            "aud" => $user['User_Role'],
+            "sub" => "Livestock Monitoring System",
             "iat" => $iat, //Time the JWT issued at
             "exp" => $exp, // Expiration time of token
-            "email" => $user['email'],
+            "email" => $user['Email'],
         );
         
         $token = JWT::encode($payload, $key, 'HS256');
