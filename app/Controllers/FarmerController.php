@@ -7,16 +7,19 @@ use CodeIgniter\RESTful\ResourceController;
 use App\Models\FarmerLivestocksModel;
 use App\Models\LivestocksModel;
 //kung yung Model na kailangan mo di to ay wala idagdag mo na lang
+use App\Models\UserAccountModel;
 
 class FarmerController extends ResourceController
 {
     private $farmerlivestocks;
     private $livestocks;
+    private $userAccount;
 
     public function __construct() {
         $this->farmerlivestocks = new FarmerLivestocksModel();
         $this->livestocks = new LivestocksModel();
         //gawin mo yung ganito para magamit mo yung model na yung sa ibang function
+        $this->userAccount = new UserAccountModel();
     }
 
     public function index()
@@ -125,6 +128,23 @@ class FarmerController extends ResourceController
         
         if($livestockRecord){
             return $this->respond($livestockRecord, 200);
+        }else{
+            return $this->respond(null,404);
+        }
+    }
+
+    public function getFarmerProfile(){
+        $farmerID = $this->request->getVar('Farmer_ID');
+
+        $farmerRecord = $this->userAccount
+            ->select('user_accounts.*, 
+                    farmer_profile.Years_Of_Farming')
+            ->join('farmer_profile','user_accounts.User_ID = farmer_profile.User_ID')
+            ->where('farmer_profile.Farmer_ID',$farmerID)
+            ->first();
+
+        if($farmerRecord){
+            return $this->respond($farmerRecord, 200);
         }else{
             return $this->respond(null,404);
         }
