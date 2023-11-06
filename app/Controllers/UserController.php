@@ -185,14 +185,12 @@ class UserController extends ResourceController
 
     public function editFarmerProfile($userID, $yearsFarming){
         $farmerID = $this->request->getVar('Farmer_ID');
-    $userID = $this->request->getVar('User_ID');
-    
-    $whereClause = [
-        $farmerID = $this->request->getVar('Farmer_ID'),
-        $userID = $this->request->getVar('User_ID'),
-    }
-    
-    ];
+        $userID = $this->request->getVar('User_ID');
+        
+        $whereClause = [
+            $farmerID = $this->request->getVar('Farmer_ID'),
+            $userID = $this->request->getVar('User_ID'),
+        ];
 
     $data = [
         'Username' => $this->request->getVar('Username'),
@@ -212,24 +210,24 @@ class UserController extends ResourceController
         'User_Role' => $this->request->getVar('User_Role'),
     ];
 
-    $this->farmerprofile->where($whereClause)->update($data);
+        $this->farmerprofile->where($whereClause)->update($data);
 
-    return $this->respond(['message' => 'Updated Successfully'],200);
+        return $this->respond(['message' => 'Updated Successfully'],200);
 
     }
 
     public function archiveFarmerprofile(){
         
-       $whereClause =[
+        $whereClause =[
         'Farmer_ID' => $this->request->getVar('Farmer_ID'),
         'User_ID' => $this->request->getVar('User_ID'),
-       ];
+        ];
 
-       $data['Record_Status'] ='Archive';
+    $data['Record_Status'] ='Archive';
 
-       $this->useraccounts->where($whereClause)->update($data);
+        $this->useraccounts->where($whereClause)->update($data);
 
-       return $this->respond(['message' => 'Archived Successfully'],200);
+        return $this->respond(['message' => 'Archived Successfully'],200);
     }
 
     
