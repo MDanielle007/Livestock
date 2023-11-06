@@ -182,4 +182,66 @@ class UserController extends ResourceController
         
         return $this->respond($response, 200);
     }
+
+    public function editFarmerProfile($userID, $yearsFarming){
+        $farmerID = $this->request->getVar('Farmer_ID');
+    $userID = $this->request->getVar('User_ID');
+    
+    $whereClause = [
+        $farmerID = $this->request->getVar('Farmer_ID'),
+        $userID = $this->request->getVar('User_ID'),
+    }
+    
+    ];
+
+    $data = [
+        'Username' => $this->request->getVar('Username'),
+        'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
+        'Email' => $this->request->getVar('Email'),
+        'Firstname' => $this->request->getVar('Firstname'),
+        'Middlename' => $this->request->getVar('Middlename'),
+        'Lastname' => $this->request->getVar('Lastname'),
+        'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
+        'Gender' => $this->request->getVar('Gender'), // 'Male' or 'Female' or 'Other'
+        'Civil_Status' => $this->request->getVar('Civil_Status'), // 'Single','Married','Widowed', or 'Divorced'
+        'Sitio' => $this->request->getVar('Sitio'),
+        'Barangay' => $this->request->getVar('Barangay'),
+        'City' => $this->request->getVar('City'),
+        'Province' => $this->request->getVar('Province'),
+        'Phone_Number' => $this->request->getVar('Phone_Number'),
+        'User_Role' => $this->request->getVar('User_Role'),
+    ];
+
+    $this->farmerprofile->where($whereClause)->update($data);
+
+    return $this->respond(['message' => 'Updated Successfully'],200);
+
+    }
+
+    public function archiveFarmerprofile(){
+        
+       $whereClause =[
+        'Farmer_ID' => $this->request->getVar('Farmer_ID'),
+        'User_ID' => $this->request->getVar('User_ID'),
+       ];
+
+       $data['Record_Status'] ='Archive';
+
+       $this->useraccounts->where($whereClause)->update($data);
+
+       return $this->respond(['message' => 'Archived Successfully'],200);
+    }
+
+    
+
+    //edit user acc
+    //kuha ng id tas ilagay mo sa isang variable
+    //kuhanin mo rin yung ibang data ilagay mo sya sa isang $data
+    // $this->userAccoun->where('User_ID',$id)->update($data)
+    //  return $this->respond(['message' => 'Updated Successfully'],200);
+
+    //archiving user
+    //kuha ng id tas ilagay mo sa isang variable
+    //$data['RecordStatus'] = "Archive"
+
 }
