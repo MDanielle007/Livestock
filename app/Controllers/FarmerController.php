@@ -129,24 +129,27 @@ class FarmerController extends ResourceController
 
     //Gawa ka muna ng Function 
     public function getAllFarmerLivestock($farmerID){
-        //kuhanin muna yung mga kailangan na data galing sa Vue
+        try {
+            //kuhanin muna yung mga kailangan na data galing sa Vue
+            $livestockRecords = $this->livestocks // gamitin mo yung model para ma-fetch yung mga data sa database
+                ->select('livestocks.Livestock_ID, 
+                        livestocks.Livestock_Type, 
+                        livestocks.Breed, livestocks.Age, 
+                        livestocks.Sex,livestocks.Date_Of_Birth, 
+                        farmerlivestocks.Acquired_Date') // select mo yung mga kailangan na data mo
+                ->join('farmerlivestocks','livestocks.Livestock_ID = farmerlivestocks.Livestock_ID') // join mo yung mga table na kailangan ipag join
+                ->where('farmerlivestocks.Farmer_ID',$farmerID) // gawa ka ng where clause para ang makuha data ay specific lang 
+                ->findAll(); // fetch mo na yung mga data
 
-        $livestockRecords = $this->livestocks // gamitin mo yung model para ma-fetch yung mga data sa database
-            ->select('livestocks.Livestock_ID, 
-                    livestocks.Livestock_Type, 
-                    livestocks.Breed, livestocks.Age, 
-                    livestocks.Sex,livestocks.Date_Of_Birth, 
-                    farmerlivestocks.Acquired_Date') // select mo yung mga kailangan na data mo
-            ->join('farmerlivestocks','livestocks.Livestock_ID = farmerlivestocks.Livestock_ID') // join mo yung mga table na kailangan ipag join
-            ->where('farmerlivestocks.Farmer_ID',$farmerID) // gawa ka ng where clause para ang makuha data ay specific lang 
-            ->findAll(); // fetch mo na yung mga data
-
-        // Check mo kung may mga nakuha kang records
-        if($livestockRecords){
-            // kung meron, i-return mo yung mga nakuha mong records
-            return $this->respond($livestockRecords, 200);
-        }else{
-            return $this->respond(null,404); // mag return ka na lang ng null kung wala kang nakuha
+            // Check mo kung may mga nakuha kang records
+            if($livestockRecords){
+                // kung meron, i-return mo yung mga nakuha mong records
+                return $this->respond($livestockRecords, 200);
+            }else{
+                return $this->respond(null,404); // mag return ka na lang ng null kung wala kang nakuha
+            }
+        } catch (\Throwable $th) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()],);
         }
     }
 
@@ -209,6 +212,45 @@ class FarmerController extends ResourceController
             return $this->respond($livestockRecords, 200);
         } else {
             return $this->respond(null, 404);
+        }
+    }
+
+    public function getFarmerLivestockTypeCount(){
+        try {
+            $whereClause = [
+                'livestocks.Livestock_Type' => $this->request->getVar('Livestock_Type'),
+                'farmer_profile.Farmer_ID' => $this->request->getVar('Farmer_ID'),
+            ];
+
+            $livestockCount = $this->livestocks
+                ->select('livestocks.Livestock_ID')
+                ->join('farmerlivestocks','farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
+                ->join('farmer_profile','farmerlivestocks.Farmer_ID = farmer_profile.Farmer_ID')
+                ->where($whereClause)
+                ->countAllResults();
+
+            return $this->respond($livestockCount, 200);
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()],);
+        }
+    }
+
+    public function getLivestockTypeCount(){
+        try {
+            $whereClause = [
+                'farmer_profile.Farmer_ID' => $this->request->getVar('Farmer_ID'),
+            ];
+
+            $livestockCount = $this->livestocks
+                ->select('livestocks.Livestock_ID')
+                ->join('farmerlivestocks','farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
+                ->join('farmer_profile','farmerlivestocks.Farmer_ID = farmer_profile.Farmer_ID')
+                ->where($whereClause)
+                ->countAllResults();
+
+            return $this->respond($livestockCount, 200);
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()],);
         }
     }
 }
