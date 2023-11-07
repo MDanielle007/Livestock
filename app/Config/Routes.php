@@ -17,5 +17,9 @@ $routes->get('/farmer/getAllFarmerLivestock/(:any)', 'FarmerController::getAllFa
 // gawa ka ng routes para sa function na ginawa mo
 $routes->get('/farmer/getOneLivestock/(:segment)/(:segment)', 'FarmerController::getOneLivestock/$1/$2');
 $routes->post('/farmer/getFarmerProfile', 'FarmerController::getFarmerProfile');
+
 $routes->post('/admin/editFarmerProfile', 'UserController::editFarmerProfile');
-$routes->post('/admin/archiveFarmerProfile', 'UserController::archiveFarmerProfile');
+$routes->post('/admin/archiveFarmerprofile', 'UserController::archiveFarmerprofile');
+
+$routes->post('/farmer/editLivestockDetails', 'FarmerController::editLivestockDetails');
+$routes->post('/farmer/archiveLivestockRecord', 'FarmerController::archiveLivestockRecord');

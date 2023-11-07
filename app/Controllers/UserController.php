@@ -183,51 +183,65 @@ class UserController extends ResourceController
         return $this->respond($response, 200);
     }
 
-    public function editFarmerProfile($userID, $yearsFarming){
-        $farmerID = $this->request->getVar('Farmer_ID');
-        $userID = $this->request->getVar('User_ID');
+    public function editFarmerProfile() {
+        try {
+            $json = $this->request->getJSON();
+    
+            $userID = $this->request->getVar('User_ID'); // Assuming you use User_ID to identify the user
+            $years = $this->request->getVar('Years_Of_Farming');
         
-        $whereClause = [
-            $farmerID = $this->request->getVar('Farmer_ID'),
-            $userID = $this->request->getVar('User_ID'),
-        ];
-
-    $data = [
-        'Username' => $this->request->getVar('Username'),
-        'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
-        'Email' => $this->request->getVar('Email'),
-        'Firstname' => $this->request->getVar('Firstname'),
-        'Middlename' => $this->request->getVar('Middlename'),
-        'Lastname' => $this->request->getVar('Lastname'),
-        'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
-        'Gender' => $this->request->getVar('Gender'), // 'Male' or 'Female' or 'Other'
-        'Civil_Status' => $this->request->getVar('Civil_Status'), // 'Single','Married','Widowed', or 'Divorced'
-        'Sitio' => $this->request->getVar('Sitio'),
-        'Barangay' => $this->request->getVar('Barangay'),
-        'City' => $this->request->getVar('City'),
-        'Province' => $this->request->getVar('Province'),
-        'Phone_Number' => $this->request->getVar('Phone_Number'),
-        'User_Role' => $this->request->getVar('User_Role'),
-    ];
-
-        $this->farmerprofile->where($whereClause)->update($data);
-
-        return $this->respond(['message' => 'Updated Successfully'],200);
-
+            $data = [
+                'Username' => $this->request->getVar('Username'),
+                'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
+                'Email' => $this->request->getVar('Email'),
+                'Firstname' => $this->request->getVar('Firstname'),
+                'Middlename' => $this->request->getVar('Middlename'),
+                'Lastname' => $this->request->getVar('Lastname'),
+                'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
+                'Gender' => $this->request->getVar('Gender'),
+                'Civil_Status' => $this->request->getVar('Civil_Status'),
+                'Sitio' => $this->request->getVar('Sitio'),
+                'Barangay' => $this->request->getVar('Barangay'),
+                'City' => $this->request->getVar('City'),
+                'Province' => $this->request->getVar('Province'),
+                'Phone_Number' => $this->request->getVar('Phone_Number'),
+            ];
+        
+            $result = $this->editFarmerFarmingYears($userID, $years);
+        
+            $this->userAccounts->where('User_ID', $userID)->set($data)->update();
+        
+            return $this->respond(["message" => "Updated Successfully"], 200);
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()],);
+        }
     }
+    
+    private function editFarmerFarmingYears($userID, $years) {
+        try {
+            $this->farmerProfiles->where('User_ID', $userID)->update(['Years_Of_Farming' => $years]);
+            return "Success"; // or return a success message
+        } catch (\Exception $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()]);// Handle the exception, return an error message, or log it as needed
+        }
+    }
+    
+
 
     public function archiveFarmerprofile(){
-        
-        $whereClause =[
-        'Farmer_ID' => $this->request->getVar('Farmer_ID'),
-        'User_ID' => $this->request->getVar('User_ID'),
-        ];
-
-    $data['Record_Status'] ='Archive';
-
-        $this->useraccounts->where($whereClause)->update($data);
-
-        return $this->respond(['message' => 'Archived Successfully'],200);
+        try {
+            $whereClause =[
+                'Farmer_ID' => $this->request->getVar('Farmer_ID')
+            ];
+    
+            $data['Record_Status'] ='Archive';
+    
+            $this->farmerProfiles->where($whereClause)->set($data)->update();
+    
+            return $this->respond(['message' => 'Archived Successfully'],200);
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()],);
+        }
     }
 
     

@@ -22,11 +22,6 @@ class FarmerController extends ResourceController
         $this->userAccount = new UserAccountModel();
     }
 
-    public function index()
-    {
-        
-    }
-
     public function addLivestock(){
         $farmerID = $this->request->getVar('Farmer_ID');
         $acquiredDate = $this->request->getVar('Acquired_Date');
@@ -54,7 +49,7 @@ class FarmerController extends ResourceController
                 return $this->respond(['error' => 'Failed to add livestock.'], 500);
             }
             return $this->respond($lastLivestockID,200);
-        }
+    }
 
     public function getLivestockLastID() {
         // Use CodeIgniter Query Builder to get the maximum Livestock_ID.
@@ -89,6 +84,47 @@ class FarmerController extends ResourceController
 
         $result = $this->farmerlivestocks->where($whereClause)->update($data);
         return $this->respond($result,200);
+    }
+
+    public function editLivestockDetails(){
+        $whereClause = [
+            'Livestock_ID' => $this->request->getVar('Livestock')
+        ];
+
+        // $record = $this->livestocks->where($whereClause)->findAll();
+
+        $data = [
+            'Livestock_Type' => $this->request->getVar('Livestock_Type'),
+            'Breed' => $this->request->getVar('Breed'),
+            'Age' => $this->request->getVar('Age'),
+            'Sex' => $this->request->getVar('Sex'),
+            'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
+        ];
+
+        $this->livestocks->where($whereClause)->set($data)->update();
+
+        return $this->respond(['message' => 'Updated Successfully',$whereClause,$data],200);
+    }
+
+    public function archiveLivestockRecord(){
+        // Define the where clause to find the specific record to archive.
+        $whereClause = [
+            'Livestock_ID' => $this->request->getVar('Livestock_ID'),
+        ];
+
+        // Define the data to update, setting the Record_Status to 'Archive'.
+        $data['Record_Status'] = 'Archive';
+
+        // Use the model's update method with the where clause to update the record.
+        $updatedRows = $this->livestocks->where($whereClause)->set($data)->update();
+
+        if ($updatedRows > 0) {
+            // Check if any records were updated. If so, consider it a success.
+            return $this->respond(['message' => 'Archived Successfully'], 200);
+        } else {
+            // No records were updated, so return an error message.
+            return $this->respond(['message' => 'No matching records found for archiving.'], 404);
+        }
     }
 
     //Gawa ka muna ng Function 
@@ -147,6 +183,32 @@ class FarmerController extends ResourceController
             return $this->respond($farmerRecord, 200);
         }else{
             return $this->respond(null,404);
+        }
+    }
+
+    public function searchLivestocks($farmerID){
+        $searchTerm = $this->request->getVar('searchTerm');
+
+        $criteria = [
+            'Farmer_ID' => $farmerID,
+        ];
+
+        if (!empty($searchTerm)) {
+            $this->livestocks->groupStart()
+                ->like('Livestock_Type', $searchTerm) 
+                ->orLike('Breed', $searchTerm)
+                ->orLike('Age', $searchTerm)
+                ->groupEnd();
+        }
+
+        $foundRecords = $this->livestocks
+            ->where($farmerID)
+            ->findAll();
+        
+        if ($livestockRecords) {
+            return $this->respond($livestockRecords, 200);
+        } else {
+            return $this->respond(null, 404);
         }
     }
 }
