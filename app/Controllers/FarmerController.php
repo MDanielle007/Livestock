@@ -8,18 +8,21 @@ use App\Models\FarmerLivestocksModel;
 use App\Models\LivestocksModel;
 //kung yung Model na kailangan mo di to ay wala idagdag mo na lang
 use App\Models\UserAccountModel;
+use App\Models\LivestockMortalitiesModel;
 
 class FarmerController extends ResourceController
 {
     private $farmerlivestocks;
     private $livestocks;
     private $userAccount;
+    private $livestockMortalities;
 
     public function __construct() {
         $this->farmerlivestocks = new FarmerLivestocksModel();
         $this->livestocks = new LivestocksModel();
         //gawin mo yung ganito para magamit mo yung model na yung sa ibang function
         $this->userAccount = new UserAccountModel();
+        $this->livestockMortalities = new LivestockMortalitiesModel(); //
     }
 
     public function addLivestock(){
@@ -136,7 +139,7 @@ class FarmerController extends ResourceController
                         livestocks.Livestock_Type, 
                         livestocks.Breed, livestocks.Age, 
                         livestocks.Sex,livestocks.Date_Of_Birth, 
-                        farmerlivestocks.Acquired_Date') // select mo yung mga kailangan na data mo
+                        livestocks.Health_Status,farmerlivestocks.Acquired_Date') // select mo yung mga kailangan na data mo
                 ->join('farmerlivestocks','livestocks.Livestock_ID = farmerlivestocks.Livestock_ID') // join mo yung mga table na kailangan ipag join
                 ->where('farmerlivestocks.Farmer_ID',$farmerID) // gawa ka ng where clause para ang makuha data ay specific lang 
                 ->findAll(); // fetch mo na yung mga data
@@ -189,29 +192,34 @@ class FarmerController extends ResourceController
         }
     }
 
-    public function searchLivestocks($farmerID){
-        $searchTerm = $this->request->getVar('searchTerm');
+    public function searchLivestocks(){
+        try {
+            $farmerID = $this->request->getVar('Farmer_ID');
+            $searchTerm = $this->request->getVar('searchTerm');
 
-        $criteria = [
-            'Farmer_ID' => $farmerID,
-        ];
+            $criteria = [
+                'Farmer_ID' => $farmerID,
+            ];
 
-        if (!empty($searchTerm)) {
-            $this->livestocks->groupStart()
-                ->like('Livestock_Type', $searchTerm) 
-                ->orLike('Breed', $searchTerm)
-                ->orLike('Age', $searchTerm)
-                ->groupEnd();
-        }
+            if (!empty($searchTerm)) {
+                $this->livestocks->groupStart()
+                    ->like('Livestock_Type', $searchTerm) 
+                    ->orLike('Breed', $searchTerm)
+                    ->orLike('Age', $searchTerm)
+                    ->groupEnd();
+            }
 
-        $foundRecords = $this->livestocks
-            ->where($farmerID)
-            ->findAll();
-        
-        if ($livestockRecords) {
-            return $this->respond($livestockRecords, 200);
-        } else {
-            return $this->respond(null, 404);
+            $foundRecords = $this->livestocks
+                ->where($farmerID)
+                ->findAll();
+            
+            if ($foundRecords) {
+                return $this->respond($foundRecords, 200);
+            } else {
+                return $this->respond(['message'=>'walang mahanap'],200);
+            }
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()],);
         }
     }
 
@@ -253,4 +261,61 @@ class FarmerController extends ResourceController
             return $this->respond(["message" => "Error: " . $e->getMessage()],);
         }
     }
+
+    public function addLivestockMortality(){
+        try {
+            $livestockID = $this->request->getVar('Livestock_ID');
+
+            $data = [
+                'Livestock_ID' => $livestockID,
+                'Cause_Of_Death' => $this->request->getVar('Cause_Of_Death'),
+                'Date_Of_Death' => $this->request->getVar('Date_Of_Death'),
+            ];
+            $res = $this->updateLivestockHealth($livestockID);
+            $this->livestockMortalities->save($data);
+            return $this->respond(['message' => 'Record Successfully Added',$res],200);
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()],200);
+        }
+    }
+
+    private function updateLivestockHealth($livestockID){
+        try {
+
+            // Define the data to update, setting the Record_Status to 'Archive'.
+            $data['Health_Status'] = 'Dead';
+
+            // Use the model's update method with the where clause to update the record.
+            $updatedRows = $this->livestocks->where('Livestock_ID',$livestockID)->set($data)->update();
+
+            if ($updatedRows > 0) {
+                // Check if any records were updated. If so, consider it a success.
+                return ['message' => 'Updated Successfully'];
+            } else {
+                // No records were updated, so return an error message.
+                return ['message' => 'No matching records found for updating.'];
+            }
+        } catch (\Throwable $e) {
+            return ["message" => "Error: " . $e->getMessage()]  ;
+        }
+    }
+
+    public function fetchFarmerLivestockMortalityRecords($farmerID = 0){
+        try {
+            // $farmerID = $this->request->getVar('Farmer_ID');
+
+            $mRecords = $this->livestockMortalities
+                ->join('livestocks','livestocks.Livestock_ID = livestock_mortalities.Livestock_ID')
+                ->join('farmerlivestocks','farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
+                ->join('farmer_profile','farmer_profile.Farmer_ID = farmer_profile.Farmer_ID')
+                ->where('farmer_profile.Farmer_ID',$farmerID)
+                ->countAllResults();
+            
+            return $this->respond($mRecords,200);
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()]);
+        }
+    }
+
+
 }

@@ -12,7 +12,7 @@ class LivestocksModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['Livestock_Type', 'Breed', 'Age', 'Sex', 'Date_Of_Birth', 'Record_Status'];
+    protected $allowedFields    = ['Livestock_Type', 'Breed', 'Age', 'Sex', 'Date_Of_Birth', 'Health_Status','Record_Status'];
 
     // Dates
     protected $useTimestamps = false;

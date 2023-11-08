@@ -12,7 +12,7 @@ class LivestockMortalitiesModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['Livestock_ID', 'Farmer_ID', 'Cause_Of_Death', 'Date_Of_Death', 'Record_Status'];
+    protected $allowedFields    = ['Livestock_ID','Cause_Of_Death', 'Date_Of_Death', 'Record_Status'];
 
     // Dates
     protected $useTimestamps = false;

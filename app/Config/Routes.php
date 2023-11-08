@@ -27,4 +27,8 @@ $routes->group('farmer',static function($routes){
     $routes->get('getAllFarmerLivestock/(:any)', 'FarmerController::getAllFarmerLivestock/$1');
     $routes->post('getLivestockTypeCount','FarmerController::getLivestockTypeCount');
     $routes->post('getFarmerLivestockTypeCount','FarmerController::getLivestockTypeCount');
+    $routes->post('searchLivestocks','FarmerController::searchLivestocks');
+    $routes->post('addLivestockMortality','FarmerController::addLivestockMortality');
+    $routes->get('fetchFarmerLivestockMortalityRecords/(:any)','FarmerController::fetchFarmerLivestockMortalityRecords/$1');
+
 });
