@@ -51,6 +51,7 @@ class UserController extends ResourceController
             'City' => $json->City,
             'Province' => $json->Province,
             'Phone_Number' => $json->Phone_Number,
+            'User_Role' => $json->User_Role,
         ];
 
         $result = $this->userAccounts->save($data);
@@ -142,45 +143,51 @@ class UserController extends ResourceController
     }
 
     public function loginAuth(){
-        $session = session();
-        $json = $this->request->getJSON();
-
-        $username = $json->username;
-        $password = $json->password;
-
-        $user = $this->userAccounts->where('Username', $username)->first();
-
-        if(is_null($user)) {
-            return $this->respond(['error' => 'Invalid username or password.'], 401);
+        try {
+            //code...
+            $session = session();
+            $json = $this->request->getJSON();
+    
+            $username = $json->Username;
+            $password = $json->Password;
+    
+            $user = $this->userAccounts->where('Username', $username)->first();
+    
+            if(is_null($user)) {
+                return $this->respond(['error' => 'Invalid username or password.'], 401);
+            }
+    
+            $pwd_verify = password_verify($password, $user['Password']);
+    
+            if(!$pwd_verify) {
+                return $this->respond(['error' => 'Invalid username or password.'], 401);
+            }
+    
+            $key = getenv('JWT_SECRET');
+            $iat = time(); // current timestamp value
+            $exp = $iat + 3600;
+    
+            $payload = array(
+                "iss" => "Livestock Outlook",
+                "aud" => $user['User_Role'],
+                "sub" => "Livestock Monitoring System",
+                "iat" => $iat, //Time the JWT issued at
+                "exp" => $exp, // Expiration time of token
+                "email" => $user['Email'],
+            );
+            
+            $token = JWT::encode($payload, $key, 'HS256');
+    
+            $response = [
+                'message' => 'Login Succesful',
+                'token' => $token
+            ];
+            
+            return $this->respond($response, 200);
+        } catch (\Throwable $e) {
+            //throw $th;
+            return $this->respond(["message" => "Error: " . $e->getMessage()],);
         }
-
-        $pwd_verify = password_verify($password, $user['Password']);
-
-        if(!$pwd_verify) {
-            return $this->respond(['error' => 'Invalid username or password.'], 401);
-        }
-
-        $key = getenv('JWT_SECRET');
-        $iat = time(); // current timestamp value
-        $exp = $iat + 3600;
-
-        $payload = array(
-            "iss" => "Livestock Outlook",
-            "aud" => $user['User_Role'],
-            "sub" => "Livestock Monitoring System",
-            "iat" => $iat, //Time the JWT issued at
-            "exp" => $exp, // Expiration time of token
-            "email" => $user['Email'],
-        );
-        
-        $token = JWT::encode($payload, $key, 'HS256');
-
-        $response = [
-            'message' => 'Login Succesful',
-            'token' => $token
-        ];
-        
-        return $this->respond($response, 200);
     }
 
     public function editFarmerProfile() {
