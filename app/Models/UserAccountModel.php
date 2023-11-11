@@ -12,7 +12,7 @@ class UserAccountModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['Username', 'Password', 'Email','Firstname', 'Middlename', 'Lastname', 'Date_Of_Birth', 'Gender', 'Civil_Status', 'Sitio', 'Barangay', 'City', 'Province', 'Phone_Number', 'Image', 'User_Role', 'User_Status', 'Last_Login_Date', 'Created_At', 'Record_Status'];
+    protected $allowedFields    = ['Username', 'Password', 'Email','Firstname', 'Middlename', 'Lastname', 'Date_Of_Birth', 'Gender', 'Civil_Status', 'Sitio', 'Barangay', 'City', 'Province', 'Phone_Number', 'Image', 'User_Role', 'User_Status', 'Last_Login_Date', 'Created_At', 'Record_Status','User_Token'];
 
     // Dates
     protected $useTimestamps = false;

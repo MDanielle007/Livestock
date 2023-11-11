@@ -8,6 +8,8 @@ use App\Models\FarmerLivestocksModel;
 use App\Models\LivestocksModel;
 use App\Models\UserAccountModel;
 use App\Models\LivestockMortalitiesModel;
+use App\Models\LivestockTypesModel;
+use App\Models\LivestockBreedModel;
 
 class FarmerController extends ResourceController
 {
@@ -15,12 +17,16 @@ class FarmerController extends ResourceController
     private $livestocks;
     private $userAccount;
     private $livestockMortalities;
+    private $livestockTypes;
+    private $livestockBreeds;
 
     public function __construct() {
         $this->farmerlivestocks = new FarmerLivestocksModel();
         $this->livestocks = new LivestocksModel();
         $this->userAccount = new UserAccountModel();
-        $this->livestockMortalities = new LivestockMortalitiesModel(); //
+        $this->livestockMortalities = new LivestockMortalitiesModel();
+        $this->livestockTypes = new LivestockTypesModel();
+        $this->livestockBreeds = new LivestockBreedModel();
     }
 
     public function addLivestock(){
@@ -38,14 +44,14 @@ class FarmerController extends ResourceController
 
         $result = $this->livestocks->save($data);
         if ($result) {
-                $lastLivestockID = $this->getLivestockLastID();
-        
-                $this->associateLivestock($farmerID, $lastLivestockID, $acquiredDate, $ownershipStatus);
-                return $this->respond(['Livestock_ID' => $lastLivestockID], 200);
-            } else {
-                return $this->respond(['error' => 'Failed to add livestock.'], 500);
-            }
-            return $this->respond($lastLivestockID,200);
+            $lastLivestockID = $this->getLivestockLastID();
+    
+            $this->associateLivestock($farmerID, $lastLivestockID, $acquiredDate, $ownershipStatus);
+            return $this->respond(['Livestock_ID' => $lastLivestockID], 200);
+        } else {
+            return $this->respond(['error' => 'Failed to add livestock.'], 500);
+        }
+        return $this->respond($lastLivestockID,200);
     }
 
     public function getLivestockLastID() {
@@ -291,6 +297,5 @@ class FarmerController extends ResourceController
             return $this->respond(["message" => "Error: " . $e->getMessage()]);
         }
     }
-
 
 }

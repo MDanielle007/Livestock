@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class LivestockMortalitiesModel extends Model
+class LivestockTypesModel extends Model
 {
-    protected $table            = 'livestock_mortalities';
-    protected $primaryKey       = 'LM_ID';
+    protected $table            = 'livestock_types';
+    protected $primaryKey       = 'LT_ID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['Farmer_ID','Livestock_ID','Cause_Of_Death', 'Date_Of_Death', 'Record_Status'];
+    protected $allowedFields    = ['Type_Name', 'Livestock_Uses'];
 
     // Dates
     protected $useTimestamps = false;
