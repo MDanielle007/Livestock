@@ -11,6 +11,7 @@
     "axios": "^1.6.1",
     "bottom-navigation-vue": "^3.3.5",
     "core-js": "^3.8.3",
+    "jwt-decode": "^4.0.0",
     "register-service-worker": "^1.7.2",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
