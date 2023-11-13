@@ -30,28 +30,31 @@ class FarmerController extends ResourceController
     }
 
     public function addLivestock(){
-        $farmerID = $this->request->getVar('Farmer_ID');
-        $acquiredDate = $this->request->getVar('Acquired_Date');
-        $ownershipStatus = $this->request->getVar('OwnershipStatus');
+        try {
+            $farmerID = $this->request->getVar('Farmer_ID');
+            $acquiredDate = $this->request->getVar('Acquired_Date');
+            $ownershipStatus = $this->request->getVar('OwnershipStatus');
 
-        $data = [
-            'Livestock_Type' => $this->request->getVar('Livestock_Type'),
-            'Breed' => $this->request->getVar('Breed'),
-            'Age' => $this->request->getVar('Age'),
-            'Sex' => $this->request->getVar('Sex'),
-            'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
-        ];
+            $data = [
+                'Livestock_Type' => $this->request->getVar('Livestock_Type'),
+                'Breed_Name' => $this->request->getVar('Breed_Name'),
+                'Age' => $this->request->getVar('Age'),
+                'Sex' => $this->request->getVar('Sex'),
+                'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
+            ];
 
-        $result = $this->livestocks->save($data);
-        if ($result) {
-            $lastLivestockID = $this->getLivestockLastID();
-    
-            $this->associateLivestock($farmerID, $lastLivestockID, $acquiredDate, $ownershipStatus);
-            return $this->respond(['Livestock_ID' => $lastLivestockID], 200);
-        } else {
-            return $this->respond(['error' => 'Failed to add livestock.'], 500);
+            $result = $this->livestocks->save($data);
+            if ($result) {
+                $lastLivestockID = $this->getLivestockLastID();
+        
+                $this->associateLivestock($farmerID, $lastLivestockID, $acquiredDate, $ownershipStatus);
+                return $this->respond(['message' => 'Added Successfully'], 200);
+            } else {
+                return $this->respond(['error' => 'Failed to add livestock.'], 500);
+            }
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()],);
         }
-        return $this->respond($lastLivestockID,200);
     }
 
     public function getLivestockLastID() {
@@ -84,7 +87,7 @@ class FarmerController extends ResourceController
         ];
 
         $result = $this->farmerlivestocks->where($whereClause)->update($data);
-        return $this->respond($result,200);
+        return $this->respond(['message' => 'Updated Successfully'], 200);
     }
 
     public function editLivestockDetails(){
@@ -94,7 +97,7 @@ class FarmerController extends ResourceController
 
         $data = [
             'Livestock_Type' => $this->request->getVar('Livestock_Type'),
-            'Breed' => $this->request->getVar('Breed'),
+            'Breed_Name' => $this->request->getVar('Breed'),
             'Age' => $this->request->getVar('Age'),
             'Sex' => $this->request->getVar('Sex'),
             'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
@@ -102,7 +105,7 @@ class FarmerController extends ResourceController
 
         $this->livestocks->where($whereClause)->set($data)->update();
 
-        return $this->respond(['message' => 'Updated Successfully',$whereClause,$data],200);
+        return $this->respond(['message' => 'Updated Successfully'],200);
     }
 
     public function archiveLivestockRecord(){
@@ -126,9 +129,9 @@ class FarmerController extends ResourceController
             $livestockRecords = $this->livestocks
                 ->select('livestocks.Livestock_ID, 
                         livestocks.Livestock_Type, 
-                        livestocks.Breed, livestocks.Age, 
+                        livestocks.Breed_Name, livestocks.Age, 
                         livestocks.Sex,livestocks.Date_Of_Birth, 
-                        livestocks.Health_Status,farmerlivestocks.Acquired_Date')
+                        farmerlivestocks.Acquired_Date')
                 ->join('farmerlivestocks','livestocks.Livestock_ID = farmerlivestocks.Livestock_ID')
                 ->where('farmerlivestocks.Farmer_ID',$farmerID)
                 ->findAll();
@@ -137,48 +140,55 @@ class FarmerController extends ResourceController
             }else{
                 return $this->respond(null,404);
             }
-        } catch (\Throwable $th) {
+        } catch (\Throwable $e) {
             return $this->respond(["message" => "Error: " . $e->getMessage()],);
         }
     }
 
-    public function getOneLivestock($farmerID,$livestockID){
-        $livestockRecord = $this->livestocks
-            ->select('livestocks.Livestock_ID, 
-                    livestocks.Livestock_Type, 
-                    livestocks.Breed, livestocks.Age, 
-                    livestocks.Sex,livestocks.Date_Of_Birth, 
-                    farmerlivestocks.Acquired_Date')
-            ->join('farmerlivestocks','livestocks.Livestock_ID = farmerlivestocks.Livestock_ID')
-            ->where('farmerlivestocks.Farmer_ID',$farmerID)
-            ->where('livestocks.Livestock_ID',$livestockID)
-            ->first();
-        
-        if($livestockRecord){
-            return $this->respond($livestockRecord, 200);
-        }else{
-            return $this->respond(null,404);
+    public function getOneLivestock($livestockID){
+        try {
+            $livestockRecord = $this->livestocks
+                ->select('livestocks.Livestock_ID, 
+                        livestocks.Livestock_Type, 
+                        livestocks.Breed_Name, livestocks.Age, 
+                        livestocks.Sex,livestocks.Date_Of_Birth, 
+                        farmerlivestocks.Acquired_Date')
+                ->join('farmerlivestocks','livestocks.Livestock_ID = farmerlivestocks.Livestock_ID')
+                ->where('livestocks.Livestock_ID',$livestockID)
+                ->first();
+            
+            if($livestockRecord){
+                return $this->respond($livestockRecord, 200);
+            }else{
+                return $this->respond(null,404);
+            }
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()],);
         }
     }
 
     public function getFarmerProfile(){
-        $farmerID = $this->request->getVar('Farmer_ID');
+        try {
+            $farmerID = $this->request->getVar('Farmer_ID');
 
-        $farmerRecord = $this->userAccount
-            ->select('user_accounts.*, 
-                    farmer_profile.Years_Of_Farming')
-            ->join('farmer_profile','user_accounts.User_ID = farmer_profile.User_ID')
-            ->where('farmer_profile.Farmer_ID',$farmerID)
-            ->first();
+            $farmerRecord = $this->userAccount
+                ->select('user_accounts.*, 
+                        farmer_profile.Years_Of_Farming')
+                ->join('farmer_profile','user_accounts.User_ID = farmer_profile.User_ID')
+                ->where('farmer_profile.Farmer_ID',$farmerID)
+                ->first();
 
-        if($farmerRecord){
-            return $this->respond($farmerRecord, 200);
-        }else{
-            return $this->respond(null,404);
+            if($farmerRecord){
+                return $this->respond($farmerRecord, 200);
+            }else{
+                return $this->respond(null,404);
+            }
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()],);
         }
     }
 
-    public function searchLivestocks(){
+    public function searchFarmerLivestocks(){
         try {
             $farmerID = $this->request->getVar('Farmer_ID');
             $searchTerm = $this->request->getVar('searchTerm');
@@ -190,13 +200,16 @@ class FarmerController extends ResourceController
             if (!empty($searchTerm)) {
                 $this->livestocks->groupStart()
                     ->like('Livestock_Type', $searchTerm) 
-                    ->orLike('Breed', $searchTerm)
+                    ->orLike('Breed_Name', $searchTerm)
                     ->orLike('Age', $searchTerm)
                     ->groupEnd();
             }
 
             $foundRecords = $this->livestocks
-                ->where($farmerID)
+                ->select('livestocks.Livestock_ID,livestocks.Livestock_Type,livestocks.Breed_Name,
+                            livestocks.Age, livestocks.Sex, livestocks.Date_Of_Birth')
+                ->join('farmerlivestocks','farmerlivestocks.Livestock_ID = livestocks.Livestock_ID ')
+                ->where('farmerlivestocks.Farmer_ID',$farmerID)
                 ->findAll();
             
             if ($foundRecords) {
@@ -213,16 +226,14 @@ class FarmerController extends ResourceController
         try {
             $whereClause = [
                 'livestocks.Livestock_Type' => $this->request->getVar('Livestock_Type'),
-                'farmer_profile.Farmer_ID' => $this->request->getVar('Farmer_ID'),
+                'farmerlivestocks.Farmer_ID' => $this->request->getVar('Farmer_ID'),
             ];
-
+    
             $livestockCount = $this->livestocks
-                ->select('livestocks.Livestock_ID')
-                ->join('farmerlivestocks','farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
-                ->join('farmer_profile','farmerlivestocks.Farmer_ID = farmer_profile.Farmer_ID')
+                ->join('farmerlivestocks', 'farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
                 ->where($whereClause)
                 ->countAllResults();
-
+    
             return $this->respond($livestockCount, 200);
         } catch (\Throwable $e) {
             return $this->respond(["message" => "Error: " . $e->getMessage()],);

@@ -31,23 +31,37 @@ class GeneralController extends ResourceController
 
     public function getLivestockTypes(){
         try {
-            $livestockTypes = $this->livestockTypes->select('Type_Name')->distinct()->findAll();
-            return $this->respond($livestockTypes,200);
+            $livestockTypes = $this->livestockTypes
+                ->select('Type_Name')
+                ->distinct()
+                ->get()
+                ->getResultArray();
+
+            // Extract the 'Type_Name' values into a simple array
+            $typeNames = array_column($livestockTypes, 'Type_Name');
+
+            return $this->respond($typeNames,200);
         } catch (\Throwable $e) {
             return $this->respond(["message" => "Error: " . $e->getMessage()]);
         }
     }
 
-    public function getLivestockBreeds($livestockType){
+    public function getLivestockBreed($livestockType){
         try {
             $livestockBreeds = $this->livestockBreeds
                 ->select('livestock_breeds.Breed_Name')
                 ->join('livestock_types','livestock_types.LT_ID = livestock_breeds.LT_ID')
                 ->where('livestock_types.Type_Name',$livestockType)
-                ->findAll();
-            return $this->respond($livestockBreeds,200);
+                ->get()
+                ->getResultArray();
+
+            $breeds = array_column($livestockBreeds, 'Breed_Name');
+
+            return $this->respond($breeds,200);
         } catch (\Throwable $e) {
             return $this->respond(["message" => "Error: " . $e->getMessage()]);
         }
     }
+
+    
 }
