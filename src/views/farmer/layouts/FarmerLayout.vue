@@ -3,8 +3,9 @@
         <FarmerAppbar/>
         <FarmerBottomNav/>
         <v-main>
-            <h1>Farmer Portal</h1>
-            <router-view></router-view>
+            <v-container>
+                <router-view></router-view>
+            </v-container>
         </v-main>
     </v-layout>
 </template>

@@ -1,48 +1,81 @@
 <template>
-    <v-container>
-        <v-form @submit.prevent="addLivestocks">
+    <v-form @submit.prevent="addLivestocks">
         <v-row>
             <v-col cols="12" md="6">
-                <v-text-field v-model="livestock.Livestock_Type" label="Livestock Type"></v-text-field>
+                <v-select
+                    label="Livestock Type"
+                    :items="livestocktypes"
+                    v-model="livestock.Livestock_Type"
+                ></v-select>
             </v-col>
-            <v-col cols="12" md="6">
-                <v-text-field v-model="livestock.Breed_Name" label="Breed Name"></v-text-field>
-            </v-col>
-            <v-col cols="12" md="6">
-                <v-text-field v-model="livestock.Age" label="Age"></v-text-field>
-            </v-col>
-            <v-col cols="12" md="6">
-                <v-text-field v-model="livestock.Sex" label="Sex"></v-text-field>
-            </v-col>
-            <v-col cols="12" md="6">
-                <v-text-field v-model="livestock.Date_Of_Birth" label="Date of Birth"></v-text-field>
+            <v-col>
+                <v-select
+                    label="Breed"
+                    :items="breednames"
+                    v-model="livestock.Breed_Name"
+                ></v-select>
             </v-col>
         </v-row>
-
-        <v-btn type="submit" color="primary">Add Livestock</v-btn>
-        </v-form>
-    </v-container>
+    </v-form>
 </template>
-
 <script>
 import { defineComponent } from 'vue';
+import axios from 'axios';
 
 export default defineComponent({
-    data() {
+    name:'AddLivestocksForm',
+    data(){
         return {
-        livestock: {
-            Livestock_Type: '',
-            Breed_Name: '',
-            Age: '',
-            Sex: '',
-            Date_Of_Birth: '',
-        },
-        };
+            livestock:{
+                Livestock_Type:'',
+                Breed_Name:'',
+                Age:'',
+                Sex:'',
+                Date_Of_Birth:''
+            },
+            livestocktypes:[],
+            breednames:[],
+            sex:['Male','Female'],
+        }
     },
-    methods: {
-        addLivestocks() {
-            
+    methods:{
+        addLivestock(){
+            this.$emit('addLivestock',{...this.livestock});
+            this.clearForm();
         },
+        clearForm(){
+            for(const key in this.livestock){
+                this.livestock[key] = '';
+            }
+        },
+        async getLivestockTypes(){
+            try{
+                const response = await axios.get('/getLivestocktypes');
+                this.livestocktypes = response.data;
+            }catch(error){
+                console.log(error);
+            }
+        },
+        async getLivestockBreeds(typename){
+            try {
+                const response = await axios.get(`/getLivestockBreed/${typename}`);
+                this.breednames = response.data;
+            } catch (error) {
+                console.log(error);
+            }
+        }
     },
-});
+    mounted(){
+        this.getLivestockTypes();
+    },
+    watch:{
+        'livestock.Livestock_Type'(newValue){
+            console.log(newValue);
+            this.getLivestockBreeds(newValue)
+        }
+    }
+})
 </script>
+<style>
+    
+</style>
