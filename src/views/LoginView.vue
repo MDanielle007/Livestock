@@ -1,38 +1,44 @@
 <template>
     <v-layout class="d-flex flex-column h-screen">
         <v-row class="d-flex align-center justify-center h-100">
-            <v-col cols="7" class="h-100 bg-amber d-none d-md-flex">
-
+            <v-col cols="8" class="h-100 d-none d-md-flex" >
+                <v-img
+                :width="300"
+                aspect-ratio="16/9"
+                cover
+                :src="require('@/assets/images/BG-SOLID-CENTER.jpg')"
+              ></v-img>
             </v-col>
-            <v-col sm="12" md="5" class=" h-100 d-flex align-center">
-                <v-container class="mx-auto pa-10">
-                    <div class="text-h1">
-                        hello
+            
+            <v-col sm="12" md="4" class=" h-100 d-flex pt-16">
+                <v-container class="mx-auto " style="font-family: 'Poppins', sans-serif;">
+                    <div class=" text-center text-indigo-darken-4 font-weight-bold" style="font-size: 40px;">
+                        Welcome Back!
+                    </div>
+                    <div class=" text-center mb-16 text-indigo-darken-4" style="font-size: 18px;">
+                        We're thrilled to see you again!
                     </div>
                     <v-form fast-fail @submit.prevent="loginUser">
-                        <v-text-field v-model="username" label="User Name"></v-text-field>
+                        <v-text-field v-model="username" variant="solo" label="Username" ></v-text-field>
 
                         <v-text-field 
                             v-model="password" 
-                            label="password"
+                            label="Password"
+                            variant="solo"
                             :type="isPasswordVisible ? 'text' : 'password'"
                             :append-inner-icon="isPasswordVisible ? 'mdi:mdi-eye-off-outline' : 'mdi:mdi-eye-outline'"
                             @click:append-inner="isPasswordVisible = !isPasswordVisible"
                         ></v-text-field>
-                        <a href="#" class="text-body-2 font-weight-regular">Forgot Password?</a>
+                        <a href="#" class="text-body-3 font-weight-regular float-right" style="text-decoration: none; color: navy; " >Forgot Password?</a>
 
-                        <v-btn type="submit" color="primary" block class="mt-2">Sign in</v-btn>
+                        <v-btn type="submit" color="primary" block class="mt-16" size="large">Sign in</v-btn>
 
                     </v-form>
-                    <div class="mt-2">
-                        <p class="text-body-2">Don't have an account? <a href="#">Sign Up</a></p>
-                    </div>
+                   
                 </v-container>
             </v-col>
         </v-row>
-        <v-row class="px-4 pb-2">
-            <v-footer>{{ new Date().getFullYear() }} — <strong>Vuetify</strong></v-footer>
-        </v-row>
+        
     </v-layout>
 </template>
 
