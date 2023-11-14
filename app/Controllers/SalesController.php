@@ -79,4 +79,15 @@ class SalesController extends BaseController
             $this->soldLivestocks->save($data);
         }
     }
+
+    public function getFarmerSales(){
+        $farmerID = $this->request-getVar('farmerID');
+        $salesTransactions = $this->salesTransaction
+            ->select('Sales_ID, Sales_TotalPrice,
+                         PaymentAmopunt, ChangeAmount,
+                         Sales_Date, Buyer_Name, Buyer_Type,')
+            ->where('Farmer_ID', $farmerID)
+            ->findAll();
+            return $this->respond($salesTransactions, 200);
+    }
 }

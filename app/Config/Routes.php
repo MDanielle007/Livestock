@@ -36,4 +36,6 @@ $routes->group('farmer',static function($routes){
     $routes->post('searchFarmerLivestocks','FarmerController::searchFarmerLivestocks');
     $routes->post('addLivestockMortality','FarmerController::addLivestockMortality');
     $routes->get('fetchFarmerLivestockMortalityRecords/(:any)','FarmerController::fetchFarmerLivestockMortalityRecords/$1');
+    $routes->post('commitSalesTransaction', 'SalesController::commitSalesTransaction');
+    $routes->post('getFarmerSales', 'SalesController::getFarmerSales');   
 });
