@@ -1,17 +1,27 @@
 <template>
-    <v-app-bar class="bg-blue-darken-4">
+    <v-app-bar theme="light" :elevation="1">
+        <v-app-bar-nav-icon variant="text" @click.stop="IconClicked" ></v-app-bar-nav-icon>
         <template v-slot:append>
-            <v-btn icon="fa-regular fa-heart"></v-btn>
-
-            <v-btn icon="fa-solid fa-magnifying-glass"></v-btn>
-
-            <v-btn icon="fa-solid fa-ellipsis-vertical"></v-btn>
+          <v-btn icon="mdi:mdi-heart"></v-btn>
+    
+          <v-btn icon="mdi:mdi-magnify"></v-btn>
+    
+          <v-btn icon="mdi:mdi-dots-vertical"></v-btn>
         </template>
-    </v-app-bar>
+      </v-app-bar>
 </template>
 <script>
 export default {
-    
+    data: () => ({
+        drawer: !null,
+    }),
+    methods:{
+        IconClicked(){
+            this.drawer = !this.drawer
+            let isClose = this.drawer
+            this.$emit('closeSidebar',isClose)
+        }
+    }
 }
 </script>
 <style>

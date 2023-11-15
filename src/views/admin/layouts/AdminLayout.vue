@@ -1,9 +1,14 @@
 <template>
     <v-layout class="h-100">
-        <AdminAppbar/>
-        <AdminSidebar/>
+        <AdminAppbar @closeSidebar="handleCloseSidebar"/>
+        <AdminSidebar
+            v-model="drawerVisible"
+            permanent
+        />
         <v-main>
+           <v-container>
             <router-view></router-view>
+           </v-container>
         </v-main>
     </v-layout>
 </template>
@@ -14,9 +19,19 @@ import AdminSidebar from '../../../components/admin/AdminSidebar'
 
 export default defineComponent({
     name: 'admin-layout',
+    data(){
+        return {
+            drawerVisible: true
+        }
+    },
     components:{
         AdminAppbar,
         AdminSidebar
+    },
+    methods:{
+        handleCloseSidebar(isClose){
+            this.drawerVisible = isClose;
+        }
     }
 })
 </script>
