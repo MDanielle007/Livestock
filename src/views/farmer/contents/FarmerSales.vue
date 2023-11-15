@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        <h1>Farmer Sales</h1>
     </div>
 </template>
 <script>
