@@ -11,5 +11,11 @@ module.exports = {
   plugins: [
     require('flowbite/plugin')
   ],
+  extend: {
+    fontFamily: {
+      poppins: ['Poppins', 'sans'],
+    },
+  },
+  
 }
 
