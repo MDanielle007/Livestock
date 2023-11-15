@@ -68,7 +68,7 @@ export default defineComponent({
                 const userRole = decodedToken.aud;
 
                 // Use more secure storage like HttpOnly cookies instead of localStorage
-                document.cookie = `token=${response.data.token}; HttpOnly`
+                sessionStorage.setItem('token', response.data.token)
                 
                 switch (userRole) {
                     case 'Farmer':

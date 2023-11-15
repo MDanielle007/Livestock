@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
+import { jwtDecode as jwt_decode } from 'jwt-decode';
 
 
 //Admin Dashboard Routes
@@ -37,6 +38,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminLayout,
+    meta: { requiresAuth: true, allowedRoles: ['DAP'] },
     children:[
       {
         path:'dashboard',
@@ -74,6 +76,7 @@ const routes = [
     path:'/farmer',
     name:'farmer',
     component:FarmerLayout,
+    meta: { requiresAuth: true, allowedRoles: ['Farmer'] },
     children:[
       {
         path:'home',
@@ -108,5 +111,33 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+// Navigation Guard
+router.beforeEach((to, from, next) => {
+  const token = sessionStorage.getItem('token');
+
+  // If the route requires authentication
+  if (to.meta.requiresAuth) {
+    if (!token) {
+      // Redirect to login if the user is not authenticated
+      next('/login');
+    } else {
+      const decodedToken = jwt_decode(token);
+      const userRole = decodedToken.aud;
+
+      // Check if the user has the required role for the route
+      if (to.meta.allowedRoles.includes(userRole)) {
+        // Proceed to the route
+        next();
+      } else {
+        // Redirect to a forbidden page or handle unauthorized access
+        next('/forbidden');
+      }
+    }
+  } else {
+    // If the route doesn't require authentication, proceed
+    next();
+  }
+});
 
 export default router
