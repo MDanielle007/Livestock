@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        Admin Livestock Management
     </div>
 </template>
 <script>

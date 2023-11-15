@@ -4,8 +4,8 @@ import './registerServiceWorker'
 import router from './router'
 import axios from 'axios'
 import './index.css'
-import { initFlowbite } from 'flowbite'
+
 
 axios.defaults.baseURL = 'http://livestockbackend.test/'
 
-createApp(App).use(router).use(initFlowbite).mount('#app')
+createApp(App).use(router).mount('#app')
