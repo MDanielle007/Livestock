@@ -1,9 +1,7 @@
 <template>
     <v-navigation-drawer
         v-model="drawer"
-        :rail="rail"
-        permanent
-        @click="rail = false"
+        :permanent="isLargeScreen"
         style="font-family: 'Poppins', sans-serif; background-color: #F4F3F3; "
     >
         <v-list-item
@@ -66,9 +64,22 @@ export default {
     data () {
         return {
             drawer: true,
-            rail: false,
+            isLargeScreen: true,
         }
     },
+    mounted() {
+        this.checkScreenSize();
+        window.addEventListener("resize", this.checkScreenSize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.checkScreenSize);
+    },
+    methods: {
+        checkScreenSize() {
+            // Adjust the screen size threshold as needed
+            this.isLargeScreen = window.innerWidth >= 768; // Example threshold: 768 pixels
+        },
+  },
 }
 </script>
 <style scoped>

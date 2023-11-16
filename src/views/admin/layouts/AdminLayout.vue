@@ -3,7 +3,6 @@
         <AdminAppbar @closeSidebar="handleCloseSidebar"/>
         <AdminSidebar
             v-model="drawerVisible"
-            permanent
         />
         <v-main>
            <v-container>

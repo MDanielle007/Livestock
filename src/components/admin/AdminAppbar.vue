@@ -1,5 +1,8 @@
 <template>
-    <v-app-bar theme="light" :elevation="1">
+    <v-app-bar 
+        theme="light" 
+        :elevation="1"
+        prominent>
         <v-app-bar-nav-icon variant="text" @click.stop="IconClicked" ></v-app-bar-nav-icon>
         <template v-slot:append>
           <v-btn icon="mdi:mdi-heart"></v-btn>
