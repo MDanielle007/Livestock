@@ -72,10 +72,10 @@ export default defineComponent({
                 
                 switch (userRole) {
                     case 'Farmer':
-                        this.$router.push('/farmer/home');
+                        this.$router.push({name:'farmer-home'});
                         break;
                     case 'DAP':
-                        this.$router.push('/admin/dashboard');
+                        this.$router.push({name:'admin-dashboard'});
                         break;
                     // Handle other roles if needed
                     default:

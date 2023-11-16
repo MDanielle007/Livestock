@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { jwtDecode as jwt_decode } from 'jwt-decode';
+
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
-import { jwtDecode as jwt_decode } from 'jwt-decode';
+import ForbiddenView from '../views/ForbiddenView.vue'
 
 
 //Admin Dashboard Routes
@@ -26,13 +28,18 @@ import FarmerProfile from '../views/farmer/contents/FarmerProfile.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'default',
+    component: LoginView
   },
   {
     path: '/login',
     name: 'login',
     component: LoginView
+  },
+  {
+    path: '/forbidden',
+    name: 'forbidden',
+    component: ForbiddenView
   },
   {
     path: '/admin',
@@ -114,6 +121,12 @@ const router = createRouter({
 
 // Navigation Guard
 router.beforeEach((to, from, next) => {
+  // const found = router.options.routes.some(route => route.path === to.path);
+
+  // if (!found && to.path !== '/forbidden') {
+  //   next('/forbidden');
+  // }
+
   const token = sessionStorage.getItem('token');
 
   // If the route requires authentication
