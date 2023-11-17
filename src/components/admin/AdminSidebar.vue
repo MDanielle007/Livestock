@@ -52,7 +52,7 @@
                 <v-list-item prepend-icon="fa-solid fa-gear" title="Settings" value="settings" :class="{ 'active-item': $route.name === 'settings' }"></v-list-item>
             </v-list>
             <div class="pa-2">
-                <v-btn block>
+                <v-btn block @click="logout">
                 Logout
                 </v-btn>
             </div>
@@ -79,7 +79,14 @@ export default {
             // Adjust the screen size threshold as needed
             this.isLargeScreen = window.innerWidth >= 768; // Example threshold: 768 pixels
         },
-  },
+        logout(){
+            // Clear the session storage
+            sessionStorage.removeItem('token'); // Replace 'yourTokenKey' with the actual key used for storing the JWT token
+            
+            // Redirect to the login page or any desired destination
+            this.$router.push('/login');
+        }
+    },
 }
 </script>
 <style scoped>

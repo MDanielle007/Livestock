@@ -33,8 +33,11 @@
 
                         <v-btn type="submit" color="primary" block class="mt-16" size="large">Sign in</v-btn>
 
+                        <v-alert v-if="errorMessage" type="error" class="mt-4 " outlined>
+                            {{ errorMessage }}
+                        </v-alert>
                     </v-form>
-                   
+                    
                 </v-container>
             </v-col>
         </v-row>
@@ -53,7 +56,8 @@ export default defineComponent({
         return{
             username : '',
             password: '',
-            isPasswordVisible : false
+            isPasswordVisible : false,
+            errorMessage: ''
         }
     },
     methods:{
@@ -64,26 +68,31 @@ export default defineComponent({
                     Password:this.password
                 })
 
-                const decodedToken = jwt_decode(response.data.token);
-                const userRole = decodedToken.aud;
+                if(!response.data.login){
+                    // response.data.error // this contains an error message that says "Invalid username or password" 
+                    this.errorMessage = response.data.error;
+                    this.password = ''
+                }else{
+                    const decodedToken = jwt_decode(response.data.token);
+                    const userRole = decodedToken.aud;
 
-                // Use more secure storage like HttpOnly cookies instead of localStorage
-                sessionStorage.setItem('token', response.data.token)
-                
-                switch (userRole) {
-                    case 'Farmer':
-                        this.$router.push({name:'farmer-home'});
-                        break;
-                    case 'DAP':
-                        this.$router.push({name:'admin-dashboard'});
-                        break;
-                    // Handle other roles if needed
-                    default:
-                        this.$router.push('/login');
+                    // Use more secure storage like HttpOnly cookies instead of localStorage
+                    sessionStorage.setItem('token', response.data.token)
+                    
+                    switch (userRole) {
+                        case 'Farmer':
+                            this.$router.push({name:'farmer-home'});
+                            break;
+                        case 'DAP':
+                            this.$router.push({name:'admin-dashboard'});
+                            break;
+                        // Handle other roles if needed
+                        default:
+                            this.$router.push('/login');
+                    }
                 }
             } catch (error) {
                 console.error("Error during login:", error);
-                // Handle errors more explicitly, show user-friendly messages if needed
             }
         }
     }
