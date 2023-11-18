@@ -28,7 +28,7 @@ export default {
     data () {
         return {
             userAccounts:[],
-            tableHeaders:['Full Name','Role','Status','Image'],
+            tableHeaders:['Full Name','Role','Status','Phone Number','Image'],
         }
     },
     created() {

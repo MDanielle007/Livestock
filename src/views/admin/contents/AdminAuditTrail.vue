@@ -1,17 +1,18 @@
 <template>
-    <div>
-        <h1>
-            Admin Audit Trail
-        </h1>
-    </div>
+  <AuditTrailTable/>
 </template>
 <script>
-import { defineComponent } from 'vue';
+import AuditTrailTable from '../../../components/admin/tables/AuditTrailTable.vue'
 
-export default defineComponent({
-    
-})
+
+export default {
+  name:'AdminAuditTrail',
+  components:{
+    AuditTrailTable,
+  }
+}
 </script>
+
 <style>
-    
+  
 </style>

@@ -8,7 +8,7 @@
         <v-toolbar
           flat
         >
-          <v-toolbar-title>LIVESTOCK</v-toolbar-title>
+          <v-toolbar-title>AUDIT TRAIL</v-toolbar-title>
           <v-divider
             class="mx-4"
             inset
@@ -19,23 +19,14 @@
             v-model="dialog"
             max-width="500px"
           >
-            <template v-slot:activator="{ props }">
-              <v-btn
-                color="primary"
-                dark
-                class="mb-2"
-                v-bind="props"
-              >
-                Add livestock
-              </v-btn>
-            </template>
+           
             <v-card>
               <v-card-title>
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
   
               <v-card-text>
-                <v-container>
+                <!-- <v-container>
                   <v-row>
                     <v-col
                       cols="12"
@@ -44,7 +35,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.name"
-                        label="Livestock Type"
+                        label="Dessert name"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -54,7 +45,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.calories"
-                        label="Type"
+                        label="Calories"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -64,7 +55,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.fat"
-                        label="Stages"
+                        label="Fat (g)"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -74,7 +65,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.carbs"
-                        label="Age"
+                        label="Carbs (g)"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -84,21 +75,11 @@
                     >
                       <v-text-field
                         v-model="editedItem.protein"
-                        label="Weight"
+                        label="Protein (g)"
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Date of Birth"
-                    ></v-text-field>
-                  </v-col>
                   </v-row>
-                </v-container>
+                </v-container> -->
               </v-card-text>
   
               <v-card-actions>
@@ -120,9 +101,9 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="430px">
+          <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
-              <v-card-title class="text-h6 text-center"  >Are you sure you want to delete this item?</v-card-title>
+              <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue-darken-1" variant="text" @click="closeDelete">Cancel</v-btn>
@@ -134,16 +115,15 @@
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-icon
-          size="x-small"
+        <!-- <v-icon
+          size="small"
           class="me-2"
           @click="editItem(item)"
         >
-       fa-regular fa-pen-to-square
-        </v-icon>
+          mdi:mdi-pencil
+        </v-icon> -->
         <v-icon
-          size="x-small"
-          color= #212121
+          size="small"
           @click="deleteItem(item)"
         >
         fa-regular fa-trash-can
@@ -151,6 +131,7 @@
       </template>
       <template v-slot:no-data>
         <v-btn
+          color="primary"
           @click="initialize"
         >
           Reset
@@ -165,16 +146,16 @@
         dialogDelete: false,
         headers: [
           {
-            title: 'LIVESTOCK',
+            title: 'Name',
             align: 'start',
             sortable: false,
             key: 'name',
           },
-          { title: 'Type', key: 'calories' },
-          { title: 'Stages', key: 'fat' },
-          { title: 'Age', key: 'carbs' },
-          { title: 'Weight', key: 'protein' },
-          { title: 'Date of Birth', key: 'protein' },
+          { title: 'Action Type', key: 'calories' },
+          { title: 'Affected Entity', key: 'fat' },
+          { title: 'Details', key: 'carbs' },
+          { title: 'Timestamp', key: 'protein' },
+          { title: 'Status', key: 'protein' },
           { title: 'Actions', key: 'actions', sortable: false },
         ],
         desserts: [],
@@ -197,8 +178,7 @@
   
       computed: {
         formTitle () {
-           
-          return this.editedIndex === -1 ? 'New Livestock' : 'Edit Item'
+          return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
         },
       },
   
@@ -291,11 +271,11 @@
           ]
         },
   
-        editItem (item) {
-          this.editedIndex = this.desserts.indexOf(item)
-          this.editedItem = Object.assign({}, item)
-          this.dialog = true
-        },
+        // editItem (item) {
+        //   this.editedIndex = this.desserts.indexOf(item)
+        //   this.editedItem = Object.assign({}, item)
+        //   this.dialog = true
+        // },
   
         deleteItem (item) {
           this.editedIndex = this.desserts.indexOf(item)
