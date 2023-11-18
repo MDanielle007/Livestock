@@ -5,50 +5,12 @@
             <v-checkbox label="Checkbox" v-model="addMultiple"></v-checkbox>
         </v-row>
         <v-row>
-            <v-col>
-            <v-form @submit.prevent="addLivestocks">
-                <v-row>
-                <v-col cols="12" md="6">
-                    <v-select
-                        label="Livestock Type"
-                        :items="livestocktypes"
-                        v-model="livestock.Livestock_Type"
-                    ></v-select>
-                </v-col>
-                <v-col cols="12" md="6">
-                    <v-select
-                        label="Breed"
-                        :items="breednames"
-                        v-model="livestock.Breed_Name"
-                    ></v-select>
-                </v-col>
-                <v-col cols="12" md="6">
-                    <v-text-field v-model="livestock.Age" label="Age (months)"></v-text-field>
-                </v-col>
-                <v-col cols="12" md="6">
-                    <v-select v-model="livestock.Sex" :items="SexOption" label="Sex"></v-select>
-                </v-col>
-                <v-col cols="12" md="6">
-                    
-                </v-col>
-                </v-row>
-    
-                <v-btn type="submit" color="primary">Add Livestock</v-btn>
-            </v-form>
-            </v-col>
-            <v-col v-if="addMultiple" class="d-flex flex-column justify-end">
-                <v-data-table
-                    :headers="headers"
-                    :items="livestocks.slice()"
-                    height="300"
-                    item-value="name"
-                ></v-data-table>
-            </v-col>
+            <CRUDLivestockTable/>
         </v-row>
     </v-container>
 </template>
 
-<script>
+<!-- <script>
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
@@ -125,8 +87,19 @@ export default defineComponent({
         }
     }
 });
-</script>
+</script> -->
 
+<script>
+import { defineComponent } from 'vue';
+import CRUDLivestockTable from '@/components/farmer/tables/CRUDLivestockTable.vue';
+
+export default defineComponent({
+    name: 'FarmerLivestockManagement',
+    components:{
+        CRUDLivestockTable
+    }
+})
+</script>
 <style>
 /* Add your styles here */
 </style>

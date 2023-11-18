@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "apexcharts": "^3.44.0",
     "axios": "^1.6.1",
     "bottom-navigation-vue": "^3.3.5",
     "core-js": "^3.8.3",

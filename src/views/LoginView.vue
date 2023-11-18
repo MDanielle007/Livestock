@@ -33,7 +33,13 @@
 
                         <v-btn type="submit" color="primary" block class="mt-16" size="large">Sign in</v-btn>
 
-                        <v-alert v-if="errorMessage" type="error" class="mt-4 " outlined>
+                        <v-alert 
+                            v-if="errorMessage" 
+                            type="error" 
+                            class="mt-4 " 
+                            variant="tonal"
+                            border="start"
+                        >
                             {{ errorMessage }}
                         </v-alert>
                     </v-form>
