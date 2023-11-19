@@ -65,11 +65,14 @@ class UserController extends ResourceController
 
     public function registerUserAccount(){
         try {
-            helper(['form']);
+
+            $file = $this->request->getFile('file');
+            $newName = $file->getRandomName();
+
             $rules = [
                 'Username' => ['rules' => 'required|min_length[4]|max_length[255]'],
                 'Password' => ['rules' => 'required|min_length[8]|max_length[255]'],
-                'Email' => ['rules' => 'required|min_length[6]|max_length[255]|valid_email'],
+                'Email' => ['rules' => 'min_length[6]|max_length[255]|valid_email'],
                 'Firstname' => ['rules' => 'required|max_length[255]'],
                 'Middlename' => ['rules' => 'max_length[255]'],
                 'Lastname' => ['rules' => 'required|max_length[255]'],
@@ -87,7 +90,9 @@ class UserController extends ResourceController
                 // Get the input data using the request object
                 $userRole = $this->request->getVar('User_Role');
 
-                $data = [
+                if ($file->isValid() && !$file->hasMoved())
+                {
+                  $data = [
                     'Username' => $this->request->getVar('Username'),
                     'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
                     'Email' => $this->request->getVar('Email'),
@@ -103,13 +108,16 @@ class UserController extends ResourceController
                     'Province' => $this->request->getVar('Province'),
                     'Phone_Number' => $this->request->getVar('Phone_Number'),
                     'User_Role' => $userRole,
+                    'Image' => $newName
                 ];
+
+                $file->move('./uploads', $newName);
 
                 $this->userAccounts->save($data);
 
                 $userID = $this->getUserLastID();
 
-                if($userRole === 'DAP'){
+                if($userRole === 'DA Personnel'){
                     $position = $this->request->getVar('Position');
                     $division = $this->request->getVar('Division');
                     $this->addDAPersonnel($userID, $position, $division);
@@ -117,8 +125,15 @@ class UserController extends ResourceController
                     $yearsFarming = $this->request->getVar('YearsFarming');
                     $this->addFarmerProfile($userID,$yearsFarming);
                 }
+
+                // Handle the uploaded file, save to the database, etc.
                 
                 return $this->respond(['message' => 'Registered Successfully'],200);
+            }
+            else
+            {
+                return $this->response->setStatusCode(400)->setJSON(['error' => $file->getErrorString()]);
+            }  
             }else{
                 $response = [
                     'errors' => $this->validator->getErrors(),

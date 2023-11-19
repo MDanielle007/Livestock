@@ -28,7 +28,7 @@ class SalesController extends BaseController
             $amountPaid = $json->PaymentAmount;
             $changeAmount = $json->ChangeAmount;
 
-            date_default_timezone_get('Asia/Manila')
+            date_default_timezone_get('Asia/Manila');
             $salesDate = date('Y-m-d');
 
             $buyerName = $json->BuyerName;
@@ -82,12 +82,64 @@ class SalesController extends BaseController
 
     public function getFarmerSales(){
         $farmerID = $this->request-getVar('farmerID');
+        
+        $whereClause = [
+            'Farmer_ID' => $farmerID,
+            'Record_Status' => 'Accessible'
+        ];
+
         $salesTransactions = $this->salesTransaction
             ->select('Sales_ID, Sales_TotalPrice,
-                         PaymentAmopunt, ChangeAmount,
-                         Sales_Date, Buyer_Name, Buyer_Type,')
-            ->where('Farmer_ID', $farmerID)
+                        PaymentAmount, ChangeAmount,
+                        Sales_Date, Buyer_Name, Buyer_Type,')
+            ->where($whereClause)
             ->findAll();
             return $this->respond($salesTransactions, 200);
+    }
+
+    public function getAllSalesTransaction(){
+        $salesTransactions = $this->salesTransaction->findAll();
+        return $this->respond($salesTransactions, 200);
+    }
+
+    public function archiveSalesRecord(){
+        try {
+            $selectedRecords = $this->request->getVar('selectedRecords');
+            
+            foreach ($selectedRecords as $salesRecord) {
+                $salesID = $salesRecord->Sales_ID;
+
+                $whereClause = [
+                    'Sales_ID' => $salesID
+                ];
+
+                $data['Record_Status'] = 'Archived';
+                
+                $this->salesTransaction->where($whereClause)->set($data)->update();
+            }
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()]);
+        }
+    }
+
+    public function unarchiveSalesRecord(){
+        try {
+            $selectedRecords = $this->request->getVar('selectedRecords');
+            
+            foreach ($selectedRecords as $salesRecord) {
+                $salesID = $salesRecord->Sales_ID;
+
+                $whereClause = [
+                    'Sales_ID' => $salesID
+                ];
+
+                $data['Record_Status'] = 'Accessible';
+                
+                $this->salesTransaction->where($whereClause)->set($data)->update();
+                
+            }
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()]);
+        }
     }
 }
