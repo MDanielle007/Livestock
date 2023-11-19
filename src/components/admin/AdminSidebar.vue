@@ -2,7 +2,7 @@
     <v-navigation-drawer
         v-model="drawer"
         :permanent="isLargeScreen"
-        style="font-family: 'Poppins', sans-serif; background-color: #ffffff; width: 265px;"
+        width="300"
     >
         <v-list-item
             :class="{ 'active-item': $route.name === 'admin-dashboard' }"
@@ -17,35 +17,35 @@
 
         <v-list density="compact" nav >
             <v-list-item prepend-icon="fa-solid fa-house " 
-                value="dashboard" :to="{name:'admin-dashboard'}"  
-                :class="{ 'active-item': $route.name === 'admin-dashboard' }" 
-                class="my-2 text-subtitle-1"
-                 >Dashboard
+                    value="dashboard" :to="{name:'admin-dashboard'}"  
+                    :class="{ 'active-item': $route.name === 'admin-dashboard' }" 
+                
+                    >Dashboard
             </v-list-item>
 
             <v-list-item prepend-icon="fa-solid fa-cow" 
                  value="livestock-management" 
                 :to="{name:'admin-livestock-management'}" 
                 :class="{ 'active-item': $route.name === 'admin-livestock-management' }" 
-                class="my-2 text-subtitle-1">Livestock Management</v-list-item>
+                >Livestock Management</v-list-item>
 
             <v-list-item prepend-icon="fa-solid fa-chart-simple" 
                 value="reporting-analytics" 
                 :to="{name:'admin-report-analytics'}" 
                 :class="{ 'active-item': $route.name === 'admin-report-analytics' }" 
-                class="my-2 text-subtitle-1">Reporting and Analytics</v-list-item>
+                >Reporting and Analytics</v-list-item>
 
             <v-list-item prepend-icon="fa-solid fa-scroll" 
                  value="audit-trail" 
                 :to="{name:'admin-audit-trail'}" 
                 :class="{ 'active-item': $route.name === 'admin-audit-trail' }" 
-                class="my-2 text-subtitle-1">Audit Trail</v-list-item>
+                >Audit Trail</v-list-item>
 
             <v-list-item prepend-icon="fa-solid fa-users" 
                  value="users" 
                 :to="{name:'admin-user-management'}" 
                 :class="{ 'active-item': $route.name === 'admin-user-management' }" 
-                class="my-2 text-subtitle-1">User Management</v-list-item>
+                >User Management</v-list-item>
             
         </v-list>
         <template v-slot:append>
@@ -89,9 +89,9 @@ export default {
 </script>
 <style scoped>
 .active-item {
-  background-color: white;
-  color: #142195;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-  
+    background-color: white;
+    color: #142195;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    
 }
 </style>

@@ -6,10 +6,10 @@ import { loadFonts } from './plugins/webfontloader'
 import axios from 'axios'
 import bottomNavigationVue from "bottom-navigation-vue";
 import "bottom-navigation-vue/dist/style.css";
-
+import '@/assets/sass/variables.scss'
 
 axios.defaults.baseURL = 'http://livestockbackend.test/'
-loadFonts()
+// loadFonts()
 
 createApp(App)
   .use(router)
