@@ -90,7 +90,11 @@ class SalesController extends BaseController
 
         $salesTransactions = $this->salesTransaction
             ->select('Sales_ID, Sales_TotalPrice,
+<<<<<<< Updated upstream
                         PaymentAmount, ChangeAmount,
+=======
+                        PaymentAmopunt, ChangeAmount,
+>>>>>>> Stashed changes
                         Sales_Date, Buyer_Name, Buyer_Type,')
             ->where($whereClause)
             ->findAll();

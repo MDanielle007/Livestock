@@ -10,6 +10,19 @@ $routes->post('/loginAuth', 'UserController::loginAuth');
 $routes->get('/getLivestockTypes', 'GeneralController::getLivestockTypes');
 $routes->get('/getLivestockBreed/(:any)', 'GeneralController::getLivestockBreed/$1');
 
+$routes->group('apiCharts',static function($routes){
+    $routes->post('/getLivestockPopulationProgression', 'VisualizationController::getLivestockPopulationProgression');
+    $routes->post('/getFarmerLivestockPopulationProgression', 'VisualizationController::getFarmerLivestockPopulationProgression');
+    $routes->post('/getLivestockTypePopulationProgression', 'VisualizationController::getLivestockTypePopulationProgression');
+    $routes->post('/getFarmerLivestockTypePopulationProgression', 'VisualizationController::getFarmerLivestockTypePopulationProgression');
+    $routes->post('/getLivestockMortality', 'VisualizationController::getLivestockMortality');
+    $routes->post('/getFarmerLivestockMortality', 'VisualizationController::getFarmerLivestockMortality');
+    $routes->post('/getLivestockTypePopulationProgression', 'VisualizationController::getLivestockTypePopulationProgression');
+    $routes->post('/getFarmerLivestockTypePopulationProgression', 'VisualizationController::getFarmerLivestockTypePopulationProgression');
+    $routes->post('/getLivestockTypeMortality', 'VisualizationController::getLivestockTypeMortality');
+    $routes->post('/getFarmerLivestockTypeMortality', 'VisualizationController::getFarmerLivestockTypeMortality');
+});
+
 $routes->group('admin',static function($routes){
     $routes->post('registerUserAccount', 'UserController::registerUserAccount');
     $routes->get('getUserAccounts', 'UserController::getUserAccounts');
@@ -21,7 +34,6 @@ $routes->group('admin',static function($routes){
     $routes->post('addLivestockBreed', 'AdminController::addLivestockBreed');
     $routes->post('editLivestockBreed', 'AdminController::editLivestockBreed');
     $routes->post('removeLivestockBreed', 'AdminController::removeLivestockBreed');
-
 });
 
 $routes->group('farmer',static function($routes){
@@ -37,5 +49,7 @@ $routes->group('farmer',static function($routes){
     $routes->post('addLivestockMortality','FarmerController::addLivestockMortality');
     $routes->get('fetchFarmerLivestockMortalityRecords/(:any)','FarmerController::fetchFarmerLivestockMortalityRecords/$1');
     $routes->post('commitSalesTransaction', 'SalesController::commitSalesTransaction');
-    $routes->post('getFarmerSales', 'SalesController::getFarmerSales');   
+    $routes->post('getFarmerSales', 'SalesController::getFarmerSales');
 });
+
+$routes->post('/registerUserAccountTRY', 'UserController::registerUserAccountTRY');
