@@ -328,7 +328,7 @@ export default {
             console.log(formData.values);
             // Make the Axios request to your backend
             try {
-                const response = await axios.post("/registerUserAccountTRY", formData, {
+                const response = await axios.post("admin/registerUserAccount", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

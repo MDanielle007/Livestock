@@ -82,6 +82,8 @@ export default defineComponent({
                     const decodedToken = jwt_decode(response.data.token);
                     const userRole = decodedToken.aud;
 
+                    console.log(userRole);
+
                     // Use more secure storage like HttpOnly cookies instead of localStorage
                     sessionStorage.setItem('token', response.data.token)
                     
@@ -89,7 +91,7 @@ export default defineComponent({
                         case 'Farmer':
                             this.$router.push({name:'farmer-home'});
                             break;
-                        case 'DAP':
+                        case 'DA Personnel':
                             this.$router.push({name:'admin-dashboard'});
                             break;
                         // Handle other roles if needed

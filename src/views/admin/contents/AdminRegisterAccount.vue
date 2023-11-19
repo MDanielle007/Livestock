@@ -5,7 +5,7 @@
     </div>
 </template>
 <script>
-import RegisterForm from '../../../components/admin/drafts/RegisterForm'
+import RegisterForm from '../../../components/admin/forms/RegisterForm'
 
 export default {
     name:'Register Account Page',
