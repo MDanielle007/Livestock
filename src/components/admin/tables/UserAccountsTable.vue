@@ -13,9 +13,11 @@
             :key="account.User_ID"
             >
             <td>{{ account.Firstname}} {{ account.Lastname }}</td>
-            <td>{{ account.User_Role === "DAP" ? "DA Personnel" : "Farmer"}}</td>
+            <td>{{ account.User_Role}}</td>
             <td>{{ account.User_Status }}</td>
-            <td width="320">{{ account.Image }}</td>
+            <td width="320">
+                <img :src="account.Image" alt="User Image" style="max-width: 100%; max-height: 100px;">
+            </td>
             </tr>
         </tbody>
     </v-table>
@@ -39,6 +41,7 @@ export default {
             try {
                 const accounts = await axios.get('admin/getUserAccounts');
                 this.userAccounts = accounts.data;
+                console.log(accounts.data);
             } catch (error) {
                 console.log(error);
             }

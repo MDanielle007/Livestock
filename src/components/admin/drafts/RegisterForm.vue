@@ -110,7 +110,10 @@
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12">
-                        <v-text-field label="Email" variant="outlined"></v-text-field>
+                        <v-text-field 
+                        label="Email" 
+                        variant="outlined"
+                        v-model="Email"></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -173,6 +176,13 @@
                             v-model="Position"
                             ></v-text-field>
                         </div>
+                        <div>
+                            <v-text-field 
+                            label="ContactNumber" 
+                            variant="outlined"
+                            v-model="Phone_Number"
+                            ></v-text-field>
+                        </div>
                     </v-col>
                 </v-row>
         </template>
@@ -196,6 +206,7 @@
                 color="#5865f2" 
                 variant="elevated"
                 :disabled="!termsPolicy"
+                @click="registerUser"
                 >Register User</v-btn>
                 <v-btn @click="resetBtn" size="large" color="#CF6679" variant="outlined">Reset Form</v-btn>
             </div>
@@ -205,6 +216,7 @@
 </template>
 <script>
 import FileUploadInput from '@/components/general/inputs/FileUploadInput.vue';
+import axios from 'axios';
 
 export default {
     data() {
@@ -217,7 +229,6 @@ export default {
             Lastname:'',
             dateOfBirth: null,
             Gender:'',
-            User_Role:'',
             CivilStatus:'',
             Sitio:'',
             Barangay:'',
@@ -274,10 +285,11 @@ export default {
             this.Password=''
             this.Firstname=''
             this.Middlename=''
+            this.Email=''
+            this.ConfirmPassword=''
             this.Lastname=''
             this.dateOfBirth= null
             this.Gender=''
-            this.User_Role=''
             this.CivilStatus=''
             this.Sitio=''
             this.Barangay=''
@@ -286,8 +298,51 @@ export default {
             this.Phone_Number=''
             this.Email=''
             this.userType=""
+            this.termsPolicy=false
             this.selectedFile=''
         },
+        async registerUser(){
+            console.log("Register User");
+            const formData = new FormData();
+            formData.append('file', this.selectedFile[0], this.selectedFile[0].name);
+            formData.append('Username', this.Username);
+            formData.append('Password', this.Password);
+            formData.append('Email', this.Email);
+            formData.append('Firstname', this.Firstname);
+            formData.append('Middlename', this.Middlename);
+            formData.append('Lastname', this.Lastname);
+            formData.append('Date_Of_Birth', this.dateOfBirth);
+            formData.append('Gender', this.Gender);
+            formData.append('Civil_Status',this.CivilStatus);
+            formData.append('Sitio',this.Sitio);
+            formData.append('Barangay', this.Barangay);
+            formData.append('City', this.City);
+            formData.append('Province', this.Province);
+            formData.append('Phone_Number', this.Phone_Number);
+            formData.append('User_Role', this.userType);
+            formData.append('Position', this.Position);
+            formData.append('Division', this.Division);
+            formData.append('YearsFarming', this.YearsFarming);
+
+            
+            console.log(formData.values);
+            // Make the Axios request to your backend
+            try {
+                const response = await axios.post("/registerUserAccountTRY", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+                })
+                console.log('Headers:', axios.defaults.headers);
+                console.log('Request Data:', formData);
+
+                console.log(response);
+            } catch (error) {
+                console.log(error);
+            }
+
+            console.log(this.selectedFile);
+        }
     }
 }
 </script>
