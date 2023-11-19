@@ -7,12 +7,15 @@
       <template v-slot:top>
         <v-toolbar
           flat
+          class="livestock-toolbar"
         >
-          <v-toolbar-title>LIVESTOCK</v-toolbar-title>
+          <v-toolbar-title style="font-weight: bold;">LIVESTOCK MANAGEMENT</v-toolbar-title>
           <v-divider
             class="mx-4"
+         
             inset
             vertical
+            
           ></v-divider>
           <v-spacer></v-spacer>
           <v-dialog
@@ -165,7 +168,7 @@
         dialogDelete: false,
         headers: [
           {
-            title: 'LIVESTOCK',
+            title: 'Livestock',
             align: 'start',
             sortable: false,
             key: 'name',
@@ -335,3 +338,10 @@
       },
     }
   </script>
+  <style>
+  .livestock-toolbar {
+    background-color: white; /* Replace with your desired background color */
+  }
+  
+  </style>
+  
