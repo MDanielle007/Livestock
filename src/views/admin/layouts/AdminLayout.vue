@@ -1,5 +1,5 @@
 <template>
-    <v-layout class="h-100">
+    <v-layout class="h-100" style="background-color: #F5F5F5">
         <AdminAppbar @closeSidebar="handleCloseSidebar"/>
         <AdminSidebar
             v-model="drawerVisible"
