@@ -29,16 +29,20 @@ class UserController extends ResourceController
 
     public function getUserAccounts(){
         try {
-            $data = $this->userAccounts->select('User_ID, Firstname, Lastname,User_Role,User_Status,Image')->findAll();
+            $data = $this->userAccounts->select('User_ID, Firstname, Lastname, User_Role, User_Status, Image')->findAll();
+    
             // $data['ImageFile'] = base_url('/uploads/'.$data['Image']);
-             // Add the base URL for images to the response
+            // Add the base URL for images to the response
             $baseUrl = 'http://livestockbackend.test/'; // This assumes you have configured the base URL in CodeIgniter.
+    
             foreach ($data as &$account) {
                 $account['Image'] = $baseUrl . 'uploads/' . $account['Image'];
+                $account['fullname'] = "{$account['Firstname']} {$account['Lastname']}"; // Fix: Change $data to $account
             }
-            return $this->respond($data,200);
+    
+            return $this->respond($data, 200);
         } catch (\Throwable $e) {
-            return $this->respond(["message" => "Error: " . $e->getMessage()],);
+            return $this->respond(["message" => "Error: " . $e->getMessage()], 500); // Fix: Add HTTP status code 500 for server error
         }
     }
 
@@ -75,7 +79,6 @@ class UserController extends ResourceController
             $file = $this->request->getFile('file');
             $newName = $file->getRandomName();
 
-
             $rules = [
                 'Username' => ['rules' => 'required|min_length[4]|max_length[255]'],
                 'Password' => ['rules' => 'required|min_length[8]|max_length[255]'],
@@ -99,71 +102,56 @@ class UserController extends ResourceController
 
                 if ($file->isValid() && !$file->hasMoved())
                 {
-                    $data = [
-                        'Username' => $this->request->getVar('Username'),
-                        'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
-                        'Email' => $this->request->getVar('Email'),
-                        'Firstname' => $this->request->getVar('Firstname'),
-                        'Middlename' => $this->request->getVar('Middlename'),
-                        'Lastname' => $this->request->getVar('Lastname'),
-                        'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
-                        'Gender' => $this->request->getVar('Gender'), // 'Male' or 'Female' or 'Other'
-                        'Civil_Status' => $this->request->getVar('Civil_Status'), // 'Single','Married','Widowed', or 'Divorced'
-                        'Sitio' => $this->request->getVar('Sitio'),
-                        'Barangay' => $this->request->getVar('Barangay'),
-                        'City' => $this->request->getVar('City'),
-                        'Province' => $this->request->getVar('Province'),
-                        'Phone_Number' => $this->request->getVar('Phone_Number'),
-                        'User_Role' => $userRole,
-                        'Image' => $newName
-                    ];
+                    if ($file->isValid() && !$file->hasMoved())
+                    {
+                        $data = [
+                            'Username' => $this->request->getVar('Username'),
+                            'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
+                            'Email' => $this->request->getVar('Email'),
+                            'Firstname' => $this->request->getVar('Firstname'),
+                            'Middlename' => $this->request->getVar('Middlename'),
+                            'Lastname' => $this->request->getVar('Lastname'),
+                            'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
+                            'Gender' => $this->request->getVar('Gender'), // 'Male' or 'Female' or 'Other'
+                            'Civil_Status' => $this->request->getVar('Civil_Status'), // 'Single','Married','Widowed', or 'Divorced'
+                            'Sitio' => $this->request->getVar('Sitio'),
+                            'Barangay' => $this->request->getVar('Barangay'),
+                            'City' => $this->request->getVar('City'),
+                            'Province' => $this->request->getVar('Province'),
+                            'Phone_Number' => $this->request->getVar('Phone_Number'),
+                            'User_Role' => $userRole,
+                            'Image' => $newName
+                        ];
 
-                    $file->move('./uploads', $newName);
-                if ($file->isValid() && !$file->hasMoved())
-                {
-                  $data = [
-                    'Username' => $this->request->getVar('Username'),
-                    'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
-                    'Email' => $this->request->getVar('Email'),
-                    'Firstname' => $this->request->getVar('Firstname'),
-                    'Middlename' => $this->request->getVar('Middlename'),
-                    'Lastname' => $this->request->getVar('Lastname'),
-                    'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
-                    'Gender' => $this->request->getVar('Gender'), // 'Male' or 'Female' or 'Other'
-                    'Civil_Status' => $this->request->getVar('Civil_Status'), // 'Single','Married','Widowed', or 'Divorced'
-                    'Sitio' => $this->request->getVar('Sitio'),
-                    'Barangay' => $this->request->getVar('Barangay'),
-                    'City' => $this->request->getVar('City'),
-                    'Province' => $this->request->getVar('Province'),
-                    'Phone_Number' => $this->request->getVar('Phone_Number'),
-                    'User_Role' => $userRole,
-                    'Image' => $newName
-                ];
+                        $file->move('./uploads', $newName);
 
-                $file->move('./uploads', $newName);
+                        $this->userAccounts->save($data);
 
-                    $this->userAccounts->save($data);
+                        $userID = $this->getUserLastID();
 
-                    $userID = $this->getUserLastID();
-
-                if($userRole === 'DAP'){
-                    $position = $this->request->getVar('Position');
-                    $division = $this->request->getVar('Division');
-                    $this->addDAPersonnel($userID, $position, $division);
+                        if($userRole === 'DA Personnel'){
+                            $position = $this->request->getVar('Position');
+                            $division = $this->request->getVar('Division');
+                            $this->addDAPersonnel($userID, $position, $division);
+                        }else{
+                            $yearsFarming = $this->request->getVar('YearsFarming');
+                            $this->addFarmerProfile($userID,$yearsFarming);
+                        }
+                    
+                        return $this->respond(['message' => 'Registered Successfully'],200);
+                    } else {
+                        return $this->response->setStatusCode(400)->setJSON(['error' => $file->getErrorString()]);
+                    }
+                    
                 }else{
-                    $yearsFarming = $this->request->getVar('YearsFarming');
-                    $this->addFarmerProfile($userID,$yearsFarming);
+                    $response = [
+                        'errors' => $this->validator->getErrors(),
+                        'message' => 'Invalid Inputs'
+                    ];
+                    return $this->respond($response );
                 }
-                
-                return $this->respond(['message' => 'Registered Successfully'],200);
-            }else{
-                $response = [
-                    'errors' => $this->validator->getErrors(),
-                    'message' => 'Invalid Inputs'
-                ];
-                return $this->respond($response );
             }
-        } catch (\Throwable $e) {
+        }catch (\Throwable $e) {
             return $this->respond(["message" => "Error: " . $e->getMessage()],);
         }
     }
@@ -201,26 +189,26 @@ class UserController extends ResourceController
         try {
             //code...
             $session = session();
-            $json = $this->request->getJSON();
     
-            $username = $json->Username;
-            $password = $json->Password;
+            $username = $this->request->getVar('Username');
+            $password = $this->request->getVar('Password');
     
             $user = $this->userAccounts->where('Username', $username)->first();
-
             $error = [
                 'login' => false,
                 'error' => 'Invalid username or password.'
             ];
     
             if(is_null($user)) {
-                return $this->respond($error);
+                return $this->respond(['error' => 'Invalid username']);
             }
-    
+
+            
+
             $pwd_verify = password_verify($password, $user['Password']);
     
             if(!$pwd_verify) {
-                return $this->respond($error);
+                return $this->respond(['error' => 'Invalid password']);
             }
     
             $key = getenv('JWT_SECRET');
@@ -247,7 +235,7 @@ class UserController extends ResourceController
             return $this->respond($response, 200);
         } catch (\Throwable $e) {
             //throw $th;
-            return $this->respond(["message" => "Error: " . $e->getMessage()],);
+            return $this->respond(["error" => "Error: " . $e->getMessage()],);
         }
     }
 
