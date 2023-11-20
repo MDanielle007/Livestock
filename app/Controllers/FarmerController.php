@@ -35,13 +35,31 @@ class FarmerController extends ResourceController
             $acquiredDate = $this->request->getVar('Acquired_Date');
             $ownershipStatus = $this->request->getVar('OwnershipStatus');
 
+            $ageInTermsOf = $this->request->getVar('ageInTermsOf');
+            $age = $this->request->getVar('age');
+            
             $data = [
                 'Livestock_Type' => $this->request->getVar('Livestock_Type'),
                 'Breed_Name' => $this->request->getVar('Breed_Name'),
-                'Age' => $this->request->getVar('Age'),
                 'Sex' => $this->request->getVar('Sex'),
+                'Age_Classification' => $this->request->getVar('Age_Classification'),
                 'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
             ];
+
+            switch($ageInTermsOf){
+                case 'Days':
+                    $data['Age_Days'] = $age;
+                    break;
+                case 'Weeks':
+                    $data['Age_Weeks'] = $age;
+                    break;
+                case 'Months':
+                    $data['Age_Months'] = $age;
+                    break;
+                case 'Years':
+                    $data['Age_Years'] = $age;
+                    break;
+            }
 
             $result = $this->livestocks->save($data);
             if ($result) {
@@ -95,13 +113,31 @@ class FarmerController extends ResourceController
             'Livestock_ID' => $this->request->getVar('Livestock')
         ];
 
+        $ageInTermsOf = $this->request->getVar('ageInTermsOf');
+        $age = $this->request->getVar('age');
+        
         $data = [
             'Livestock_Type' => $this->request->getVar('Livestock_Type'),
             'Breed_Name' => $this->request->getVar('Breed'),
-            'Age' => $this->request->getVar('Age'),
+            'Age_Classification' => $this->request->getVar('Age_Classification'),
             'Sex' => $this->request->getVar('Sex'),
             'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
         ];
+
+        switch($ageInTermsOf){
+            case 'Days':
+                $data['Age_Days'] = $age;
+                break;
+            case 'Weeks':
+                $data['Age_Weeks'] = $age;
+                break;
+            case 'Months':
+                $data['Age_Months'] = $age;
+                break;
+            case 'Years':
+                $data['Age_Years'] = $age;
+                break;
+        }
 
         $this->livestocks->where($whereClause)->set($data)->update();
 
