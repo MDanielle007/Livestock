@@ -1,14 +1,15 @@
 <template>
-    <v-data-table
+    <v-data-table-server
         :headers="headers"
-        :items="desserts"
-        :sort-by="[{ key: 'calories', order: 'asc' }]"
+        :items="livestocks"
+        :sort-by="[{ key: 'livestockType', order: 'asc' }]"
+        show-select
     >
         <template v-slot:top>
             <v-toolbar
                 flat
                 >
-                <v-toolbar-title>My CRUD</v-toolbar-title>
+                <v-toolbar-title>Livestocks</v-toolbar-title>
                 <v-divider
                     class="mx-4"
                     inset
@@ -20,14 +21,14 @@
                     max-width="500px"
                 >
                     <template v-slot:activator="{ props }">
-                    <v-btn
-                        color="primary"
-                        dark
-                        class="mb-2"
-                        v-bind="props"
-                    >
-                        New Item
-                    </v-btn>
+                        <v-btn
+                            color="primary"
+                            dark
+                            class="mb-2"
+                            v-bind="props"
+                        >
+                            New Item
+                        </v-btn>
                     </template>
                     <v-card>
                     <v-card-title>
@@ -38,54 +39,48 @@
                         <v-container>
                         <v-row>
                             <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                            >
-                            <v-text-field
-                                v-model="editedItem.name"
-                                label="Dessert name"
-                            ></v-text-field>
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                >
+                                <v-text-field
+                                    variant="outlined"
+                                    v-model="editedItem.livestockType"
+                                    label="Livestock Type"
+                                ></v-text-field>
                             </v-col>
                             <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                            >
-                            <v-text-field
-                                v-model="editedItem.calories"
-                                label="Calories"
-                            ></v-text-field>
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                >
+                                <v-text-field
+                                    variant="outlined"
+                                    v-model="editedItem.age"
+                                    label="Age"
+                                ></v-text-field>
                             </v-col>
                             <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                            >
-                            <v-text-field
-                                v-model="editedItem.fat"
-                                label="Fat (g)"
-                            ></v-text-field>
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                >
+                                <v-text-field
+                                    variant="outlined"
+                                    v-model="editedItem.ageClass"
+                                    label="Age Classification"
+                                ></v-text-field>
                             </v-col>
                             <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                            >
-                            <v-text-field
-                                v-model="editedItem.carbs"
-                                label="Carbs (g)"
-                            ></v-text-field>
-                            </v-col>
-                            <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                            >
-                            <v-text-field
-                                v-model="editedItem.protein"
-                                label="Protein (g)"
-                            ></v-text-field>
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                >
+                                <v-text-field
+                                    variant="outlined"
+                                    v-model="editedItem.sex"
+                                    label="Sex"
+                                ></v-text-field>
                             </v-col>
                         </v-row>
                         </v-container>
@@ -129,63 +124,59 @@
             class="me-2"
             @click="editItem(item)"
             >
-            mdi-pencil
+            fa-regular fa-pen-to-square
             </v-icon>
             <v-icon
             size="small"
             @click="deleteItem(item)"
             >
-            mdi-delete
+            fa-regular fa-trash-can
             </v-icon>
         </template>
         <template v-slot:no-data>
             <v-btn
             color="primary"
-            @click="initialize"
+            @click="getFarmerLivestock"
             >
             Reset
             </v-btn>
         </template>
-    </v-data-table>
+    </v-data-table-server>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
     data: () => ({
+        livestocks:[],
+
         dialog: false,
         dialogDelete: false,
         headers: [
-            {
-                title: 'Dessert (100g serving)',
-                align: 'start',
-                sortable: false,
-                key: 'name',
-            },
-            { title: 'Calories', key: 'calories' },
-            { title: 'Fat (g)', key: 'fat' },
-            { title: 'Carbs (g)', key: 'carbs' },
-            { title: 'Protein (g)', key: 'protein' },
+            { title: 'Livestock Type', key: 'livestockType' },
+            { title: 'Age', key: 'age' },
+            { title: 'Age Classification', key: 'ageClass' },
+            { title: 'Sex', key: 'sex' },
             { title: 'Actions', key: 'actions', sortable: false },
         ],
         desserts: [],
         editedIndex: -1,
         editedItem: {
-            name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+            livestockType: '',
+            age: '',
+            ageClass: '',
+            sex: '',
         },
         defaultItem: {
-            name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+            livestockType: '',
+            age: '',
+            ageClass: '',
+            sex: '',
         },
     }),
     computed: {
         formTitle () {
-            return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+            return this.editedIndex === -1 ? 'New Livestock' : 'Edit Livestock'
         },
     },
 
@@ -199,99 +190,31 @@ export default {
     },
 
     created () {
-        this.initialize()
+        this.getFarmerLivestock()
     },
 
     methods: {
-        initialize () {
-            this.desserts = [
-                {
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                    fat: 6.0,
-                    carbs: 24,
-                    protein: 4.0,
-                },
-                {
-                    name: 'Ice cream sandwich',
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3,
-                },
-                {
-                    name: 'Eclair',
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0,
-                },
-                {
-                    name: 'Cupcake',
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3,
-                },
-                {
-                    name: 'Gingerbread',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                },
-                {
-                    name: 'Jelly bean',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                },
-                {
-                    name: 'Lollipop',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                },
-                {
-                    name: 'Honeycomb',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                },
-                {
-                    name: 'Donut',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                },
-                {
-                    name: 'KitKat',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                },
-            ]
+        async getFarmerLivestock(){
+            const livestocks = await axios.get(`farmer/getAllFarmerLivestock/${1}`);
+            this.livestocks = livestocks.data;
+            console.log(livestocks);
         },
 
         editItem (item) {
-            this.editedIndex = this.desserts.indexOf(item)
+            this.editedIndex = this.livestocks.indexOf(item)
+            console.log(this.editedIndex);
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
 
         deleteItem (item) {
-            this.editedIndex = this.desserts.indexOf(item)
+            this.editedIndex = this.livestocks.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialogDelete = true
         },
 
         deleteItemConfirm () {
-            this.desserts.splice(this.editedIndex, 1)
+            this.livestocks.splice(this.editedIndex, 1)
             this.closeDelete()
         },
 
@@ -313,9 +236,9 @@ export default {
 
         save () {
             if (this.editedIndex > -1) {
-                Object.assign(this.desserts[this.editedIndex], this.editedItem)
+                Object.assign(this.livestocks[this.editedIndex], this.editedItem)
             } else {
-                this.desserts.push(this.editedItem)
+                this.livestocks.push(this.editedItem)
             }
             this.close()
         },

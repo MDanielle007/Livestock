@@ -2,7 +2,6 @@
     <v-container>
         <v-row>
             <h1>Farmer Livestock</h1>
-            <v-checkbox label="Checkbox" v-model="addMultiple"></v-checkbox>
         </v-row>
         <v-row>
             <CRUDLivestockTable/>
