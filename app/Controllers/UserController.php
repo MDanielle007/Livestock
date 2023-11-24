@@ -200,7 +200,7 @@ class UserController extends ResourceController
             ];
     
             if(is_null($user)) {
-                return $this->respond(['error' => 'Invalid username']);
+                return $this->respond($error);
             }
 
             
@@ -208,7 +208,7 @@ class UserController extends ResourceController
             $pwd_verify = password_verify($password, $user['Password']);
     
             if(!$pwd_verify) {
-                return $this->respond(['error' => 'Invalid password']);
+                return $this->respond($error);
             }
     
             $key = getenv('JWT_SECRET');
