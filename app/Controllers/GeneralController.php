@@ -10,6 +10,7 @@ use App\Models\UserAccountModel;
 use App\Models\LivestockMortalitiesModel;
 use App\Models\LivestockTypesModel;
 use App\Models\LivestockBreedModel;
+use App\Models\LivestockAgeClassificationModel;
 
 class GeneralController extends ResourceController
 {
@@ -19,6 +20,7 @@ class GeneralController extends ResourceController
     private $livestockMortalities;
     private $livestockTypes;
     private $livestockBreeds;
+    private $livestockAgeClassification;
 
     public function __construct() {
         $this->farmerlivestocks = new FarmerLivestocksModel();
@@ -27,6 +29,7 @@ class GeneralController extends ResourceController
         $this->livestockMortalities = new LivestockMortalitiesModel();
         $this->livestockTypes = new LivestockTypesModel();
         $this->livestockBreeds = new LivestockBreedModel();
+        $this->livestockAgeClassification = new LivestockAgeClassificationModel();
     }
 
     public function getLivestockTypes(){
@@ -58,6 +61,23 @@ class GeneralController extends ResourceController
             $breeds = array_column($livestockBreeds, 'Breed_Name');
 
             return $this->respond($breeds,200);
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()]);
+        }
+    }
+
+    public function getLivestockAgeClass($livestockType){
+        try {
+            $livestockAgeClass = $this->livestockAgeClassification
+                ->select('livestock_age_classification.Age_Classification_Name')
+                ->join('livestock_types','livestock_types.LT_ID = livestock_age_classification.LT_ID')
+                ->where('livestock_types.Type_Name',$livestockType)
+                ->get()
+                ->getResultArray();
+
+            $ageClass = array_column($livestockAgeClass, 'Age_Classification_Name');
+
+            return $this->respond($ageClass,200);
         } catch (\Throwable $e) {
             return $this->respond(["message" => "Error: " . $e->getMessage()]);
         }
