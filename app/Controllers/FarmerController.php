@@ -33,39 +33,27 @@ class FarmerController extends ResourceController
         try {
             $farmerID = $this->request->getVar('Farmer_ID');
             $acquiredDate = $this->request->getVar('Acquired_Date');
-            $ownershipStatus = $this->request->getVar('OwnershipStatus');
-
-            $ageInTermsOf = $this->request->getVar('ageInTermsOf');
-            $age = $this->request->getVar('age');
             
             $data = [
                 'Livestock_Type' => $this->request->getVar('Livestock_Type'),
                 'Breed_Name' => $this->request->getVar('Breed_Name'),
-                'Sex' => $this->request->getVar('Sex'),
                 'Age_Classification' => $this->request->getVar('Age_Classification'),
+                'Age_Days' => $this->request->getVar('Age_Days'),
+                'Age_Weeks' => $this->request->getVar('Age_Weeks'),
+                'Age_Months' => $this->request->getVar('Age_Months'),
+                'Age_Years' => $this->request->getVar('Age_Years'),
+                'Sex' => $this->request->getVar('Sex'),
                 'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
             ];
 
-            switch($ageInTermsOf){
-                case 'Days':
-                    $data['Age_Days'] = $age;
-                    break;
-                case 'Weeks':
-                    $data['Age_Weeks'] = $age;
-                    break;
-                case 'Months':
-                    $data['Age_Months'] = $age;
-                    break;
-                case 'Years':
-                    $data['Age_Years'] = $age;
-                    break;
-            }
+            // return $this->respond(['message' => 'Added Successfully',$data,'farmer'=>$farmerID,'AD'=>$acquiredDate], 200);
 
             $result = $this->livestocks->save($data);
+
             if ($result) {
                 $lastLivestockID = $this->getLivestockLastID();
         
-                $this->associateLivestock($farmerID, $lastLivestockID, $acquiredDate, $ownershipStatus);
+                $this->associateLivestock($farmerID, $lastLivestockID, $acquiredDate);
                 return $this->respond(['message' => 'Added Successfully'], 200);
             } else {
                 return $this->respond(['error' => 'Failed to add livestock.'], 500);
@@ -86,12 +74,11 @@ class FarmerController extends ResourceController
         }
     }
 
-    public function associateLivestock($farmerID = null,$livestockID = null,$acquiredDate = null,$ownershipStatus = null){
+    public function associateLivestock($farmerID,$livestockID,$acquiredDate){
         $data = [
             'Farmer_ID' => $farmerID,
             'Livestock_ID' => $livestockID,
             'Acquired_Date' => $acquiredDate,
-            'OwnershipStatus' => $ownershipStatus
         ];
         $this->farmerlivestocks->save($data);
     }
@@ -162,16 +149,36 @@ class FarmerController extends ResourceController
 
     public function getAllFarmerLivestock($farmerID){
         try {
+            $whereClause = [
+                'farmerlivestocks.Farmer_ID' => $farmerID,
+                'livestocks.Livestock_Status' => 'Alive'
+            ];
+
             $livestockRecords = $this->livestocks
                 ->select('livestocks.Livestock_ID, 
-                        livestocks.Livestock_Type, 
-                        livestocks.Breed_Name, livestocks.Age, 
-                        livestocks.Sex,livestocks.Date_Of_Birth, 
-                        farmerlivestocks.Acquired_Date')
+                        livestocks.Livestock_Type as livestockType, 
+                        livestocks.Breed_Name as breedName, 
+                        livestocks.Age_Classification as ageClass,
+                        livestocks.Age_Days,
+                        livestocks.Age_Weeks,
+                        livestocks.Age_Months,
+                        livestocks.Age_Years,
+                        livestocks.Sex as sex,
+                        livestocks.Date_Of_Birth, 
+                        farmerlivestocks.Acquired_Date,
+                        CASE
+                            WHEN livestocks.Age_Days > 0 THEN CONCAT(livestocks.Age_Days, " days")
+                            WHEN livestocks.Age_Weeks > 0 THEN CONCAT(livestocks.Age_Weeks, " weeks")
+                            WHEN livestocks.Age_Months > 0 THEN CONCAT(livestocks.Age_Months, " months")
+                            WHEN livestocks.Age_Years > 0 THEN CONCAT(livestocks.Age_Years, " years")
+                            ELSE "Unknown Age"
+                        END as age')
                 ->join('farmerlivestocks','livestocks.Livestock_ID = farmerlivestocks.Livestock_ID')
-                ->where('farmerlivestocks.Farmer_ID',$farmerID)
+                ->where($whereClause)
                 ->findAll();
             if($livestockRecords){
+                
+
                 return $this->respond($livestockRecords, 200);
             }else{
                 return $this->respond(null,404);
