@@ -9,6 +9,7 @@ $routes->get('/', 'Home::index');
 $routes->post('/loginAuth', 'UserController::loginAuth');
 $routes->get('/getLivestockTypes', 'GeneralController::getLivestockTypes');
 $routes->get('/getLivestockBreed/(:any)', 'GeneralController::getLivestockBreed/$1');
+$routes->get('/getLivestockAgeClass/(:any)', 'GeneralController::getLivestockAgeClass/$1');
 
 $routes->group('apiCharts',static function($routes){
     $routes->post('/getLivestockPopulationProgression', 'VisualizationController::getLivestockPopulationProgression');
@@ -34,6 +35,7 @@ $routes->group('admin',static function($routes){
     $routes->post('addLivestockBreed', 'AdminController::addLivestockBreed');
     $routes->post('editLivestockBreed', 'AdminController::editLivestockBreed');
     $routes->post('removeLivestockBreed', 'AdminController::removeLivestockBreed');
+    $routes->get('getAllLivestock', 'LivestocksController::getAllLivestock');
 });
 
 $routes->group('farmer',static function($routes){
@@ -50,6 +52,7 @@ $routes->group('farmer',static function($routes){
     $routes->get('fetchFarmerLivestockMortalityRecords/(:any)','FarmerController::fetchFarmerLivestockMortalityRecords/$1');
     $routes->post('commitSalesTransaction', 'SalesController::commitSalesTransaction');
     $routes->post('getFarmerSales', 'SalesController::getFarmerSales');
+    $routes->post('administerVaccine', 'LivestocksController::administerVaccine');
 });
 
 $routes->post('/registerUserAccountTRY', 'UserController::registerUserAccountTRY');
