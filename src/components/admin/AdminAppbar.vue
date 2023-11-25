@@ -17,7 +17,7 @@
               hide-details
               variant="solo-filled" 
               
-              style="width: 300px; height:20px; margin-right: 20px; margin-bottom: 20px; border-radius: 10px; background-color: #0164a5;">
+              style="width: 300px; height:20px; margin-right: 20px; margin-bottom: 20px; border-radius: 10px;">
           </v-text-field>
 
             <v-btn icon @click="NotificationIconClick" color="white" style="margin-right: 2px;">

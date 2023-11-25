@@ -4,6 +4,45 @@
             ADMIN DASHBOARD
         </h1>
         <v-container title="Area Spline Chart">
+
+          <v-row>
+            <v-col cols="3">
+                <v-card
+                  width="auto"
+                  title="This is a title"
+                  subtitle="This is a subtitle"
+                  text="This is content"
+                ></v-card>
+            </v-col>
+            
+            <v-col cols="3">
+              <v-card
+                width="auto"
+                title="This is a title"
+                subtitle="This is a subtitle"
+                text="This is content"
+              ></v-card>
+          </v-col>
+
+          <v-col cols="3">
+            <v-card
+              width="auto"
+              title="This is a title"
+              subtitle="This is a subtitle"
+              text="This is content"
+            ></v-card>
+        </v-col>
+
+        <v-col cols="3">
+          <v-card
+            width="auto"
+            title="This is a title"
+            subtitle="This is a subtitle"
+            text="This is content"
+          ></v-card>
+         </v-col>
+          </v-row>
+          
             <v-row
                 align="start"
               
@@ -34,27 +73,18 @@
               <v-col
                 v-for="(variant, i) in variants"
                 :key="i"
-              >
-                <v-card
+              ><v-card
                   class="mx-auto custom-card"
                   max-width="280"
                   height="100"
                   :color="color"
                   :variant="variant"
-                >
-                  <v-card-item>
-                    <div>
-                      <div class="text-overline mb-1">
-                        {{ variant }}
-                      </div>
-                      <div class="text-h6 mb-1">
-                        Headline
-                      </div>
-                    </div>
-                  </v-card-item>
-                </v-card>
+                ></v-card>
               </v-col>
             </v-row>
+
+            
+
             <v-row>
               <v-col cols="7">
                 <v-sheet>
@@ -92,12 +122,7 @@ export default{
         SplineArea,
         Pie
     },
-    data() {
-    return {
-      variants: ['elevated', 'elevated', 'elevated', 'elevated'],
-      color: 'indigo'
-    };
-  },
+    
 }
 </script>
 <style scoped>

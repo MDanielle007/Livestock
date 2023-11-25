@@ -3,17 +3,27 @@
         v-model="drawer"
         :permanent="isLargeScreen"
         width="300"
+        
     >
         <v-list-item
-            :class="{ 'active-item': $route.name === 'admin-dashboard' }"
+             height="70">
+            <v-img 
+            height="55"
+            width="55"
+            :src="require('@/assets/images/3HEADS OUTLINE.png')"
+            ></v-img>
+        </v-list-item>
+
+        <v-list-item
             class="ml-2"
             prepend-icon="fa-solid fa-user"   
             nav
         >
+        
             Current User
         </v-list-item>
         
-        <v-divider></v-divider>
+      
 
         <v-list density="compact" nav >
             <v-list-item prepend-icon="fa-solid fa-house " 

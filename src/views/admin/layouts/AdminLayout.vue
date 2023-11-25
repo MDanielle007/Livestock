@@ -1,9 +1,10 @@
 <template>
     <v-layout class="h-100" style="background-color: #F5F5F5">
-        <AdminAppbar @closeSidebar="handleCloseSidebar"/>
         <AdminSidebar
             v-model="drawerVisible"
         />
+        <AdminAppbar @closeSidebar="handleCloseSidebar"/>
+        
         <v-main>
            <v-container>
             <router-view></router-view>

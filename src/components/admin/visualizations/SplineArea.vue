@@ -54,8 +54,3 @@
     SplineChart.render();
   });
   </script>
-  
-  <style>
-  /* Your styles go here */
-  </style>
-  
