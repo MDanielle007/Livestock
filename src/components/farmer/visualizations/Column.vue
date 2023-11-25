@@ -85,7 +85,7 @@
         },
       },
       title: {
-        text: 'Monthly Inflation in Argentina, 2002',
+        text: 'Population Rate ',
         floating: true,
         offsetY: 230,
         align: 'center',

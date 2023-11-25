@@ -34,7 +34,7 @@
                  >
                     <v-card-item>
                         <v-card-title>
-                        Chicks
+                        Pullets
                         </v-card-title>
                         <v-card-subtitle    >
                             Total number of chicks addded in the month of November
@@ -52,7 +52,7 @@
                  >
                     <v-card-item>
                         <v-card-title>
-                        Chicks
+                        Hens
                         </v-card-title>
                         <v-card-subtitle    >
                             Total number of chicks addded in the month of November
@@ -71,7 +71,7 @@
                     <v-card-item>
                     <v-icon icon="fa-solid fa-users"></v-icon>
                     <v-card-title>
-                        Hens
+                        Cockerel
                     </v-card-title>
                     </v-card-item>
                 </v-card>
@@ -86,7 +86,7 @@
                     <v-card-item>
                     <v-icon icon="fa-solid fa-users"></v-icon>
                     <v-card-title>
-                        Hens
+                        Rooster
                     </v-card-title>
                     </v-card-item>
 

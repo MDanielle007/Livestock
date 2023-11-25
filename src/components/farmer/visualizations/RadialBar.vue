@@ -12,7 +12,7 @@
   
   onMounted(() => {
     let RadialBarChart = new ApexCharts(RadialBar.value, {
-      series: [76, 67, 61, 90],
+      series: [76, 67, 61, 90, 80],
       chart: {
         height: 370,
         type: 'radialBar',
@@ -38,8 +38,8 @@
           },
         },
       },
-      colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
-      labels: ['Vimeo', 'Messenger', 'Facebook', 'LinkedIn'],
+      colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5', '#0077B5'],
+      labels: ['chicks', 'pullets', 'hens', 'cockerel', 'rosster'],
       legend: {
         show: true,
         floating: true,
