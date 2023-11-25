@@ -1,5 +1,5 @@
 <template>
-    <v-layout class="h-100">
+    <v-layout class="h-100" style="background-color: #F6F6F6;">
         <FarmerAppbar/>
         <FarmerBottomNav/>
         <v-main>
@@ -25,5 +25,5 @@ export default defineComponent({
 })
 </script>
 <style>
-    
+
 </style>
