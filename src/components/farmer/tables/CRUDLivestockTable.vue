@@ -3,7 +3,11 @@
         :headers="headers"
         :items="livestocks"
         :sort-by="[{ key: 'livestockType', order: 'asc' }]"
+        @update:selection="onSelectionUpdate"
+        v-model="selectedLivestocks"
         show-select
+        item-value="Livestock_ID"
+        :items-per-page="itemsPerPage"
     >
         <template v-slot:top>
             <v-toolbar
@@ -20,16 +24,6 @@
                     v-model="dialog"
                     max-width="500px"
                 >
-                    <template v-slot:activator="{ props }">
-                        <v-btn
-                            color="primary"
-                            dark
-                            class="mb-2"
-                            v-bind="props"
-                        >
-                            New Item
-                        </v-btn>
-                    </template>
                     <v-card>
                     <v-card-title>
                         <span class="text-h5">{{ formTitle }}</span>
@@ -105,6 +99,9 @@
                     </v-card-actions>
                     </v-card>
                 </v-dialog>
+                
+                <NewLivestockForm @livestockAdded="getFarmerLivestock"/>
+
                 <v-dialog v-model="dialogDelete" max-width="500px">
                     <v-card>
                     <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
@@ -119,19 +116,35 @@
             </v-toolbar>
         </template>
         <template v-slot:item.actions="{ item }">
-            <v-icon
-            size="small"
-            class="me-2"
-            @click="editItem(item)"
-            >
-            fa-regular fa-pen-to-square
-            </v-icon>
-            <v-icon
-            size="small"
-            @click="deleteItem(item)"
-            >
-            fa-regular fa-trash-can
-            </v-icon>
+            <v-menu>
+                <template v-slot:activator="{ props }">
+                <v-btn icon="fa-solid fa-ellipsis-vertical" v-bind="props" variant="plain"></v-btn>
+                </template>
+                <v-list>
+                    <v-list-item>
+                        <LivestockVaxForm :livestockData="item"/>
+                    </v-list-item>
+                    <v-list-item>
+                        <v-btn
+                            @click="editItem(item)"
+                            variant="plain"
+                            prepend-icon="fa-regular fa-pen-to-square"
+                        >
+                        Edit Livestock
+                        </v-btn>
+                    </v-list-item>
+                    
+                    <v-list-item>
+                        <v-btn
+                            @click="deleteItem(item)"
+                            variant="plain"
+                            prepend-icon="fa-regular fa-trash-can"
+                        >
+                        Archive Livestock
+                        </v-btn>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </template>
         <template v-slot:no-data>
             <v-btn
@@ -145,27 +158,32 @@
 </template>
 <script>
 import axios from 'axios'
+import NewLivestockForm from '../forms/NewLivestockForm.vue'
+import LivestockVaxForm from '../forms/LivestockVaxForm.vue'
 
 export default {
     data: () => ({
         livestocks:[],
+        selectedLivestocks:[],
+        itemsPerPage:10,
 
         dialog: false,
         dialogDelete: false,
         headers: [
-            { title: 'Livestock Type', key: 'livestockType' },
+            { title: 'Livestock Type', key: 'livestockType', },
             { title: 'Age', key: 'age' },
-            { title: 'Age Classification', key: 'ageClass' },
+            { title: 'Age Classification', key: 'ageClass',class: 'd-none d-sm-table-cell' },
             { title: 'Sex', key: 'sex' },
             { title: 'Actions', key: 'actions', sortable: false },
         ],
-        desserts: [],
         editedIndex: -1,
         editedItem: {
             livestockType: '',
             age: '',
             ageClass: '',
             sex: '',
+            breed:'',
+            Date_Of_Birth: ''
         },
         defaultItem: {
             livestockType: '',
@@ -174,6 +192,12 @@ export default {
             sex: '',
         },
     }),
+
+    components:{
+        NewLivestockForm,
+        LivestockVaxForm
+    },
+
     computed: {
         formTitle () {
             return this.editedIndex === -1 ? 'New Livestock' : 'Edit Livestock'
@@ -197,12 +221,24 @@ export default {
         async getFarmerLivestock(){
             const livestocks = await axios.get(`farmer/getAllFarmerLivestock/${1}`);
             this.livestocks = livestocks.data;
-            console.log(livestocks);
+            console.log(livestocks.data);
+            
         },
+
+        async getSelectedLivestock(){
+            let response =  this.selectedLivestocks.map(id => {
+            return this.livestocks.find(l => l.Livestock_ID === id); 
+            });
+
+            console.log(response);
+        },
+
+        onSelectionUpdate(selected) {
+            this.selectedLivestocks = selected;
+        } ,
 
         editItem (item) {
             this.editedIndex = this.livestocks.indexOf(item)
-            console.log(this.editedIndex);
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
@@ -238,7 +274,7 @@ export default {
             if (this.editedIndex > -1) {
                 Object.assign(this.livestocks[this.editedIndex], this.editedItem)
             } else {
-                this.livestocks.push(this.editedItem)
+                console.log(this.editedItem);
             }
             this.close()
         },
