@@ -22,7 +22,7 @@
                 <v-spacer></v-spacer>
                 <v-dialog
                     v-model="dialog"
-                    max-width="500px"
+                    max-width="800px"
                 >
                     <v-card>
                     <v-card-title>
@@ -34,8 +34,16 @@
                         <v-row>
                             <v-col
                                 cols="12"
-                                sm="6"
-                                md="4"
+                                >
+                                <v-text-field
+                                    variant="outlined"
+                                    v-model="editedItem.LivestockTagID"
+                                    label="Livestock Tag ID"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="5"
                                 >
                                 <v-text-field
                                     variant="outlined"
@@ -45,14 +53,24 @@
                             </v-col>
                             <v-col
                                 cols="12"
-                                sm="6"
-                                md="4"
+                                sm="5"
                                 >
                                 <v-text-field
                                     variant="outlined"
-                                    v-model="editedItem.age"
-                                    label="Age"
+                                    v-model="editedItem.breedName"
+                                    label="Livestock Type"
                                 ></v-text-field>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="2"
+                                >
+                                <v-select
+                                    variant="outlined"
+                                    :items="['Male','Female']"
+                                    v-model="editedItem.sex"
+                                    label="Sex"
+                                ></v-select>
                             </v-col>
                             <v-col
                                 cols="12"
@@ -72,10 +90,12 @@
                                 >
                                 <v-text-field
                                     variant="outlined"
-                                    v-model="editedItem.sex"
-                                    label="Sex"
+                                    v-model="editedItem.age"
+                                    label="Age"
                                 ></v-text-field>
                             </v-col>
+                            
+                            
                         </v-row>
                         </v-container>
                     </v-card-text>
@@ -125,6 +145,9 @@
                         <LivestockVaxForm :livestockData="item"/>
                     </v-list-item>
                     <v-list-item>
+                        <LivestockMortalityForm :livestockData="item" @livestockAdded="getFarmerLivestock"/>
+                    </v-list-item>
+                    <v-list-item>
                         <v-btn
                             @click="editItem(item)"
                             variant="plain"
@@ -160,6 +183,7 @@
 import axios from 'axios'
 import NewLivestockForm from '../forms/NewLivestockForm.vue'
 import LivestockVaxForm from '../forms/LivestockVaxForm.vue'
+import LivestockMortalityForm from '../forms/AddLivestockMortalityForm.vue'
 
 export default {
     data: () => ({
@@ -178,7 +202,10 @@ export default {
         ],
         editedIndex: -1,
         editedItem: {
+            Livestock_ID:'',
+            LivestockTagID:'',
             livestockType: '',
+            breedName:'',
             age: '',
             ageClass: '',
             sex: '',
@@ -186,16 +213,21 @@ export default {
             Date_Of_Birth: ''
         },
         defaultItem: {
+            LivestockTagID:'',
             livestockType: '',
+            breedName:'',
             age: '',
             ageClass: '',
             sex: '',
+            breed:'',
+            Date_Of_Birth: ''
         },
     }),
 
     components:{
         NewLivestockForm,
-        LivestockVaxForm
+        LivestockVaxForm,
+        LivestockMortalityForm
     },
 
     computed: {
@@ -222,15 +254,6 @@ export default {
             const livestocks = await axios.get(`farmer/getAllFarmerLivestock/${1}`);
             this.livestocks = livestocks.data;
             console.log(livestocks.data);
-            
-        },
-
-        async getSelectedLivestock(){
-            let response =  this.selectedLivestocks.map(id => {
-            return this.livestocks.find(l => l.Livestock_ID === id); 
-            });
-
-            console.log(response);
         },
 
         onSelectionUpdate(selected) {
@@ -272,7 +295,13 @@ export default {
 
         save () {
             if (this.editedIndex > -1) {
-                Object.assign(this.livestocks[this.editedIndex], this.editedItem)
+                const formData = new FormData()
+                formData.append('Livestock_ID',this.editedItem.Livestock_ID)
+                formData.append('LivestockTagID',this.editedItem.LivestockTagID)
+                formData.append('Livestock_Type',this.editedItem.livestockType)
+                formData.append('ageClass',this.editedItem.ageClass)
+                formData.append('sex',this.editedItem.sex)
+
             } else {
                 console.log(this.editedItem);
             }

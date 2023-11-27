@@ -20,6 +20,12 @@
             <v-card-text>
                 <v-container>
                 <v-row>
+                    <v-col cols="12">
+                        <v-text-field
+                            label="Livestock Tag ID"
+                            v-model="livestock.Livestock_TagID"
+                        ></v-text-field>
+                    </v-col>
                     <v-col cols="12" md="5">
                         <v-select
                             label="Livestock Type"
@@ -37,7 +43,7 @@
                     <v-col cols="12" md="2">
                         <v-select
                             label="Sex"
-                            :items="['Male','Femal']"
+                            :items="['Male','Female']"
                             v-model="livestock.Sex"
                         ></v-select>
                     </v-col>
@@ -134,6 +140,7 @@ export default {
 
         livestock:{
             Livestock_Type:'',
+            Livestock_TagID:'',
             Breed_Name:'',
             AgeDays:'',
             AgeWeeks:'',
@@ -184,6 +191,7 @@ export default {
             const formData = new FormData();
             formData.append('Farmer_ID','1')
             formData.append('Acquired_Date',this.livestock.Date_Acquired)
+            formData.append('Livestock_TagID',this.livestock.Livestock_TagID)
             formData.append('Livestock_Type',this.livestock.Livestock_Type)
             formData.append('Breed_Name',this.livestock.Breed_Name)
             formData.append('Age_Classification',this.livestock.Age_Class)
@@ -202,6 +210,7 @@ export default {
         },
 
         resetInputs(){
+            this.livestock.Livestock_TagID = '',
             this.livestock.Livestock_Type = '',
             this.livestock.Breed_Name = '',
             this.livestock.AgeDays = '',

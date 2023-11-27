@@ -49,7 +49,7 @@
             <v-btn
             color="blue-darken-1"
             variant="text"
-            @click="dialog = false"
+            @click="resetInputs"
             >
             Close
             </v-btn>
@@ -87,14 +87,16 @@ export default {
             formData.append('vaccinationDescription',this.vaccinationDescription)
             formData.append('vaccinationDate',this.vaccinationDate)
             formData.append('livestockID',this.livestockData.Livestock_ID)
-            // console.log(formData);
-            // console.log(this.vaccineName);
-            // console.log(this.vaccinationDate);
-            // console.log(this.vaccineDescription);
-            // console.log(this.livestockData.Livestock_ID);
 
             const response = await axios.post('farmer/administerVaccine',formData);
             console.log(response);
+            this.resetInputs()
+        },
+        resetInputs(){
+            this.vaccinationName = ''
+            this.vaccinationDescription = ''
+            this.vaccinationDate = new Date().toISOString().substr(0, 10)
+            this.dialog = false;
         }
     },
 }
