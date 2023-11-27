@@ -20,7 +20,7 @@ import AdminRegisterAccount from '../views/admin/contents/AdminRegisterAccount.v
 import FarmerLayout from '../views/farmer/layouts/FarmerLayout.vue'
 import FarmerHome from '../views/farmer/contents/FarmerHome.vue'
 import FarmerLivestock from '../views/farmer/contents/FarmerLivestock.vue'
-import FarmerSales from '../views/farmer/contents/FarmerSales.vue'
+import FarmerNotifications from '../views/farmer/contents/FarmerNotifications.vue'
 import FarmerDataHistory from '../views/farmer/contents/FarmerDataHistory.vue'
 import FarmerProfile from '../views/farmer/contents/FarmerProfile.vue'
 
@@ -87,27 +87,27 @@ const routes = [
     children:[
       {
         path:'home',
-        name:'farmer-home',
+        name:'Farmer Dashboard',
         component:FarmerHome
       },
       {
         path:'livestock',
-        name:'farmer-livestock',
+        name:'Farmer Livestocks',
         component:FarmerLivestock
       },
       {
-        path:'sales',
-        name:'farmer-sales',
-        component:FarmerSales
-      },
-      {
         path:'history',
-        name:'farmer-data-history',
+        name:'History',
         component:FarmerDataHistory
       },
       {
+        path:'notification',
+        name:'Notifications',
+        component:FarmerNotifications
+      },
+      {
         path:'profile',
-        name:'farmer-profile',
+        name:'Farmer Profile',
         component:FarmerProfile
       },
     ]

@@ -22,31 +22,31 @@ export default defineComponent({
                 id: 1, 
                 icon: 'fa-solid fa-house', 
                 title: 'Home',
-                path: {name:'farmer-home'}
+                path: {name:'Farmer Dashboard'}
             },
             { 
                 id: 2, 
                 icon: 'fa-solid fa-cow', 
                 title: 'Livestock',
-                path: {name:'farmer-livestock'}
+                path: {name:'Farmer Livestocks'}
             },
             { 
                 id: 3, 
-                icon: 'fa-solid fa-cart-shopping', 
-                title: 'Sales',
-                path: {name:'farmer-sales'} 
+                icon: 'fa-solid fa-clock-rotate-left', 
+                title: 'History',
+                path: {name:'History'} 
             },
             { 
                 id: 4, 
-                icon: 'fa-solid fa-clock-rotate-left', 
-                title: 'History',
-                path: {name:'farmer-data-history'} 
+                icon: 'fa-solid fa-bell', 
+                title: 'Notifications',
+                path: {name:'Notifications'} 
             },
             { 
                 id: 5, 
                 icon: 'fa-solid fa-user', 
                 title: 'Profile' ,
-                path: {name:'farmer-profile'} 
+                path: {name:'Farmer Profile'} 
             }
         ]
     }),
