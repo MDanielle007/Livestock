@@ -7,11 +7,16 @@
                 aspect-ratio="16/9"
                 cover
                 :src="require('@/assets/images/BG-SOLID-CENTER.jpg')"
-              ></v-img>
+            ></v-img>
             </v-col>
             
             <v-col sm="12" md="4" class=" h-100 d-flex pt-16">
-                <v-container class="mx-auto " style="font-family: 'Poppins', sans-serif;">
+                <v-container class="mx-auto " >
+                    <div class="d-flex d-md-none justify-center">
+                        <v-img
+                        height="140"
+                        :src="require('@/assets/images/3HEADS OUTLINE.png')"></v-img>
+                    </div>
                     <div class=" text-center text-indigo-darken-4 font-weight-bold" style="font-size: 40px;">
                         Welcome Back!
                     </div>
