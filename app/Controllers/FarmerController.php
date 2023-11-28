@@ -36,6 +36,7 @@ class FarmerController extends ResourceController
             
             $data = [
                 'Livestock_Type' => $this->request->getVar('Livestock_Type'),
+                'Livestock_TagID'=>$this->request->getVar('Livestock_TagID'),
                 'Breed_Name' => $this->request->getVar('Breed_Name'),
                 'Age_Classification' => $this->request->getVar('Age_Classification'),
                 'Age_Days' => $this->request->getVar('Age_Days'),
@@ -97,39 +98,22 @@ class FarmerController extends ResourceController
 
     public function editLivestockDetails(){
         $whereClause = [
-            'Livestock_ID' => $this->request->getVar('Livestock')
+            'Livestock_ID' => $this->request->getVar('Livestock_ID')
         ];
 
-        $ageInTermsOf = $this->request->getVar('ageInTermsOf');
-        $age = $this->request->getVar('age');
-        
         $data = [
-            'Livestock_Type' => $this->request->getVar('Livestock_Type'),
-            'Breed_Name' => $this->request->getVar('Breed'),
-            'Age_Classification' => $this->request->getVar('Age_Classification'),
-            'Sex' => $this->request->getVar('Sex'),
-            'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
+            'Livestock_Type' => $this->request->getVar('livestockType'),
+            'Livestock_TagID'=>$this->request->getVar('LivestockTagID'),
+            'Breed_Name' => $this->request->getVar('BbreedNamereed_Name'),
+            'Age_Classification' => $this->request->getVar('ageClass'),
+            'Sex' => $this->request->getVar('sex'),
         ];
-
-        switch($ageInTermsOf){
-            case 'Days':
-                $data['Age_Days'] = $age;
-                break;
-            case 'Weeks':
-                $data['Age_Weeks'] = $age;
-                break;
-            case 'Months':
-                $data['Age_Months'] = $age;
-                break;
-            case 'Years':
-                $data['Age_Years'] = $age;
-                break;
-        }
 
         $this->livestocks->where($whereClause)->set($data)->update();
 
         return $this->respond(['message' => 'Updated Successfully'],200);
     }
+
 
     public function archiveLivestockRecord(){
         $whereClause = [
@@ -151,11 +135,13 @@ class FarmerController extends ResourceController
         try {
             $whereClause = [
                 'farmerlivestocks.Farmer_ID' => $farmerID,
-                'livestocks.Livestock_Status' => 'Alive'
+                'livestocks.Livestock_Status' => 'Alive',
+                'livestocks.Record_Status' => 'Accessible'
             ];
 
             $livestockRecords = $this->livestocks
                 ->select('livestocks.Livestock_ID, 
+                        livestocks.Livestock_TagID as LivestockTagID, 
                         livestocks.Livestock_Type as livestockType, 
                         livestocks.Breed_Name as breedName, 
                         livestocks.Age_Classification as ageClass,
@@ -304,12 +290,13 @@ class FarmerController extends ResourceController
 
     public function addLivestockMortality(){
         try {
-            $livestockID = $this->request->getVar('Livestock_ID');
+            $livestockID = $this->request->getVar('livestockID');
 
             $data = [
+                'Farmer_ID' => $this->request->getVar('Farmer_ID'),
                 'Livestock_ID' => $livestockID,
-                'Cause_Of_Death' => $this->request->getVar('Cause_Of_Death'),
-                'Date_Of_Death' => $this->request->getVar('Date_Of_Death'),
+                'Cause_Of_Death' => $this->request->getVar('causeOfDeath'),
+                'Date_Of_Death' => $this->request->getVar('dateOfDeath'),
             ];
             $res = $this->updateLivestockHealth($livestockID);
             $this->livestockMortalities->save($data);
@@ -321,7 +308,7 @@ class FarmerController extends ResourceController
 
     private function updateLivestockHealth($livestockID){
         try {
-            $data['Health_Status'] = 'Dead';
+            $data['Livestock_Status'] = 'Dead';
 
             $updatedRows = $this->livestocks->where('Livestock_ID',$livestockID)->set($data)->update();
 

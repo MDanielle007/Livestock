@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->post('/loginAuth', 'UserController::loginAuth');
-$routes->get('/getLivestockTypes', 'GeneralController::getLivestockTypes');
+// $routes->get('/getLivestockTypes', 'GeneralController::getLivestockTypes');
 $routes->get('/getLivestockBreed/(:any)', 'GeneralController::getLivestockBreed/$1');
 $routes->get('/getLivestockAgeClass/(:any)', 'GeneralController::getLivestockAgeClass/$1');
 
@@ -53,6 +53,14 @@ $routes->group('farmer',static function($routes){
     $routes->post('commitSalesTransaction', 'SalesController::commitSalesTransaction');
     $routes->post('getFarmerSales', 'SalesController::getFarmerSales');
     $routes->post('administerVaccine', 'LivestocksController::administerVaccine');
+    $routes->get('getFarmerVaccinationRecords/(:any)','LivestocksController::getFarmerVaccinationRecords/$1');
+    $routes->post('updateVaccinationRecord','LivestocksController::updateVaccinationRecord');
+    $routes->post('archiveVaccinationRecord','LivestocksController::archiveVaccinationRecord');
+    $routes->get('getFarmerMortalityRecords/(:any)','LivestocksController::getFarmerMortalityRecords/$1');
+    $routes->post('updateMortalityRecord','LivestocksController::updateMortalityRecord');
+    $routes->post('archiveMortalityRecord','LivestocksController::archiveMortalityRecord');
+    $routes->get('getLivestockTypes','LivestocksController::getLivestockTypes');
+    $routes->post('addLivestockType','LivestocksController::addLivestockType');
+    $routes->post('updateLivestockType','LivestocksController::updateLivestockType');
+    $routes->post('deleteLivestockType','LivestocksController::deleteLivestockType');
 });
-
-$routes->post('/registerUserAccountTRY', 'UserController::registerUserAccountTRY');
