@@ -10,6 +10,7 @@ use App\Models\UserAccountModel;
 use App\Models\LivestockMortalitiesModel;
 use App\Models\LivestockTypesModel;
 use App\Models\LivestockBreedModel;
+use App\Libraries\HistoryLibrary;
 
 class FarmerController extends ResourceController
 {
@@ -19,6 +20,7 @@ class FarmerController extends ResourceController
     private $livestockMortalities;
     private $livestockTypes;
     private $livestockBreeds;
+    private $farmerDataHistory;
 
     public function __construct() {
         $this->farmerlivestocks = new FarmerLivestocksModel();
@@ -27,6 +29,7 @@ class FarmerController extends ResourceController
         $this->livestockMortalities = new LivestockMortalitiesModel();
         $this->livestockTypes = new LivestockTypesModel();
         $this->livestockBreeds = new LivestockBreedModel();
+        $this->farmerDataHistory = new HistoryLibrary();
     }
 
     public function addLivestock(){
@@ -34,8 +37,9 @@ class FarmerController extends ResourceController
             $farmerID = $this->request->getVar('Farmer_ID');
             $acquiredDate = $this->request->getVar('Acquired_Date');
             
+            $livestockType = $this->request->getVar('Livestock_Type');
             $data = [
-                'Livestock_Type' => $this->request->getVar('Livestock_Type'),
+                'Livestock_Type' => $livestockType,
                 'Livestock_TagID'=>$this->request->getVar('Livestock_TagID'),
                 'Breed_Name' => $this->request->getVar('Breed_Name'),
                 'Age_Classification' => $this->request->getVar('Age_Classification'),
@@ -47,15 +51,24 @@ class FarmerController extends ResourceController
                 'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
             ];
 
-            // return $this->respond(['message' => 'Added Successfully',$data,'farmer'=>$farmerID,'AD'=>$acquiredDate], 200);
-
             $result = $this->livestocks->save($data);
 
             if ($result) {
                 $lastLivestockID = $this->getLivestockLastID();
-        
+
                 $this->associateLivestock($farmerID, $lastLivestockID, $acquiredDate);
-                return $this->respond(['message' => 'Added Successfully'], 200);
+
+                $livestockType = $this->request->getVar('Livestock_Type');
+                
+                $historyData = [
+                    'Title' => 'Added New Livestock',
+                    'Description' => "Added a new {$livestockType}",
+                    'Farmer_ID' => $farmerID
+                ];
+
+                $response = $this->farmerDataHistory->addDataHistory($historyData);
+
+                return $this->respond(['message' => 'Added Successfully',$historyData, $response], 200);
             } else {
                 return $this->respond(['error' => 'Failed to add livestock.'], 500);
             }
@@ -101,13 +114,24 @@ class FarmerController extends ResourceController
             'Livestock_ID' => $this->request->getVar('Livestock_ID')
         ];
 
+        $farmerID = $this->request->getVar('Farmer_ID');
+        $livestockTagID = $this->request->getVar('LivestockTagID');
+
         $data = [
             'Livestock_Type' => $this->request->getVar('livestockType'),
-            'Livestock_TagID'=>$this->request->getVar('LivestockTagID'),
-            'Breed_Name' => $this->request->getVar('BbreedNamereed_Name'),
+            'Livestock_TagID'=> $livestockTagID,
+            'Breed_Name' => $this->request->getVar('breed'),
             'Age_Classification' => $this->request->getVar('ageClass'),
             'Sex' => $this->request->getVar('sex'),
         ];
+
+        $historyData = [
+            'Title' => 'Edit Livestock Record',
+            'Description' => "Edited a livestock details of {$livestockTagID}",
+            'Farmer_ID' => $farmerID
+        ];
+
+        $response = $this->farmerDataHistory->addDataHistory($historyData);
 
         $this->livestocks->where($whereClause)->set($data)->update();
 
@@ -119,6 +143,17 @@ class FarmerController extends ResourceController
         $whereClause = [
             'Livestock_ID' => $this->request->getVar('Livestock_ID'),
         ];
+
+        $farmerID = $this->request->getVar('Farmer_ID');
+        $livestockTagID = $this->request->getVar('LivestockTagID');
+
+        $historyData = [
+            'Title' => 'Archive Livestock Record',
+            'Description' => "Archived the livestock record of {$livestockTagID}",
+            'Farmer_ID' => $farmerID
+        ];
+
+        $response = $this->farmerDataHistory->addDataHistory($historyData);
 
         $data['Record_Status'] = 'Archive';
 
@@ -163,11 +198,9 @@ class FarmerController extends ResourceController
                 ->where($whereClause)
                 ->findAll();
             if($livestockRecords){
-                
-
                 return $this->respond($livestockRecords, 200);
             }else{
-                return $this->respond(null,404);
+                return $this->respond([]);
             }
         } catch (\Throwable $e) {
             return $this->respond(["message" => "Error: " . $e->getMessage()],);
@@ -292,14 +325,26 @@ class FarmerController extends ResourceController
         try {
             $livestockID = $this->request->getVar('livestockID');
 
+            $farmerID = $this->request->getVar('Farmer_ID');
             $data = [
-                'Farmer_ID' => $this->request->getVar('Farmer_ID'),
+                'Farmer_ID' => $farmerID,
                 'Livestock_ID' => $livestockID,
                 'Cause_Of_Death' => $this->request->getVar('causeOfDeath'),
                 'Date_Of_Death' => $this->request->getVar('dateOfDeath'),
             ];
             $res = $this->updateLivestockHealth($livestockID);
             $this->livestockMortalities->save($data);
+
+            $livestockTagID = $this->request->getVar('LivestockTagID');
+
+            $historyData = [
+                'Title' => 'Report Livestock Mortality',
+                'Description' => "Report mortality record of {$livestockTagID}",
+                'Farmer_ID' => $farmerID
+            ];
+    
+            $response = $this->farmerDataHistory->addDataHistory($historyData);
+
             return $this->respond(['message' => 'Record Successfully Added',$res],200);
         } catch (\Throwable $e) {
             return $this->respond(["message" => "Error: " . $e->getMessage()],200);

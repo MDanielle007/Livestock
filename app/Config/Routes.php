@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->post('/loginAuth', 'UserController::loginAuth');
-// $routes->get('/getLivestockTypes', 'GeneralController::getLivestockTypes');
+$routes->get('/getLivestockTypes', 'GeneralController::getLivestockTypes');
 $routes->get('/getLivestockBreed/(:any)', 'GeneralController::getLivestockBreed/$1');
 $routes->get('/getLivestockAgeClass/(:any)', 'GeneralController::getLivestockAgeClass/$1');
 
@@ -36,6 +36,7 @@ $routes->group('admin',static function($routes){
     $routes->post('editLivestockBreed', 'AdminController::editLivestockBreed');
     $routes->post('removeLivestockBreed', 'AdminController::removeLivestockBreed');
     $routes->get('getAllLivestock', 'LivestocksController::getAllLivestock');
+    $routes->get('getLivestockTypes','LivestocksController::getLivestockTypes');
 });
 
 $routes->group('farmer',static function($routes){
@@ -59,7 +60,6 @@ $routes->group('farmer',static function($routes){
     $routes->get('getFarmerMortalityRecords/(:any)','LivestocksController::getFarmerMortalityRecords/$1');
     $routes->post('updateMortalityRecord','LivestocksController::updateMortalityRecord');
     $routes->post('archiveMortalityRecord','LivestocksController::archiveMortalityRecord');
-    $routes->get('getLivestockTypes','LivestocksController::getLivestockTypes');
     $routes->post('addLivestockType','LivestocksController::addLivestockType');
     $routes->post('updateLivestockType','LivestocksController::updateLivestockType');
     $routes->post('deleteLivestockType','LivestocksController::deleteLivestockType');

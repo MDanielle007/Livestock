@@ -9,6 +9,7 @@ use App\Models\LivestocksModel;
 use App\Models\LivestockVaccinationModel;
 use App\Models\LivestockMortalitiesModel;
 use App\Models\LivestockTypesModel;
+use App\Libraries\HistoryLibrary;
 
 class LivestocksController extends ResourceController
 {
@@ -16,12 +17,14 @@ class LivestocksController extends ResourceController
     private $vaccination;
     private $mortalityRecords;
     private $livestockTypes;
+    private $farmerDataHistory;
 
     public function __construct(){
         $this->livestocks = new LivestocksModel(); 
         $this->vaccination = new LivestockVaccinationModel();
         $this->mortalityRecords = new LivestockMortalitiesModel();
         $this->livestockTypes = new LivestockTypesModel();
+        $this->farmerDataHistory = new HistoryLibrary();
     }
 
     public function getAllLivestock(){
@@ -70,6 +73,17 @@ class LivestocksController extends ResourceController
                 'Vaccination_Date' => $this->request->getVar('vaccinationDate'),
             ];
             $this->vaccination->save($data);
+
+            $farmerID = $this->request->getVar('Farmer_ID');
+            $livestockTagID = $this->request->getVar('LivestockTagID');
+
+            $historyData = [
+                'Title' => 'Administer Vaccine',
+                'Description' => "Adminsiter vaccine to {$livestockTagID}",
+                'Farmer_ID' => $farmerID
+            ];
+    
+            $response = $this->farmerDataHistory->addDataHistory($historyData);
     
             return $this->respond(["message" => "Vaccination Recorded Successfully"]);
         } catch (\Throwable $th) {
@@ -109,7 +123,18 @@ class LivestocksController extends ResourceController
 
             $this->vaccination->where('Vaccination_ID',$vaxID)->set($data)->update();
 
-            return $this->respond(['message' => 'Record Updated Successfully']);
+            $farmerID = $this->request->getVar('Farmer_ID');
+            $livestockTagID = $this->request->getVar('LivestockTagID');
+
+            $historyData = [
+                'Title' => 'Edit Vaccination Record',
+                'Description' => "Edited a vaccination record of {$livestockTagID}",
+                'Farmer_ID' => $farmerID
+            ];
+    
+            $response = $this->farmerDataHistory->addDataHistory($historyData);
+
+            return $this->respond(['message' => 'Record Updated Successfully',$response]);
             
         } catch (\Throwable $th) {
             return $this->respond(["error" => "Error: " . $th->getMessage()]);
@@ -123,6 +148,17 @@ class LivestocksController extends ResourceController
             $data['Record_Status'] = 'Archive';
 
             $this->vaccination->where('Vaccination_ID',$vaxID)->set($data)->update();
+
+            $farmerID = $this->request->getVar('Farmer_ID');
+            $livestockTagID = $this->request->getVar('LivestockTagID');
+
+            $historyData = [
+                'Title' => 'Archive Vaccination Record',
+                'Description' => "Archived the vaccination record of {$livestockTagID}",
+                'Farmer_ID' => $farmerID
+            ];
+    
+            $response = $this->farmerDataHistory->addDataHistory($historyData);
 
             return $this->respond(['message' => 'Record Archived Successfully']);
         } catch (\Throwable $th) {
@@ -160,6 +196,17 @@ class LivestocksController extends ResourceController
 
             $this->mortalityRecords->where('LM_ID',$lmID)->set($data)->update();
 
+            $farmerID = $this->request->getVar('Farmer_ID');
+            $livestockTagID = $this->request->getVar('LivestockTagID');
+
+            $historyData = [
+                'Title' => 'Edit Mortality Record',
+                'Description' => "Edited a mortality record of {$livestockTagID}",
+                'Farmer_ID' => $farmerID
+            ];
+    
+            $response = $this->farmerDataHistory->addDataHistory($historyData);
+
             return $this->respond(['message' => 'Record Updated Successfully']);
         } catch (\Throwable $th) {
             return $this->respond(["error" => "Error: " . $th->getMessage()]);
@@ -173,6 +220,17 @@ class LivestocksController extends ResourceController
             $data['Record_Status'] = 'Archive';
 
             $this->mortalityRecords->where('LM_ID',$lmID)->set($data)->update();
+
+            $farmerID = $this->request->getVar('Farmer_ID');
+            $livestockTagID = $this->request->getVar('LivestockTagID');
+
+            $historyData = [
+                'Title' => 'Archive Mortality Record',
+                'Description' => "Archived the mortality record of {$livestockTagID}",
+                'Farmer_ID' => $farmerID
+            ];
+    
+            $response = $this->farmerDataHistory->addDataHistory($historyData);
 
             return $this->respond(['message' => 'Record Archived Successfully']);
         } catch (\Throwable $th) {
