@@ -87,6 +87,8 @@ export default {
             formData.append('vaccinationDescription',this.vaccinationDescription)
             formData.append('vaccinationDate',this.vaccinationDate)
             formData.append('livestockID',this.livestockData.Livestock_ID)
+            formData.append('Farmer_ID',1)
+            formData.append('LivestockTagID',this.livestockData.LivestockTagID)
 
             const response = await axios.post('farmer/administerVaccine',formData);
             console.log(response);

@@ -42,6 +42,7 @@
                       <v-text-field
                         v-model="editedItem.LivestockType"
                         label="Livestock Type"
+                        readonly
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -51,6 +52,7 @@
                       <v-text-field
                         v-model="editedItem.LivestockTagID"
                         label="Livestock Tag ID"
+                        readonly
                       ></v-text-field>
                     </v-col>
 
@@ -155,6 +157,7 @@ export default {
     mortalityRecords:[],
     editedIndex: -1,
     editedItem: {
+        LM_ID:'',
         LivestockID:'',
         LivestockType:'',
         LivestockTagID: '',
@@ -162,6 +165,7 @@ export default {
         dateOfDeath: null,
     },
     defaultItem: {
+        LM_ID:'',
         LivestockID:'',
         LivestockType:'',
         LivestockTagID: '',
@@ -207,8 +211,14 @@ export default {
         this.dialogDelete = true
     },
 
-    deleteItemConfirm () {
-        this.mortalityRecords.splice(this.editedIndex, 1)
+    async deleteItemConfirm () {
+        const formData = new FormData();
+        formData.append('LM_ID',this.editedItem.LM_ID)
+        formData.append('Farmer_ID',1)
+        formData.append('LivestockTagID',this.editedItem.LivestockTagID)
+        const response = await axios.post('farmer/archiveMortalityRecord',formData)
+        console.log(response);
+        this.getFarmerMortalityRecords()
         this.closeDelete()
     },
 
@@ -228,12 +238,21 @@ export default {
         })
     },
 
-    save () {
+    async save () {
         if (this.editedIndex > -1) {
-        Object.assign(this.mortalityRecords[this.editedIndex], this.editedItem)
+          const formData = new FormData()
+          formData.append('LM_ID',this.editedItem.LM_ID)
+          formData.append('causeOfDeath',this.editedItem.causeOfDeath)
+          formData.append('dateOfDeath',this.editedItem.dateOfDeath)
+          formData.append('Farmer_ID',1)
+          formData.append('LivestockTagID',this.editedItem.LivestockTagID)
+          const response = await axios.post('farmer/updateMortalityRecord',formData)
+          console.log(response);
         } else {
         this.mortalityRecords.push(this.editedItem)
         }
+
+        this.getFarmerMortalityRecords();
         this.close()
     },
     },

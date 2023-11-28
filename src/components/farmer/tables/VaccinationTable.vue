@@ -27,6 +27,7 @@
                         <v-text-field
                             v-model="editedItem.LivestockTagID"
                             label="Livestock ID"
+                            readonly
                         ></v-text-field>
                         </v-col>
 
@@ -37,6 +38,7 @@
                         <v-text-field
                             v-model="editedItem.LivestockType"
                             label="Livestock Type"
+                            readonly
                         ></v-text-field>
                         </v-col>
 
@@ -148,6 +150,7 @@ export default {
         vaccinationRecords:[],
         editedIndex: -1,
         editedItem: {
+            Vaccination_ID:'',
             LivestockTagID:'',
             LivestockType:'',
             vaccinationName: '',
@@ -155,6 +158,7 @@ export default {
             vaccinationDate: null,
         },
         defaultItem: {
+            Vaccination_ID:'',
             LivestockTagID:'',
             LivestockType:'',
             vaccinationName: '',
@@ -201,8 +205,14 @@ export default {
             this.dialogDelete = true
         },
 
-        deleteItemConfirm () {
-            this.desserts.splice(this.editedIndex, 1)
+        async deleteItemConfirm () {
+            const formData = new FormData()
+            formData.append('Vaccination_ID',this.editedItem.Vaccination_ID)
+            formData.append('Farmer_ID',1)
+            formData.append('LivestockTagID',this.editedItem.LivestockTagID)
+            const response = await axios.post('farmer/archiveVaccinationRecord',formData)
+            console.log(response);
+            this.getFarmerVaccinationRecord();
             this.closeDelete()
         },
 
@@ -222,12 +232,23 @@ export default {
             })
         },
 
-        save () {
+        async save () {
             if (this.editedIndex > -1) {
-                Object.assign(this.vaccinationRecords[this.editedIndex], this.editedItem)
+                const formData = new FormData()
+                formData.append('Vaccination_ID',this.editedItem.Vaccination_ID)
+                formData.append('vaccinationName',this.editedItem.vaccinationName)
+                formData.append('vaccinationDetails',this.editedItem.vaccinationDetails)
+                formData.append('vaccinationDate',this.editedItem.vaccinationDate)
+                formData.append('LivestockTagID',this.editedItem.LivestockTagID)
+                formData.append('Farmer_ID',1)
+                const response = await axios.post('farmer/updateVaccinationRecord',formData)
+                console.log(response.data);
             } else {
                 this.vaccinationRecords.push(this.editedItem)
             }
+
+            this.getFarmerVaccinationRecord();
+
             this.close()
         },
     },

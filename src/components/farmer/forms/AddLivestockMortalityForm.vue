@@ -22,20 +22,23 @@
             <v-row>
                 <v-col>
                     <v-text-field
-                    label="Livestock ID"
-                    v-model="livestockData.Livestock_ID"
+                    label="Livestock Type"
+                    v-model="livestockData.livestockType"
+                    readonly
                     ></v-text-field>
                 </v-col>
                 <v-col>
                     <v-text-field
                     label="Livestock Type"
-                    v-model="livestockData.livestockType"
+                    v-model="livestockData.LivestockTagID"
+                    readonly
                     ></v-text-field>
                 </v-col>
                 <v-col>
                     <v-text-field
                     label="Date of Death"
                     v-model="dateOfDeath"
+                    type="date"
                     ></v-text-field>
                 </v-col>
             </v-row>
@@ -91,6 +94,7 @@ export default {
             formData.append('dateOfDeath', this.dateOfDeath)
             formData.append('causeOfDeath', this.causeOfDeath)
             formData.append('Farmer_ID','1')
+            formData.append('LivestockTagID',this.livestockData.LivestockTagID)
 
             const response = await axios.post('farmer/addLivestockMortality',formData)
             this.$emit('livestockAdded');

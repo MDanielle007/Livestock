@@ -45,21 +45,23 @@
                                 cols="12"
                                 sm="5"
                                 >
-                                <v-text-field
+                                <v-select
                                     variant="outlined"
+                                    :items="livestocktypes"
                                     v-model="editedItem.livestockType"
                                     label="Livestock Type"
-                                ></v-text-field>
+                                ></v-select>
                             </v-col>
                             <v-col
                                 cols="12"
                                 sm="5"
                                 >
-                                <v-text-field
+                                <v-select
                                     variant="outlined"
+                                    :items="breednames"
                                     v-model="editedItem.breedName"
-                                    label="Livestock Type"
-                                ></v-text-field>
+                                    label="Livestock Breed"
+                                ></v-select>
                             </v-col>
                             <v-col
                                 cols="12"
@@ -77,11 +79,12 @@
                                 sm="6"
                                 md="4"
                                 >
-                                <v-text-field
+                                <v-select
                                     variant="outlined"
+                                    :items="ageClass"
                                     v-model="editedItem.ageClass"
                                     label="Age Classification"
-                                ></v-text-field>
+                                ></v-select>
                             </v-col>
                             <v-col
                                 cols="12"
@@ -92,6 +95,7 @@
                                     variant="outlined"
                                     v-model="editedItem.age"
                                     label="Age"
+                                    readonly
                                 ></v-text-field>
                             </v-col>
                             
@@ -188,6 +192,9 @@ import LivestockMortalityForm from '../forms/AddLivestockMortalityForm.vue'
 export default {
     data: () => ({
         livestocks:[],
+        livestocktypes:[],
+        breednames:[],
+        ageClass:[],
         selectedLivestocks:[],
         itemsPerPage:10,
 
@@ -209,17 +216,16 @@ export default {
             age: '',
             ageClass: '',
             sex: '',
-            breed:'',
             Date_Of_Birth: ''
         },
         defaultItem: {
+            Livestock_ID:'',
             LivestockTagID:'',
             livestockType: '',
             breedName:'',
             age: '',
             ageClass: '',
             sex: '',
-            breed:'',
             Date_Of_Birth: ''
         },
     }),
@@ -243,10 +249,16 @@ export default {
         dialogDelete (val) {
             val || this.closeDelete()
         },
+        'editedItem'(newValue){
+            console.log(newValue.livestockType);
+            this.getLivestockBreeds(newValue.livestockType)
+            this.getLivestockAgeClass(newValue.livestockType)
+        },
     },
 
     created () {
         this.getFarmerLivestock()
+        this.getLivestockTypes()
     },
 
     methods: {
@@ -272,8 +284,16 @@ export default {
             this.dialogDelete = true
         },
 
-        deleteItemConfirm () {
-            this.livestocks.splice(this.editedIndex, 1)
+        async deleteItemConfirm () {
+            const formData = new FormData();
+            formData.append('Livestock_ID',this.editedItem.Livestock_ID)
+            formData.append('LivestockTagID',this.editedItem.LivestockTagID)
+            formData.append('Farmer_ID',1)
+
+            const response = await axios.post('farmer/archiveLivestockRecord',formData)
+            console.log(response.data);
+
+            this.getFarmerLivestock()
             this.closeDelete()
         },
 
@@ -293,19 +313,49 @@ export default {
             })
         },
 
-        save () {
+        async save () {
             if (this.editedIndex > -1) {
-                const formData = new FormData()
+                const formData = new FormData();
                 formData.append('Livestock_ID',this.editedItem.Livestock_ID)
+                formData.append('livestockType', this.editedItem.livestockType)
                 formData.append('LivestockTagID',this.editedItem.LivestockTagID)
-                formData.append('Livestock_Type',this.editedItem.livestockType)
+                formData.append('breed',this.editedItem.breedName)
                 formData.append('ageClass',this.editedItem.ageClass)
                 formData.append('sex',this.editedItem.sex)
-
-            } else {
-                console.log(this.editedItem);
+                formData.append('Farmer_ID',1)
+                const response = await axios.post('farmer/editLivestockDetails',formData)
+                console.log(response.data);
             }
+            this.getFarmerLivestock()
+
             this.close()
+        },
+
+        async getLivestockTypes(){
+            try{
+                const response = await axios.get('getLivestockTypes');
+                this.livestocktypes = response.data;
+            }catch(error){
+                console.log(error);
+            }
+        },
+
+        async getLivestockBreeds(typename){
+            try {
+                const response = await axios.get(`/getLivestockBreed/${typename}`);
+                this.breednames = response.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async getLivestockAgeClass(typename){
+            try {
+                const response = await axios.get(`/getLivestockAgeClass/${typename}`);
+                this.ageClass = response.data;
+            } catch (error) {
+                console.log(error);
+            }
         },
     },
 }
