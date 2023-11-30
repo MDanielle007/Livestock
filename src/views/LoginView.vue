@@ -11,7 +11,7 @@
             </v-col>
             
             <v-col sm="12" md="4" class=" h-100 d-flex pt-16">
-                <v-container class="mx-auto " >
+                <v-container class="px-10" >
                     <div class="d-flex d-md-none justify-center">
                         <v-img
                         height="140"
@@ -24,12 +24,12 @@
                         We're thrilled to see you again!
                     </div>
                     <v-form fast-fail @submit.prevent="loginUser">
-                        <v-text-field v-model="username" variant="solo" label="Username" ></v-text-field>
+                        <v-text-field v-model="username" variant="outlined" label="Username" ></v-text-field>
 
                         <v-text-field 
                             v-model="password" 
                             label="Password"
-                            variant="solo"
+                            variant="outlined"
                             :type="isPasswordVisible ? 'text' : 'password'"
                             :append-inner-icon="isPasswordVisible ? 'mdi:mdi-eye-off-outline' : 'mdi:mdi-eye-outline'"
                             @click:append-inner="isPasswordVisible = !isPasswordVisible"

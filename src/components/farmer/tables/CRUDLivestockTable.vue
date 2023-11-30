@@ -5,8 +5,7 @@
         :sort-by="[{ key: 'livestockType', order: 'asc' }]"
         @update:selection="onSelectionUpdate"
         v-model="selectedLivestocks"
-        show-select
-        item-value="Livestock_ID"
+        height="350"
         :items-per-page="itemsPerPage"
     >
         <template v-slot:top>
@@ -263,9 +262,13 @@ export default {
 
     methods: {
         async getFarmerLivestock(){
-            const livestocks = await axios.get(`farmer/getAllFarmerLivestock/${1}`);
-            this.livestocks = livestocks.data;
+            try {
+                const livestocks = await axios.get(`farmer/getAllFarmerLivestock/${1}`);
+                this.livestocks = livestocks.data;
             console.log(livestocks.data);
+            } catch (error) {
+                console.log(error);
+            }
         },
 
         onSelectionUpdate(selected) {

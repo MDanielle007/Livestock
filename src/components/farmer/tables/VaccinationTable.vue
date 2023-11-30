@@ -150,6 +150,7 @@ export default {
         vaccinationRecords:[],
         editedIndex: -1,
         editedItem: {
+            livestockID:'',
             Vaccination_ID:'',
             LivestockTagID:'',
             LivestockType:'',
@@ -158,6 +159,7 @@ export default {
             vaccinationDate: null,
         },
         defaultItem: {
+            livestockID:'',
             Vaccination_ID:'',
             LivestockTagID:'',
             LivestockType:'',
@@ -210,6 +212,7 @@ export default {
             formData.append('Vaccination_ID',this.editedItem.Vaccination_ID)
             formData.append('Farmer_ID',1)
             formData.append('LivestockTagID',this.editedItem.LivestockTagID)
+            formData.append('livestockID',this.editedItem.livestockID)
             const response = await axios.post('farmer/archiveVaccinationRecord',formData)
             console.log(response);
             this.getFarmerVaccinationRecord();
@@ -240,6 +243,7 @@ export default {
                 formData.append('vaccinationDetails',this.editedItem.vaccinationDetails)
                 formData.append('vaccinationDate',this.editedItem.vaccinationDate)
                 formData.append('LivestockTagID',this.editedItem.LivestockTagID)
+                formData.append('livestockID',this.editedItem.livestockID)
                 formData.append('Farmer_ID',1)
                 const response = await axios.post('farmer/updateVaccinationRecord',formData)
                 console.log(response.data);

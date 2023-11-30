@@ -216,6 +216,7 @@ export default {
         formData.append('LM_ID',this.editedItem.LM_ID)
         formData.append('Farmer_ID',1)
         formData.append('LivestockTagID',this.editedItem.LivestockTagID)
+        formData.append('LivestockID',this.editedItem.LivestockID)
         const response = await axios.post('farmer/archiveMortalityRecord',formData)
         console.log(response);
         this.getFarmerMortalityRecords()
@@ -246,6 +247,7 @@ export default {
           formData.append('dateOfDeath',this.editedItem.dateOfDeath)
           formData.append('Farmer_ID',1)
           formData.append('LivestockTagID',this.editedItem.LivestockTagID)
+          formData.append('LivestockID',this.editedItem.LivestockID)
           const response = await axios.post('farmer/updateMortalityRecord',formData)
           console.log(response);
         } else {
