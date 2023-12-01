@@ -92,13 +92,20 @@
                 </v-row>
                 <v-row>
                     <v-col cols="12" md="4">
+                        <v-select
+                            type="date"
+                            :items="['Age-Suited','Not Age-Suited']"
+                            label="Breeding Eligibility"
+                            v-model="livestock.Breeding_Eligibility"
+                        ></v-select>
+                    </v-col>
+                    <v-col cols="12" md="4">
                         <v-text-field
                             type="date"
                             label="Date Of Birth"
                             v-model="livestock.Date_Of_Birth"
                         ></v-text-field>
                     </v-col>
-
                     <v-col cols="12" md="4">
                         <v-text-field
                             type="date"
@@ -135,6 +142,9 @@
 import axios from 'axios'
 
 export default {
+    props:[
+        'farmerID'
+    ],
     data: () => ({
         dialog: false,
 
@@ -148,6 +158,7 @@ export default {
             AgeYears:'',
             Age_Class:'',
             Sex:'',
+            Breeding_Eligibility:'Not Age-Suited',
             Date_Of_Birth:new Date().toISOString().substr(0, 10),
             Date_Acquired:new Date().toISOString().substr(0,10),
         },
@@ -187,9 +198,8 @@ export default {
         },
 
         async AddLivestockRecord(){
-            console.log(this.livestock);
             const formData = new FormData();
-            formData.append('Farmer_ID','1')
+            formData.append('Farmer_ID',this.farmerID)
             formData.append('Acquired_Date',this.livestock.Date_Acquired)
             formData.append('Livestock_TagID',this.livestock.Livestock_TagID)
             formData.append('Livestock_Type',this.livestock.Livestock_Type)
@@ -200,12 +210,12 @@ export default {
             formData.append('Age_Months',this.livestock.AgeMonths)
             formData.append('Age_Years',this.livestock.AgeYears)
             formData.append('Sex',this.livestock.Sex)
+            formData.append('Breeding_Eligibility',this.livestock.Breeding_Eligibility)
             formData.append('Date_Of_Birth', this.livestock.Date_Of_Birth)
 
             const response = await axios.post('farmer/addLivestock', formData)
 
             this.$emit('livestockAdded');
-            console.log(response);
             this.resetInputs();
         },
 
@@ -219,6 +229,7 @@ export default {
             this.livestock.AgeYears = '',
             this.livestock.Age_Class = '',
             this.livestock.Sex = '',
+            this.livestock.Breeding_Eligibility = ''
             this.livestock.Date_Of_Birth = new Date().toISOString().substr(0, 10),
             this.livestock.Date_Acquired = new Date().toISOString().substr(0,10),
             
@@ -230,18 +241,10 @@ export default {
     },
     watch:{
         'livestock.Livestock_Type'(newValue){
-            console.log(newValue);
             this.getLivestockBreeds(newValue)
             this.getLivestockAgeClass(newValue)
         },
         'AgeBasedOn'(newAgeBasedOn) {
-            // Add your logic here to handle changes in AgeBasedOn
-            console.log('AgeBasedOn changed:', newAgeBasedOn);
-
-            // For example, you might want to perform some actions when AgeBasedOn changes
-            // You can call a method or update other data properties based on the new value.
-
-            // If AgeBasedOn is 'SomeValue', do something
             if (newAgeBasedOn === 'Weeks') {
                 // Your logic here
                 this.activeAgeInput = 2

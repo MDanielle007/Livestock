@@ -97,6 +97,18 @@
                                     readonly
                                 ></v-text-field>
                             </v-col>
+                            <v-col
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                >
+                                <v-select
+                                    :items="['Age-Suited','Not Age-Suited']"
+                                    variant="outlined"
+                                    v-model="editedItem.Breeding_Eligibility"
+                                    label="Breeding Eligibility"
+                                ></v-select>
+                            </v-col>
                             
                             
                         </v-row>
@@ -123,7 +135,7 @@
                     </v-card>
                 </v-dialog>
                 
-                <NewLivestockForm @livestockAdded="getFarmerLivestock"/>
+                <NewLivestockForm @livestockAdded="getFarmerLivestock" :farmerID="userid"/>
 
                 <v-dialog v-model="dialogDelete" max-width="500px">
                     <v-card>
@@ -187,9 +199,12 @@ import axios from 'axios'
 import NewLivestockForm from '../forms/NewLivestockForm.vue'
 import LivestockVaxForm from '../forms/LivestockVaxForm.vue'
 import LivestockMortalityForm from '../forms/AddLivestockMortalityForm.vue'
+import { getCookie } from '@/utils/cookieUtils.js'
+import { jwtDecode as jwt_decode } from 'jwt-decode';
 
 export default {
     data: () => ({
+        userid: '',
         livestocks:[],
         livestocktypes:[],
         breednames:[],
@@ -215,6 +230,7 @@ export default {
             age: '',
             ageClass: '',
             sex: '',
+            Breeding_Eligibility: '',
             Date_Of_Birth: ''
         },
         defaultItem: {
@@ -225,6 +241,7 @@ export default {
             age: '',
             ageClass: '',
             sex: '',
+            Breeding_Eligibility: '',
             Date_Of_Birth: ''
         },
     }),
@@ -263,7 +280,13 @@ export default {
     methods: {
         async getFarmerLivestock(){
             try {
-                const livestocks = await axios.get(`farmer/getAllFarmerLivestock/${1}`);
+                const token = getCookie('token');
+
+                const decodedToken = jwt_decode(token);
+
+                this.userid = decodedToken.userid
+
+                const livestocks = await axios.get(`farmer/getAllFarmerLivestock/${this.userid}`);
                 this.livestocks = livestocks.data;
             console.log(livestocks.data);
             } catch (error) {
@@ -291,7 +314,7 @@ export default {
             const formData = new FormData();
             formData.append('Livestock_ID',this.editedItem.Livestock_ID)
             formData.append('LivestockTagID',this.editedItem.LivestockTagID)
-            formData.append('Farmer_ID',1)
+            formData.append('Farmer_ID',this.userid)
 
             const response = await axios.post('farmer/archiveLivestockRecord',formData)
             console.log(response.data);
@@ -325,7 +348,8 @@ export default {
                 formData.append('breed',this.editedItem.breedName)
                 formData.append('ageClass',this.editedItem.ageClass)
                 formData.append('sex',this.editedItem.sex)
-                formData.append('Farmer_ID',1)
+                formData.append('Breeding_Eligibility',this.editedItem.Breeding_Eligibility)
+                formData.append('Farmer_ID',this.userid)
                 const response = await axios.post('farmer/editLivestockDetails',formData)
                 console.log(response.data);
             }

@@ -139,8 +139,12 @@
 </template>
 <script>
 import axios from 'axios'
+import { getCookie } from '@/utils/cookieUtils.js'
+import { jwtDecode as jwt_decode } from 'jwt-decode';
+
 export default {
     data: () => ({
+      userid:'',
     dialog: false,
     dialogDelete: false,
     headers: [
@@ -195,8 +199,18 @@ export default {
 
     methods: {
     async getFarmerMortalityRecords(){
-        const reponse = await axios.get(`farmer/getFarmerMortalityRecords/${1}`);
-        this.mortalityRecords = reponse.data;
+        try {
+          const token = getCookie('token');
+
+          const decodedToken = jwt_decode(token);
+
+          this.userid = decodedToken.userid
+
+          const reponse = await axios.get(`farmer/getFarmerMortalityRecords/${this.userid}`);
+          this.mortalityRecords = reponse.data;
+        } catch (error) {
+          console.log(error);
+        }
     },
 
     editItem (item) {
@@ -214,7 +228,7 @@ export default {
     async deleteItemConfirm () {
         const formData = new FormData();
         formData.append('LM_ID',this.editedItem.LM_ID)
-        formData.append('Farmer_ID',1)
+        formData.append('Farmer_ID',this.userid)
         formData.append('LivestockTagID',this.editedItem.LivestockTagID)
         formData.append('LivestockID',this.editedItem.LivestockID)
         const response = await axios.post('farmer/archiveMortalityRecord',formData)
@@ -245,7 +259,7 @@ export default {
           formData.append('LM_ID',this.editedItem.LM_ID)
           formData.append('causeOfDeath',this.editedItem.causeOfDeath)
           formData.append('dateOfDeath',this.editedItem.dateOfDeath)
-          formData.append('Farmer_ID',1)
+          formData.append('Farmer_ID',this.userid)
           formData.append('LivestockTagID',this.editedItem.LivestockTagID)
           formData.append('LivestockID',this.editedItem.LivestockID)
           const response = await axios.post('farmer/updateMortalityRecord',formData)

@@ -131,9 +131,12 @@
 </template>
 <script>
 import axios from 'axios'
+import { getCookie } from '@/utils/cookieUtils.js'
+import { jwtDecode as jwt_decode } from 'jwt-decode';
 
 export default {
     data: () => ({
+        userid:'',
         dialog: false,
         dialogDelete: false,
         headers: [
@@ -190,9 +193,18 @@ export default {
 
     methods: {
         async getFarmerVaccinationRecord () {
-            const response = await axios.get(`farmer/getFarmerVaccinationRecords/${1}`)
-            console.log(response.data);
-            this.vaccinationRecords = response.data
+            try {
+                const token = getCookie('token');
+
+                const decodedToken = jwt_decode(token);
+
+                this.userid = decodedToken.userid
+
+                const response = await axios.get(`farmer/getFarmerVaccinationRecords/${this.userid}`)
+                this.vaccinationRecords = response.data
+            } catch (error) {
+                console.log(error);
+            }
         },
 
         editItem (item) {
@@ -210,7 +222,7 @@ export default {
         async deleteItemConfirm () {
             const formData = new FormData()
             formData.append('Vaccination_ID',this.editedItem.Vaccination_ID)
-            formData.append('Farmer_ID',1)
+            formData.append('Farmer_ID',this.userid)
             formData.append('LivestockTagID',this.editedItem.LivestockTagID)
             formData.append('livestockID',this.editedItem.livestockID)
             const response = await axios.post('farmer/archiveVaccinationRecord',formData)
@@ -244,7 +256,7 @@ export default {
                 formData.append('vaccinationDate',this.editedItem.vaccinationDate)
                 formData.append('LivestockTagID',this.editedItem.LivestockTagID)
                 formData.append('livestockID',this.editedItem.livestockID)
-                formData.append('Farmer_ID',1)
+                formData.append('Farmer_ID',this.userid)
                 const response = await axios.post('farmer/updateVaccinationRecord',formData)
                 console.log(response.data);
             } else {
