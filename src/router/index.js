@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { jwtDecode as jwt_decode } from 'jwt-decode';
+import { getCookie } from '@/utils/cookieUtils.js'
 
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
@@ -45,7 +46,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminLayout,
-    // meta: { requiresAuth: true, allowedRoles: ['DAP'] },
+    meta: { requiresAuth: true, allowedRoles: ['DA Personnel'] },
     children:[
       {
         path:'dashboard',
@@ -83,7 +84,7 @@ const routes = [
     path:'/farmer',
     name:'farmer',
     component:FarmerLayout,
-    // meta: { requiresAuth: true, allowedRoles: ['Farmer'] },
+    meta: { requiresAuth: true, allowedRoles: ['Farmer'] },
     children:[
       {
         path:'home',
@@ -127,7 +128,8 @@ router.beforeEach((to, from, next) => {
   //   next('/forbidden');
   // }
 
-  const token = sessionStorage.getItem('token');
+  // Fetch the token from the HTTP-only cookie
+  const token = getCookie('token');
 
   // If the route requires authentication
   if (to.meta.requiresAuth) {

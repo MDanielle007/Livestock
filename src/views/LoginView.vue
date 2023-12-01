@@ -89,12 +89,12 @@ export default defineComponent({
 
                     console.log(userRole);
 
-                    // Use more secure storage like HttpOnly cookies instead of localStorage
-                    sessionStorage.setItem('token', response.data.token)
+                    // Set the token as an HTTP-only cookie with an expiration time
+                    this.setCookie('token', response.data.token, 1); // 1 day expiration
                     
                     switch (userRole) {
                         case 'Farmer':
-                            this.$router.push({name:'farmer-home'});
+                            this.$router.push({name:'Farmer Dashboard'});
                             break;
                         case 'DA Personnel':
                             this.$router.push({name:'admin-dashboard'});
@@ -107,6 +107,13 @@ export default defineComponent({
             } catch (error) {
                 console.error("Error during login:", error);
             }
+        },
+        // Helper function to set HTTP-only cookie
+        setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
         }
     }
 })

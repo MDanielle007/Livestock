@@ -68,6 +68,7 @@
     </v-navigation-drawer>
 </template>
 <script>
+import { clearToken } from '@/utils/cookieUtils';
 export default {
     data () {
         return {
@@ -88,8 +89,7 @@ export default {
             this.isLargeScreen = window.innerWidth >= 768; // Example threshold: 768 pixels
         },
         logout(){
-            // Clear the session storage
-            sessionStorage.removeItem('token'); // Replace 'yourTokenKey' with the actual key used for storing the JWT token
+            clearToken();
             
             // Redirect to the login page or any desired destination
             this.$router.push('/login');
