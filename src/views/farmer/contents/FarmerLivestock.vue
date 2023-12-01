@@ -9,6 +9,10 @@
         </v-window-item>
 
         <v-window-item value="three">
+            <BreedingForm/>
+        </v-window-item>
+
+        <v-window-item value="four">
             <MortalityTable/>
         </v-window-item>
     </v-window>
@@ -18,6 +22,7 @@
 import CRUDLivestockTable from '@/components/farmer/tables/CRUDLivestockTable.vue'
 import VaccinationTable from '@/components/farmer/tables/VaccinationTable.vue'
 import MortalityTable from '@/components/farmer/tables/MortalityTable.vue'
+import BreedingForm from '@/components/farmer/forms/BreedingForm.vue'
 import store from '@/store';
 
 export default{
@@ -36,7 +41,8 @@ export default{
     components:{
         CRUDLivestockTable,
         VaccinationTable,
-        MortalityTable
+        MortalityTable,
+        BreedingForm,
     },
 }
 </script>
