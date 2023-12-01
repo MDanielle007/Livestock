@@ -12,7 +12,7 @@ class FarmerDataHistoryModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['Farmer_ID', 'Title', 'Description', 'Timestamp', 'Record_Status'];
+    protected $allowedFields    = ['Farmer_ID','Livestock_ID', 'Title', 'Description', 'Type', 'Timestamp', 'Action', 'Record_Status'];
 
     // Dates
     protected $useTimestamps = false;

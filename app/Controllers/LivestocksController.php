@@ -10,6 +10,8 @@ use App\Models\LivestockVaccinationModel;
 use App\Models\LivestockMortalitiesModel;
 use App\Models\LivestockTypesModel;
 use App\Libraries\HistoryLibrary;
+use App\Models\FarmerDataHistoryModel;
+use App\Models\LivestockBreedingsModel;
 
 class LivestocksController extends ResourceController
 {
@@ -18,6 +20,8 @@ class LivestocksController extends ResourceController
     private $mortalityRecords;
     private $livestockTypes;
     private $farmerDataHistory;
+    private $dataHistory;
+    private $livestockBreedings;
 
     public function __construct(){
         $this->livestocks = new LivestocksModel(); 
@@ -25,6 +29,8 @@ class LivestocksController extends ResourceController
         $this->mortalityRecords = new LivestockMortalitiesModel();
         $this->livestockTypes = new LivestockTypesModel();
         $this->farmerDataHistory = new HistoryLibrary();
+        $this->dataHistory = new FarmerDataHistoryModel();
+        $this->livestockBreedings = new LivestockBreedingsModel();
     }
 
     public function getAllLivestock(){
@@ -66,8 +72,9 @@ class LivestocksController extends ResourceController
 
     public function administerVaccine(){
         try {
+            $livestockID = $this->request->getVar('livestockID');
             $data = [
-                'Livestock_ID' => $this->request->getVar('livestockID'),
+                'Livestock_ID' => $livestockID,
                 'Vaccination_Name' => $this->request->getVar('vaccinationName'),
                 'Vaccination_Description' => $this->request->getVar('vaccinationDescription'),
                 'Vaccination_Date' => $this->request->getVar('vaccinationDate'),
@@ -80,7 +87,10 @@ class LivestocksController extends ResourceController
             $historyData = [
                 'Title' => 'Administer Vaccine',
                 'Description' => "Adminsiter vaccine to {$livestockTagID}",
-                'Farmer_ID' => $farmerID
+                'Farmer_ID' => $farmerID,
+                'Livestock_ID' => $livestockID,
+                'Type' => 'Vaccination',
+                'Action' => 'Add'
             ];
     
             $response = $this->farmerDataHistory->addDataHistory($historyData);
@@ -125,11 +135,15 @@ class LivestocksController extends ResourceController
 
             $farmerID = $this->request->getVar('Farmer_ID');
             $livestockTagID = $this->request->getVar('LivestockTagID');
+            $livestockID = $this->request->getVar('livestockID');
 
             $historyData = [
                 'Title' => 'Edit Vaccination Record',
                 'Description' => "Edited a vaccination record of {$livestockTagID}",
-                'Farmer_ID' => $farmerID
+                'Farmer_ID' => $farmerID,
+                'Livestock_ID' => $livestockID,
+                'Type' => 'Vaccination',
+                'Action' => 'Edit'
             ];
     
             $response = $this->farmerDataHistory->addDataHistory($historyData);
@@ -151,11 +165,15 @@ class LivestocksController extends ResourceController
 
             $farmerID = $this->request->getVar('Farmer_ID');
             $livestockTagID = $this->request->getVar('LivestockTagID');
+            $livestockID = $this->request->getVar('livestockID');
 
             $historyData = [
                 'Title' => 'Archive Vaccination Record',
                 'Description' => "Archived the vaccination record of {$livestockTagID}",
-                'Farmer_ID' => $farmerID
+                'Farmer_ID' => $farmerID,
+                'Livestock_ID' => $livestockID,
+                'Type' => 'Vaccination',
+                'Action' => 'Archive'
             ];
     
             $response = $this->farmerDataHistory->addDataHistory($historyData);
@@ -198,11 +216,15 @@ class LivestocksController extends ResourceController
 
             $farmerID = $this->request->getVar('Farmer_ID');
             $livestockTagID = $this->request->getVar('LivestockTagID');
+            $livestockID = $this->request->getVar('LivestockID');
 
             $historyData = [
                 'Title' => 'Edit Mortality Record',
                 'Description' => "Edited a mortality record of {$livestockTagID}",
-                'Farmer_ID' => $farmerID
+                'Farmer_ID' => $farmerID,
+                'Livestock_ID' => $livestockID,
+                'Type' => 'Mortality',
+                'Action' => 'Edit'
             ];
     
             $response = $this->farmerDataHistory->addDataHistory($historyData);
@@ -223,11 +245,15 @@ class LivestocksController extends ResourceController
 
             $farmerID = $this->request->getVar('Farmer_ID');
             $livestockTagID = $this->request->getVar('LivestockTagID');
+            $livestockID = $this->request->getVar('LivestockID');
 
             $historyData = [
                 'Title' => 'Archive Mortality Record',
                 'Description' => "Archived the mortality record of {$livestockTagID}",
-                'Farmer_ID' => $farmerID
+                'Farmer_ID' => $farmerID,
+                'Livestock_ID' => $livestockID,
+                'Type' => 'Mortality',
+                'Action' => 'Archive'
             ];
     
             $response = $this->farmerDataHistory->addDataHistory($historyData);
@@ -283,6 +309,87 @@ class LivestocksController extends ResourceController
             $this->livestockTypes->delete(['LT_ID' => $livestockTypeID]);
 
             return $this->respond(['message' => 'Record Deleted Successfully']);
+        } catch (\Throwable $th) {
+            return $this->respond(["error" => "Error: " . $th->getMessage()]);
+        }
+    }
+
+    public function getLivestockForBreeding($farmerID){
+        try {
+            $whereClause = [
+                'farmerlivestocks.Farmer_ID' => $farmerID,
+                'livestocks.Record_Status' => 'Accessible',
+                'livestocks.Livestock_Status' => 'Alive',
+                // 'livestocks.Breeding_Eligibility' => 'Age-Suited'
+            ];
+    
+            $whereClause['livestocks.Sex'] = 'Male';
+            $maleLivestocks = $this->livestocks
+                ->select('livestocks.Livestock_ID,livestocks.Livestock_TagID,livestocks.Livestock_Type,Sex')
+                ->join('farmerlivestocks', 'farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
+                ->where($whereClause)
+                ->findAll();
+    
+            $whereClause['livestocks.Sex'] = 'Female';
+            $femaleLivestocks = $this->livestocks
+                ->select('livestocks.Livestock_ID,livestocks.Livestock_TagID,livestocks.Livestock_Type,Sex')
+                ->where($whereClause)
+                ->join('farmerlivestocks','livestocks.Livestock_ID = farmerlivestocks.Livestock_ID')
+                ->findAll();
+    
+            $data = [
+                'livestocks' => ['maleLivestocks' => $maleLivestocks, 'femaleLivestocks' => $femaleLivestocks]
+            ];
+    
+            return $this->respond($data);
+        } catch (\Throwable $th) {
+            return $this->respond(["error" => "Error: " . $th->getMessage()]);
+        }
+    }
+
+    public function recordBreeding(){
+        try {
+            $farmerID = $this->request->getVar('farmerID');
+            $maleLivestock = $this->request->getVar('maleLivestock');
+            $maleLivestockID = $this->request->getVar('maleLivestockID');
+
+            $femaleLivestock = $this->request->getVar('femaleLivestock');
+            $femaleLivestockID = $this->request->getVar('femaleLivestockID');
+
+            $data = [
+                'Farmer_ID' => $farmerID,
+                'MaleLivestock' => $maleLivestock,
+                'FemaleLivestock' => $femaleLivestock,
+                'BreedResults' => $this->request->getVar('breedResult'),
+                'BreedNotes' => $this->request->getVar('breedNotes'),
+                'BreedDate' => $this->request->getVar('breedDate'),
+            ];
+
+            $this->livestockBreedings->save($data);
+
+            $historyData = [
+                'Title' => 'Breed Livestock',
+                'Description' => "Breeding of {$maleLivestock} and {$femaleLivestock}",
+                'Farmer_ID' => $farmerID,
+                'Livestock_ID' => $maleLivestockID,
+                'Type' => 'Breeding',
+                'Action' => 'Add'
+            ];
+    
+            $response1 = $this->farmerDataHistory->addDataHistory($historyData);
+
+            $historyData = [
+                'Title' => 'Breed Livestock',
+                'Description' => "Breeding of {$maleLivestock} and {$femaleLivestock}",
+                'Farmer_ID' => $farmerID,
+                'Livestock_ID' => $femaleLivestockID,
+                'Type' => 'Breeding',
+                'Action' => 'Add'
+            ];
+    
+            $response2 = $this->farmerDataHistory->addDataHistory($historyData);
+
+            return $this->respond(["message" => "Record Added Successfully",$farmerID,$response1,$response2,$maleLivestockID]);
         } catch (\Throwable $th) {
             return $this->respond(["error" => "Error: " . $th->getMessage()]);
         }

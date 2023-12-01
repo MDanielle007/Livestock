@@ -11,6 +11,7 @@ use App\Models\LivestockMortalitiesModel;
 use App\Models\LivestockTypesModel;
 use App\Models\LivestockBreedModel;
 use App\Libraries\HistoryLibrary;
+use App\Models\FarmerDataHistoryModel;
 
 class FarmerController extends ResourceController
 {
@@ -21,6 +22,7 @@ class FarmerController extends ResourceController
     private $livestockTypes;
     private $livestockBreeds;
     private $farmerDataHistory;
+    private $dataHistory;
 
     public function __construct() {
         $this->farmerlivestocks = new FarmerLivestocksModel();
@@ -30,6 +32,7 @@ class FarmerController extends ResourceController
         $this->livestockTypes = new LivestockTypesModel();
         $this->livestockBreeds = new LivestockBreedModel();
         $this->farmerDataHistory = new HistoryLibrary();
+        $this->dataHistory = new FarmerDataHistoryModel();
     }
 
     public function addLivestock(){
@@ -48,6 +51,7 @@ class FarmerController extends ResourceController
                 'Age_Months' => $this->request->getVar('Age_Months'),
                 'Age_Years' => $this->request->getVar('Age_Years'),
                 'Sex' => $this->request->getVar('Sex'),
+                'Breeding_Eligibility' => $this->request->getVar('Breeding_Eligibility'),
                 'Date_Of_Birth' => $this->request->getVar('Date_Of_Birth'),
             ];
 
@@ -63,7 +67,10 @@ class FarmerController extends ResourceController
                 $historyData = [
                     'Title' => 'Added New Livestock',
                     'Description' => "Added a new {$livestockType}",
-                    'Farmer_ID' => $farmerID
+                    'Farmer_ID' => $farmerID,
+                    'Livestock_ID' => "{$lastLivestockID}",
+                    'Type' => 'Livestock',
+                    'Action' => 'Add'
                 ];
 
                 $response = $this->farmerDataHistory->addDataHistory($historyData);
@@ -110,8 +117,10 @@ class FarmerController extends ResourceController
     }
 
     public function editLivestockDetails(){
+        $livestockID = $this->request->getVar('Livestock_ID');
+
         $whereClause = [
-            'Livestock_ID' => $this->request->getVar('Livestock_ID')
+            'Livestock_ID' => $livestockID
         ];
 
         $farmerID = $this->request->getVar('Farmer_ID');
@@ -123,12 +132,16 @@ class FarmerController extends ResourceController
             'Breed_Name' => $this->request->getVar('breed'),
             'Age_Classification' => $this->request->getVar('ageClass'),
             'Sex' => $this->request->getVar('sex'),
+            'Breeding_Eligibility' => $this->request->getVar('Breeding_Eligibility'),
         ];
 
         $historyData = [
             'Title' => 'Edit Livestock Record',
             'Description' => "Edited a livestock details of {$livestockTagID}",
-            'Farmer_ID' => $farmerID
+            'Farmer_ID' => $farmerID,
+            'Livestock_ID' => $livestockID,
+            'Type' => 'Livestock',
+            'Action' => 'Edit'
         ];
 
         $response = $this->farmerDataHistory->addDataHistory($historyData);
@@ -140,8 +153,10 @@ class FarmerController extends ResourceController
 
 
     public function archiveLivestockRecord(){
+        $livestockID = $this->request->getVar('Livestock_ID');
+
         $whereClause = [
-            'Livestock_ID' => $this->request->getVar('Livestock_ID'),
+            'Livestock_ID' => $livestockID
         ];
 
         $farmerID = $this->request->getVar('Farmer_ID');
@@ -150,7 +165,10 @@ class FarmerController extends ResourceController
         $historyData = [
             'Title' => 'Archive Livestock Record',
             'Description' => "Archived the livestock record of {$livestockTagID}",
-            'Farmer_ID' => $farmerID
+            'Farmer_ID' => $farmerID,
+            'Livestock_ID' => $livestockID,
+            'Type' => 'Livestock',
+            'Action' => 'Archive'
         ];
 
         $response = $this->farmerDataHistory->addDataHistory($historyData);
@@ -185,6 +203,7 @@ class FarmerController extends ResourceController
                         livestocks.Age_Months,
                         livestocks.Age_Years,
                         livestocks.Sex as sex,
+                        livestocks.Breeding_Eligibility,
                         livestocks.Date_Of_Birth, 
                         farmerlivestocks.Acquired_Date,
                         CASE
@@ -340,7 +359,10 @@ class FarmerController extends ResourceController
             $historyData = [
                 'Title' => 'Report Livestock Mortality',
                 'Description' => "Report mortality record of {$livestockTagID}",
-                'Farmer_ID' => $farmerID
+                'Farmer_ID' => $farmerID,
+                'Livestock_ID' => $livestockID,
+                'Type' => 'Mortality',
+                'Action' => 'Add'
             ];
     
             $response = $this->farmerDataHistory->addDataHistory($historyData);
@@ -384,4 +406,18 @@ class FarmerController extends ResourceController
         }
     }
 
+    public function getFarmerDataHistory($farmerID){
+        try {
+            $whereNotInClause = ['Delete','Archive'];
+            $dataHistory = $this->dataHistory
+                ->select('Title,Description,Type,Timestamp')
+                ->where('Farmer_ID',$farmerID)
+                ->whereNotIn('Action',$whereNotInClause)
+                ->findAll();
+            
+            return $this->respond($dataHistory);
+        } catch (\Throwable $th) {
+            return $this->respond(["message" => "Error: " . $th->getMessage()]);
+        }
+    }
 }
