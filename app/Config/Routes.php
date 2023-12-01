@@ -10,6 +10,7 @@ $routes->post('/loginAuth', 'UserController::loginAuth');
 $routes->get('/getLivestockTypes', 'GeneralController::getLivestockTypes');
 $routes->get('/getLivestockBreed/(:any)', 'GeneralController::getLivestockBreed/$1');
 $routes->get('/getLivestockAgeClass/(:any)', 'GeneralController::getLivestockAgeClass/$1');
+$routes->get('/getLivestockForBreeding/(:any)', 'LivestocksController::getLivestockForBreeding/$1');
 
 $routes->group('apiCharts',static function($routes){
     $routes->post('/getLivestockPopulationProgression', 'VisualizationController::getLivestockPopulationProgression');
@@ -63,4 +64,7 @@ $routes->group('farmer',static function($routes){
     $routes->post('addLivestockType','LivestocksController::addLivestockType');
     $routes->post('updateLivestockType','LivestocksController::updateLivestockType');
     $routes->post('deleteLivestockType','LivestocksController::deleteLivestockType');
+    $routes->get('getFarmerDataHistory/(:any)','FarmerController::getFarmerDataHistory/$1');
+    $routes->get('getFarmerAccountData/(:any)','UserController::getFarmerAccountData/$1');
+    $routes->post('recordBreeding','LivestocksController::recordBreeding');
 });
