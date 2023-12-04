@@ -49,6 +49,7 @@
                                     :items="livestocktypes"
                                     v-model="editedItem.livestockType"
                                     label="Livestock Type"
+                                    readonly
                                 ></v-select>
                             </v-col>
                             <v-col
@@ -231,7 +232,7 @@ export default {
             ageClass: '',
             sex: '',
             Breeding_Eligibility: '',
-            Date_Of_Birth: ''
+            Date_Of_Birth: new Date().toISOString().substr(0,10),
         },
         defaultItem: {
             Livestock_ID:'',
@@ -242,7 +243,7 @@ export default {
             ageClass: '',
             sex: '',
             Breeding_Eligibility: '',
-            Date_Of_Birth: ''
+            Date_Of_Birth: new Date().toISOString().substr(0,10),
         },
     }),
 

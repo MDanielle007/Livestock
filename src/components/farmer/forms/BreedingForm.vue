@@ -4,13 +4,16 @@
         <v-row dense="true">
             <v-col cols="6">
                 <ListLivestocksDialog 
+                    ref="maleLivestocksDialog"
                     :labelText="'Male'" 
                     :livestocksListItems="this.maleLivestocks" 
                     @livestock-selected="handleLivestockSelectedMale" 
-                    @livestock-selectedID="handleLivestockSelectedMaleID"/>
+                    @livestock-selectedID="handleLivestockSelectedMaleID"
+                    />
             </v-col>
             <v-col cols="6">
                 <ListLivestocksDialog 
+                    ref="femaleLivestocksDialog"
                     :labelText="'Female'" 
                     :livestocksListItems="this.femaleLivestocks" 
                     @livestock-selected="handleLivestockSelectedFemale"
@@ -89,12 +92,6 @@ export default {
         },
         async breedSubmit(){
             try {
-                console.log(this.selectedMale);
-                console.log(this.selectedFemale);
-                console.log(this.breedResult);
-                console.log(this.breedNotes);
-                console.log(this.breedDate);
-
                 const formData = new FormData();
                 formData.append('farmerID',1),
                 formData.append('maleLivestockID',this.selectedMaleID)
@@ -107,9 +104,24 @@ export default {
 
                 const response = await axios.post('farmer/recordBreeding',formData)
                 console.log(response.data);
+
+                // Clear the text field in ListLivestocksDialog component
+                this.$refs.maleLivestocksDialog.clearTextField();
+                this.$refs.femaleLivestocksDialog.clearTextField();
+
+                this.resetInputs();
             } catch (error) {
                 console.log(error);
             }
+        },
+        resetInputs(){
+            this.selectedMaleID=''
+            this.selectedFemaleID=''
+            this.selectedMale=''
+            this.selectedFemale=''
+            this.breedResult=''
+            this.breedDate= new Date().toISOString().substr(0, 10)
+            this.breedNotes=''
         }
     },
     created(){

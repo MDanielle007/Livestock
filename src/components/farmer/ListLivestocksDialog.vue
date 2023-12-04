@@ -56,6 +56,9 @@ export default {
             this.$emit('livestock-selectedID', livestockID);
             this.dialog = false
         },
+        clearTextField() {
+            this.selectedInList = '';
+        },
     }
 }
 </script>
