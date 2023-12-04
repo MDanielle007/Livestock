@@ -1,9 +1,9 @@
 <template>
     <v-layout class="h-100" style="background-color: #F6F6F6;">
-        <FarmerAppbar/>
+        <FarmerAppbar style="position: fixed;"/>
         <FarmerBottomNav/>
         <v-main>
-            <v-container>
+            <v-container class="mb-10">
                 <router-view></router-view>
             </v-container>
         </v-main>

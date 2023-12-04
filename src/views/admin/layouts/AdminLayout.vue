@@ -2,13 +2,15 @@
     <v-layout class="h-100" style="background-color: #F5F5F5">
         <AdminSidebar
             v-model="drawerVisible"
+            style="position: fixed;"
         />
-        <AdminAppbar @closeSidebar="handleCloseSidebar"/>
+        <AdminAppbar @closeSidebar="handleCloseSidebar" style="position: fixed;"/>
         
         <v-main>
            <v-container>
-            <router-view></router-view>
+                <router-view></router-view>
            </v-container>
+           <v-footer>{{ new Date().getFullYear() }} — <strong>Vuetify</strong></v-footer>
         </v-main>
     </v-layout>
 </template>

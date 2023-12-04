@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-sheet class="d-flex flex-column align-center justify-center pt-10">
-            <v-avatar :image="userProfile" size="200"></v-avatar>
+            <v-avatar :image="userProfile || require('@/assets/images/default-picturejpg.jpg')" size="200"></v-avatar>
             <v-list class="d-flex flex-column align-center">
                 <v-list-item><h2>{{ username }}</h2></v-list-item>
                 <v-list-item>
