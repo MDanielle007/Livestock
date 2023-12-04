@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 02, 2023 at 03:04 PM
+-- Generation Time: Dec 04, 2023 at 09:33 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -172,7 +172,15 @@ INSERT INTO `farmer_data_history` (`FDH_ID`, `Farmer_ID`, `Livestock_ID`, `Actio
 (79, 1, 23, 'Add', 'Breed Livestock', 'Breeding of CTL111 and CTL120', 'Breeding', '2023-12-02 21:57:10', 'Accessible'),
 (80, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL111 and CTL120', 'Breeding', '2023-12-02 21:57:10', 'Accessible'),
 (81, 1, 23, 'Add', 'Breed Livestock', 'Breeding of CTL111 and CTL120', 'Breeding', '2023-12-02 21:57:29', 'Accessible'),
-(82, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL111 and CTL120', 'Breeding', '2023-12-02 21:57:29', 'Accessible');
+(82, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL111 and CTL120', 'Breeding', '2023-12-02 21:57:29', 'Accessible'),
+(83, 1, 23, 'Add', 'Breed Livestock', 'Breeding of CTL111 and CTL120', 'Breeding', '2023-12-03 00:00:51', 'Accessible'),
+(84, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL111 and CTL120', 'Breeding', '2023-12-03 00:00:51', 'Accessible'),
+(85, 1, 27, 'Add', 'Breed Livestock', 'Breeding of CTL127 and CTL120', 'Breeding', '2023-12-03 00:25:45', 'Accessible'),
+(86, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL127 and CTL120', 'Breeding', '2023-12-03 00:25:45', 'Accessible'),
+(88, 1, 23, 'Add', 'Breed Livestock', 'Breeding of CTL111 to CTL120', 'Breeding', '2023-12-04 16:16:39', 'Accessible'),
+(89, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL111 to CTL120', 'Breeding', '2023-12-04 16:16:39', 'Accessible'),
+(90, 1, 27, 'Add', 'Breed Livestock', 'Breeding of CTL127 to CTL120', 'Breeding', '2023-12-04 16:23:43', 'Accessible'),
+(91, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL120 to CTL127', 'Breeding', '2023-12-04 16:23:43', 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -352,11 +360,11 @@ INSERT INTO `livestock_breedings` (`LB_ID`, `Farmer_ID`, `MaleLivestock`, `Femal
 (1, 0, 'CTL103', 'CTL104', 'wala lang', 'skdjncskjdnc', '2023-11-30', 'Accessible'),
 (2, 0, 'CTL103', 'CTL104', 'wala lang', 'skdjncskjdnc', '2023-11-30', 'Accessible'),
 (3, 0, 'CTL103', 'CTL104', 'wala lang', 'skdjncskjdnc', '2023-11-30', 'Accessible'),
-(4, 1, 'CTL103', 'CTL104', 'wala lang', 'skdjncskjdnc', '2023-11-30', 'Accessible'),
-(5, 1, 'CTL103', 'CTL104', 'wala lang', 'skdjncskjdnc', '2023-11-30', 'Accessible'),
+(4, 1, 'CTL103', 'CTL104', 'wala lang', 'skdjncskjdnckfbndkvjndjkbdkjcbbsdcjsnc', '2023-11-30', 'Archive'),
+(5, 1, 'CTL103', 'CTL104', 'wala lang', 'skdjncskjdncklkasncna', '2023-11-30', 'Archive'),
 (6, 1, 'CRB101', 'CRB104', 'askdubua', 'skjdncsk', '2023-11-30', 'Accessible'),
 (7, 1, 'CTL103', 'CTL104', 'wala lang', 'mas wala lang', '2023-11-30', 'Accessible'),
-(8, 1, 'CTL103', 'CTL110', 'wala nangyari', 'kjsndnsck', '2023-12-01', 'Accessible'),
+(8, 1, 'CTL103', 'CTL110', 'wala nangyari sa kanila', 'kjsndnsck', '2023-12-01', 'Accessible'),
 (9, 1, 'CTL103', 'CTL110', 'heheheh', 'hheheheh', '2023-12-01', 'Accessible'),
 (10, 1, 'CTL103', 'CTL110', 'heheheh', 'hheheheh', '2023-12-01', 'Accessible'),
 (11, 1, 'CTL103', 'CTL110', 'hehehehhe', 'hrhrhhr', '2023-12-01', 'Accessible'),
@@ -366,7 +374,11 @@ INSERT INTO `livestock_breedings` (`LB_ID`, `Farmer_ID`, `MaleLivestock`, `Femal
 (15, 1, 'CTL111', 'CTL120', 'slansclacn', 'lijsdcasx', '2023-11-27', 'Accessible'),
 (16, 1, 'CTL111', 'CTL120', 'slansclacn', 'lijsdcasx', '2023-11-27', 'Accessible'),
 (17, 1, 'CTL111', 'CTL120', 'slansclacn', 'lijsdcasx', '2023-11-29', 'Accessible'),
-(18, 1, 'CTL111', 'CTL120', 'slansclacn', 'lijsdcasx', '2023-12-02', 'Accessible');
+(18, 1, 'CTL111', 'CTL120', 'slansclacn', 'lijsdcasx', '2023-12-02', 'Accessible'),
+(19, 1, 'CTL111', 'CTL120', 'ksbcakj', 'sncskjdnc', '2023-12-02', 'Accessible'),
+(20, 1, 'CTL127', 'CTL120', 'kjcbskdb', 'ksjdbcskjb', '2023-12-02', 'Accessible'),
+(21, 1, 'CTL111', 'CTL120', 'kasnckjasn', 'sdcksjnc', '2023-12-04', 'Accessible'),
+(22, 1, 'CTL127', 'CTL120', 's,cnsnkcjn', 'kjaksjcb', '2023-12-04', 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -427,7 +439,7 @@ INSERT INTO `livestock_mortalities` (`LM_ID`, `Livestock_ID`, `Farmer_ID`, `Caus
 (7, 13, 1, 'inubo', '2023-11-28', 'Accessible'),
 (8, 14, 1, 'salckn', '2023-11-28', 'Accessible'),
 (9, 16, 1, 'nabalian', '2023-11-28', 'Archive'),
-(10, 18, 1, 'di gumising', '2023-11-29', 'Accessible'),
+(10, 18, 1, 'di gumising ng maaga', '2023-11-29', 'Accessible'),
 (11, 20, 1, 'nagutom', '2023-11-29', 'Accessible');
 
 -- --------------------------------------------------------
@@ -470,8 +482,7 @@ INSERT INTO `livestock_types` (`LT_ID`, `Type_Name`, `Livestock_Uses`) VALUES
 (3, 'Goat', 'Meat and milk production'),
 (4, 'Pig', 'Pork production'),
 (5, 'Cattle', 'Beef production'),
-(6, 'Sheep', 'Wool, Meat and Milk Production'),
-(8, 'aksudjaaskhdbascj', 'a,jscbsckjbacskj');
+(6, 'Sheep', 'Wool, Meat and Milk Production');
 
 -- --------------------------------------------------------
 
@@ -720,7 +731,7 @@ ALTER TABLE `farmer_cerficates`
 -- AUTO_INCREMENT for table `farmer_data_history`
 --
 ALTER TABLE `farmer_data_history`
-  MODIFY `FDH_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `FDH_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `farmer_profile`
@@ -756,7 +767,7 @@ ALTER TABLE `livestock_batch_associations`
 -- AUTO_INCREMENT for table `livestock_breedings`
 --
 ALTER TABLE `livestock_breedings`
-  MODIFY `LB_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `LB_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `livestock_breeds`
@@ -780,7 +791,7 @@ ALTER TABLE `livestock_sales`
 -- AUTO_INCREMENT for table `livestock_types`
 --
 ALTER TABLE `livestock_types`
-  MODIFY `LT_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `LT_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `livestock_vaccinations`
