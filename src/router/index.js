@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { jwtDecode as jwt_decode } from 'jwt-decode';
 import { getCookie } from '@/utils/cookieUtils.js'
 
-import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import ForbiddenView from '../views/ForbiddenView.vue'
 
@@ -10,11 +9,16 @@ import ForbiddenView from '../views/ForbiddenView.vue'
 //Admin Dashboard Routes
 import AdminLayout from '../views/admin/layouts/AdminLayout.vue'
 import AdminDashboard from '../views/admin/contents/AdminDashboard.vue'
-import AdminLivestock from '../views/admin/contents/AdminLivestockManagement.vue'
+import AdminLivestockManagement from '../views/admin/contents/AdminLivestockManagement.vue'
+import AdminLivestockMonitoring from '../views/admin/contents/AdminLivestockMonitoring.vue'
 import AdminReportAnalytics from '../views/admin/contents/AdminReportAnalytics.vue'
 import AdminAuditTrail from '../views/admin/contents/AdminAuditTrail.vue'
 import AdminUserManagement from '../views/admin/contents/AdminUserManagement.vue'
 import AdminRegisterAccount from '../views/admin/contents/AdminRegisterAccount.vue'
+import LivestockTable from '@/components/admin/tables/LivestockTable.vue';
+import LivestockTypesTable from '@/components/admin/tables/LivestockTypesTable.vue';
+import AdminBreedingMonitoring from '@/views/admin/contents/AdminBreedingMonitoring.vue'
+import AdminMortalityMonitoring from '@/views/admin/contents/AdminMortalityMonitoring.vue'
 
 
 // Farmer Portal Routes
@@ -54,9 +58,35 @@ const routes = [
         component: AdminDashboard,
       },
       {
+        path:'livestock-monitoring',
+        component:AdminLivestockMonitoring,
+        children:[
+          {
+            path:'',
+            name:'admin-livestock-monitoring',
+            component: LivestockTable,
+          },
+          {
+            path:'livestock-types',
+            name:'livestock-types',
+            component: LivestockTypesTable,
+          },
+        ]
+      },
+      {
         path:'livestock-management',
         name:'admin-livestock-management',
-        component:AdminLivestock
+        component: AdminLivestockManagement,
+      },
+      {
+        path:'breeding-monitoring',
+        name:'admin-breeding-monitoring',
+        component: AdminBreedingMonitoring,
+      },
+      {
+        path:'mortality-monitoring',
+        name:'admin-mortality-monitoring',
+        component: AdminMortalityMonitoring,
       },
       {
         path:'report',

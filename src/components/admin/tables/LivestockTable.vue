@@ -1,15 +1,14 @@
 <template>
-  <v-data-table-server
+  <v-data-table
       :headers="headers"
       :items="livestocks"
       :sort-by="[{ key: 'livestockType', order: 'asc' }]"
-      show-select
   >
       <template v-slot:top>
           <v-toolbar
               flat
               >
-              <v-toolbar-title>My Livestocks</v-toolbar-title>
+              <v-toolbar-title>Livestocks</v-toolbar-title>
               <v-divider
                   class="mx-4"
                   inset
@@ -17,9 +16,9 @@
               ></v-divider>
               <v-spacer></v-spacer>
               <v-dialog
-                  v-model="dialog"
-                  max-width="500px"
-              >
+                    v-model="dialog"
+                    width="1024"
+                >
                   <template v-slot:activator="{ props }">
                       <v-btn
                           color="primary"
@@ -27,7 +26,7 @@
                           class="mb-2"
                           v-bind="props"
                       >
-                          New Item
+                          New Livestock
                       </v-btn>
                   </template>
                   <v-card>
@@ -37,58 +36,115 @@
       
                   <v-card-text>
                       <v-container>
-                      <v-row>
-                          <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                          >
-                          <v-text-field
-                              variant="outlined"
-                              v-model="editedItem.livestockType"
-                              label="Livestock Type"
-                          ></v-text-field>
-                          </v-col>
-                          <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                          >
-                          <v-text-field
-                              variant="outlined"
-                              v-model="editedItem.age"
-                              label="Age"
-                          ></v-text-field>
-                          </v-col>
-                          <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                          >
-                          <v-text-field
-                              variant="outlined"
-                              v-model="editedItem.ageClass"
-                              label="Age Classification"
-                          ></v-text-field>
-                          </v-col>
-                          <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                          >
-                          <v-text-field
-                              variant="outlined"
-                              v-model="editedItem.sex"
-                              label="Sex"
-                          ></v-text-field>
-                          </v-col>
-                          <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
-                          >
-                          </v-col>
-                      </v-row>
+                        <v-row>
+                            <v-col cols="12" sm="8">
+                                <v-text-field
+                                    variant="outlined"
+                                    label="Livestock Tag ID"
+                                    v-model="editedItem.LivestockTagID"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="4">
+                                <v-text-field
+                                    variant="outlined"
+                                    label="Assigned Farmer"
+                                    v-model="editedItem.FarmerName"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="5"
+                                >
+                                <v-select
+                                    variant="outlined"
+                                    :items="livestocktypes"
+                                    v-model="editedItem.livestockType"
+                                    label="Livestock Type"
+                                    readonly
+                                ></v-select>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="5"
+                                >
+                                <v-select
+                                    variant="outlined"
+                                    :items="breednames"
+                                    v-model="editedItem.breedName"
+                                    label="Livestock Breed"
+                                ></v-select>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="2"
+                                >
+                                <v-select
+                                    variant="outlined"
+                                    :items="['Male','Female']"
+                                    v-model="editedItem.sex"
+                                    label="Sex"
+                                ></v-select>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                >
+                                <v-select
+                                    variant="outlined"
+                                    :items="ageClass"
+                                    v-model="editedItem.ageClass"
+                                    label="Age Classification"
+                                ></v-select>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                >
+                                <v-text-field
+                                    variant="outlined"
+                                    v-model="editedItem.age"
+                                    label="Age"
+                                    readonly
+                                ></v-text-field>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                >
+                                <v-text-field
+                                    variant="outlined"
+                                    v-model="editedItem.Date_Of_Birth"
+                                    label="Date of Birth"
+                                    readonly
+                                ></v-text-field>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                >
+                                <v-select
+                                    :items="['Age-Suited','Not Age-Suited']"
+                                    variant="outlined"
+                                    v-model="editedItem.Breeding_Eligibility"
+                                    label="Breeding Eligibility"
+                                ></v-select>
+                            </v-col>
+                            <v-col
+                                cols="12"
+                                sm="2"
+                                >
+                                <v-select
+                                    variant="outlined"
+                                    :items="['Alive','Dead']"
+                                    v-model="editedItem.Livestock_Status"
+                                    label="Health Status"
+                                ></v-select>
+                            </v-col>
+                        </v-row>
                       </v-container>
                   </v-card-text>
       
@@ -122,6 +178,14 @@
                   </v-card-actions>
                   </v-card>
               </v-dialog>
+              <v-btn
+                    color="primary"
+                    dark
+                    class="mb-2"
+                    :to="{name:'livestock-types'}"
+                >
+                    New Livestock Type
+                </v-btn>
           </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
@@ -139,6 +203,16 @@
           fa-regular fa-trash-can
           </v-icon>
       </template>
+      <template v-slot:item.Breeding_Eligibility="{ item }">
+            <v-row>
+                <v-chip
+                    :color="item.User_Status === 'Age-Suited' ? 'green' : 'red'"
+                    class="text-uppercase"
+                    label
+                    size="small"
+                >{{ item.Breeding_Eligibility }}</v-chip>
+            </v-row>
+        </template>
       <template v-slot:no-data>
           <v-btn
           color="primary"
@@ -147,38 +221,52 @@
           Reset
           </v-btn>
       </template>
-  </v-data-table-server>
+  </v-data-table>
 </template>
 <script>
 import axios from 'axios'
 
 export default {
   data: () => ({
-      livestocks:[],
-
-      dialog: false,
-      dialogDelete: false,
-      headers: [
-          { title: 'Livestock Type', key: 'livestockType' },
-          { title: 'Age', key: 'age' },
-          { title: 'Age Classification', key: 'ageClass' },
-          { title: 'Sex', key: 'sex' },
-          { title: 'Actions', key: 'actions', sortable: false },
-      ],
-      desserts: [],
-      editedIndex: -1,
-      editedItem: {
-          livestockType: '',
-          age: '',
-          ageClass: '',
-          sex: '',
-      },
-      defaultItem: {
-          livestockType: '',
-          age: '',
-          ageClass: '',
-          sex: '',
-      },
+        livestocks:[],
+        livestocktypes:[],
+        breednames:[],
+        ageClass:[],
+        dialog: false,
+        dialogDelete: false,
+        headers: [
+            { title: 'Livestock', key: 'LivestockTagID' },
+            { title: 'Livestock Type', key: 'livestockType' },
+            { title: 'Age', key: 'age' },
+            { title: 'Age Classification', key: 'ageClass' },
+            { title: 'Breeding Eligibility', key: 'Breeding_Eligibility' },
+            { title: 'Sex', key: 'sex' },
+            { title: 'Actions', key: 'actions', sortable: false },
+        ],
+        desserts: [],
+        editedIndex: -1,
+        editedItem: {
+            FarmerName:'',
+            LivestockTagID: '',
+            livestockType: '',
+            breedName:'',
+            age: '',
+            ageClass: '',
+            sex: '',
+            Date_Of_Birth: new Date().toISOString().substr(0,10),
+            Livestock_Status:'',
+        },
+        defaultItem: {
+            FarmerName:'',
+            LivestockTagID: '',
+            livestockType: '',
+            breedName:'',
+            age: '',
+            ageClass: '',
+            sex: '',
+            Date_Of_Birth: new Date().toISOString().substr(0,10),
+            Livestock_Status:'',
+        },
   }),
   computed: {
       formTitle () {
@@ -193,10 +281,16 @@ export default {
       dialogDelete (val) {
           val || this.closeDelete()
       },
+      'editedItem'(newValue){
+            console.log(newValue.livestockType);
+            this.getLivestockBreeds(newValue.livestockType)
+            this.getLivestockAgeClass(newValue.livestockType)
+        },
   },
 
   created () {
       this.getFarmerLivestock()
+      this.getLivestockTypes()
   },
 
   methods: {
@@ -248,6 +342,33 @@ export default {
           }
           this.close()
       },
+
+      async getLivestockTypes(){
+            try{
+                const response = await axios.get('getLivestockTypes');
+                this.livestocktypes = response.data;
+            }catch(error){
+                console.log(error);
+            }
+        },
+
+        async getLivestockBreeds(typename){
+            try {
+                const response = await axios.get(`/getLivestockBreed/${typename}`);
+                this.breednames = response.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async getLivestockAgeClass(typename){
+            try {
+                const response = await axios.get(`/getLivestockAgeClass/${typename}`);
+                this.ageClass = response.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
   },
 }
 </script>
