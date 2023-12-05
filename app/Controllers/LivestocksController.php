@@ -37,23 +37,31 @@ class LivestocksController extends ResourceController
         try {
             try {
                 $livestockRecords = $this->livestocks
-                    ->select('Livestock_ID, 
-                            Livestock_Type as livestockType, 
-                            Breed_Name as breedName, 
-                            Age_Classification as ageClass,
-                            Age_Days,
-                            Age_Weeks,
-                            Age_Months,
-                            Age_Years,
-                            Sex as sex,
-                            Date_Of_Birth,
+                    ->select('livestocks.Livestock_ID, 
+                            livestocks.Livestock_TagID as LivestockTagID, 
+                            livestocks.Livestock_Type as livestockType, 
+                            livestocks.Breed_Name as breedName, 
+                            livestocks.Age_Classification as ageClass,
+                            livestocks.Age_Days,
+                            livestocks.Age_Weeks,
+                            livestocks.Age_Months,
+                            livestocks.Age_Years,
+                            livestocks.Sex as sex,
+                            livestocks.Breeding_Eligibility,
+                            livestocks.Date_Of_Birth,
+                            livestocks.Livestock_Status,
+                            CONCAT(user_accounts.FirstName, " ", user_accounts.LastName) as FarmerName,
+                            farmerlivestocks.Acquired_Date,
                             CASE
-                                WHEN Age_Days > 0 THEN CONCAT(Age_Days, " days")
-                                WHEN Age_Weeks > 0 THEN CONCAT(Age_Weeks, " weeks")
-                                WHEN Age_Months > 0 THEN CONCAT(Age_Months, " months")
-                                WHEN Age_Years > 0 THEN CONCAT(Age_Years, " years")
+                                WHEN livestocks.Age_Days > 0 THEN CONCAT(livestocks.Age_Days, " days")
+                                WHEN livestocks.Age_Weeks > 0 THEN CONCAT(livestocks.Age_Weeks, " weeks")
+                                WHEN livestocks.Age_Months > 0 THEN CONCAT(livestocks.Age_Months, " months")
+                                WHEN livestocks.Age_Years > 0 THEN CONCAT(livestocks.Age_Years, " years")
                                 ELSE "Unknown Age"
                             END as age')
+                    ->join('farmerlivestocks', 'livestocks.Livestock_ID = farmerlivestocks.Livestock_ID')
+                    ->join('farmer_profile', 'farmer_profile.Farmer_ID = farmerlivestocks.Farmer_ID')
+                    ->join('user_accounts', 'user_accounts.User_ID = farmer_profile.User_ID')
                     ->findAll();
     
                 if($livestockRecords){
@@ -116,6 +124,33 @@ class LivestocksController extends ResourceController
                 ->where($whereClause)
                 ->findAll();
             return $this->respond($vaccinationRecords);
+        } catch (\Throwable $th) {
+            return $this->respond(["error" => "Error: " . $th->getMessage()]);
+        }
+    }
+
+    public function getVaccinationRecords(){
+        try {
+            $whereClause = [
+                'livestock_vaccinations.Record_Status' => 'Accessible'
+            ];
+
+            $vaccinationRecords = $this->getVaccinationRecords
+                ->select('livestock_vaccinations.Vaccination_ID,
+                        livestock_vaccinations.Vaccination_ID as livestockID,
+                        livestock_vaccinations.Vaccination_Name as vaccinationName,
+                        livestock_vaccinations.Vaccination_Description as vaccinationDetails,
+                        livestock_vaccinations.Vaccination_Date as vaccinationDate,
+                        livestock_vaccinations.VaccineAdministratorID,
+                        livestocks.Livestock_TagID as LivestockTagID,
+                        livestocks.Livestock_Type as LivestockType,
+                        CONCAT(user_accounts.FirstName, " ", user_accounts.LastName) as VaccineAdministratorName,')
+                ->join('livestocks','livestocks.Livestock_ID = livestock_vaccinations.Livestock_ID')    
+                ->join('farmer_profile','farmer_profile.Farmer_ID = livestock_vaccinations.VaccineAdministrator_ID') 
+                ->join('user_accounts','user_accounts.User_ID = farmer_profile.User_ID')  
+                ->where($whereClause)
+                ->findAll();
+            return $this->respond($vaccinationRecords);       
         } catch (\Throwable $th) {
             return $this->respond(["error" => "Error: " . $th->getMessage()]);
         }
@@ -198,6 +233,27 @@ class LivestocksController extends ResourceController
                 ->where($whereClause)
                 ->findAll();
             return $this->respond($mortalityRecords);
+        } catch (\Throwable $th) {
+            return $this->respond(["error" => "Error: " . $th->getMessage()]);
+        }
+    }
+
+    public function getLivestockMortalityRecords(){
+        try {
+            $mortalityRecords = $this->getFarmerMortalityRecords
+                ->select('livestock_mortalities.LM_ID,
+                    livestock_mortalities.Livestock_ID as LivestockID, 
+                    livestock_mortalities.Farmer_ID,
+                    livestock_mortalities.Cause_Of_Death as causeOfDeath,
+                    livestock_mortalities.Date_Of_Death as dateOfDeath,
+                    livestocks.Livestock_TagID as LivestockTagID,
+                    livestocks.Livestock_Type as LivestockType,
+                    CONCAT(user_accounts.Firstname, " ", user_accounts.LastName) as FarmerName,')
+                ->join('livestocks','livestocks.Livestock_ID = livestock_mortalities.Livestock_ID')
+                ->join('farmer_profile','farmer_profile.Farmer_ID = livestock_mortalities.Farmer_ID')
+                ->join('user_accounts','user_accounts.User_ID = farmer_profile.User_ID')
+                ->findAll();
+            return $this->respond($mortalityRecords);    
         } catch (\Throwable $th) {
             return $this->respond(["error" => "Error: " . $th->getMessage()]);
         }
@@ -367,29 +423,82 @@ class LivestocksController extends ResourceController
 
             $this->livestockBreedings->save($data);
 
-            $historyData = [
+            $historyData1 = [
                 'Title' => 'Breed Livestock',
-                'Description' => "Breeding of {$maleLivestock} and {$femaleLivestock}",
+                'Description' => "Breeding of {$maleLivestock} to {$femaleLivestock}",
                 'Farmer_ID' => $farmerID,
                 'Livestock_ID' => $maleLivestockID,
                 'Type' => 'Breeding',
                 'Action' => 'Add'
             ];
     
-            $response1 = $this->farmerDataHistory->addDataHistory($historyData);
+            $response1 = $this->farmerDataHistory->addDataHistory($historyData1);
 
-            $historyData = [
+            $historyData2 = [
                 'Title' => 'Breed Livestock',
-                'Description' => "Breeding of {$maleLivestock} and {$femaleLivestock}",
+                'Description' => "Breeding of {$femaleLivestock} to {$maleLivestock}",
                 'Farmer_ID' => $farmerID,
                 'Livestock_ID' => $femaleLivestockID,
                 'Type' => 'Breeding',
                 'Action' => 'Add'
             ];
     
-            $response2 = $this->farmerDataHistory->addDataHistory($historyData);
+            $response2 = $this->farmerDataHistory->addDataHistory($historyData2);
 
-            return $this->respond(["message" => "Record Added Successfully",$farmerID,$response1,$response2,$maleLivestockID]);
+            return $this->respond(["message" => "Record Added Successfully"]);
+        } catch (\Throwable $th) {
+            return $this->respond(["error" => "Error: " . $th->getMessage()]);
+        }
+    }
+
+    public function getLivestockBreedingRecords(){
+        try {
+            $breedingRecords = $this->getLivestockBreedingRecords
+            ->select('livestock_breedings.LB_ID, livestock_breedings.Farmer_ID,
+                        livestock_breedings.MaleLivestock, livestock_breedings.FemaleLivestock,
+                        livestock_breedings.BreedResults, livestock_breedings.BreedNotes,
+                        livestock_breedings.BreedDate,
+                        CONCAT(user_accounts.Firstname, " ", user_accounts.LastName) as FarmerName,')
+            ->join('farmer_profile','farmer_profile.Farmer_ID = livestock_breedings.Farmer_ID')
+            ->join('user_accounts','user_accounts.User_ID = farmer_profile.User_ID')
+            ->where(['livestock_breedings.Record_Status' => 'Accessible'])
+            ->findAll();
+
+            return $this->respond($breedingRecords);
+        } catch (\Throwable $th) {
+            return $this->respond(["error" => "Error: " . $th->getMessage()]);
+        }
+    }
+
+    public function editLivestockBreedingRecord(){
+        try {
+            $LB_ID = $this->request->getVar('LB_ID');
+
+            $data = [
+                'MaleLivestock' => $this->request->getVar('MaleLivestock'),
+                'FemaleLivestock' => $this->request->getVar('FemaleleLivestock'),
+                'BreedResults' => $this->request->getVar('BreedResults'),
+                'BreedNotes' => $this->request->getVar('BreedNotes'),
+                'BreedData' => $this->request->getVar('BreedData'),
+            ];
+
+            $response = $this->livestockBreedings->where('LB_ID', $LB_ID)->set($data)->update();
+
+            return $this->respond(["message" => "Record Updated Succesfully", $response]);
+        } catch (\Throwable $th) {
+            return $this->respond(["error" => "Error: " . $th->getMessage()]);
+        }
+    }
+
+    public function archiveLivestockBreedingRecord(){
+        try{
+            $LB_ID = $this->request->getVar('LB_ID');
+
+            $data['Record_Status'] = 'Archive';
+
+            $this->livestockBreedings->where('LB_ID', $LB_ID)->set($data)->update();
+
+            return $this->respond(["message" => "Record Archived Successfully"]);
         } catch (\Throwable $th) {
             return $this->respond(["error" => "Error: " . $th->getMessage()]);
         }

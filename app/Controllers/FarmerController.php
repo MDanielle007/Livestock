@@ -420,4 +420,29 @@ class FarmerController extends ResourceController
             return $this->respond(["message" => "Error: " . $th->getMessage()]);
         }
     }
+
+  public function getDataHistory(){
+    try {
+        $dataHistory = $this->dataHistory
+            ->select('farmer_data_history.FDH_ID,
+            farmer_data_history.Title,
+            farmer_data_history.Description,
+            farmer_data_history.Type,
+            farmer_data_history.Livestock_ID,
+            farmer_data_history.Action,
+            farmer_data_history.Farmer_ID,
+            farmer_data_history.Timestamp,
+            livestocks.Livestock_TagID,
+            livestocks.Livestock_Type,
+            CONCAT(user_accounts.Firstname, " ", user_accounts.Lastname) as FarmerName,')
+        ->join('livestocks','livestocks.Livestock_ID = farmer_data_history.Livestock_ID')
+        ->join('farmer_profile','farmer_profile.Farmer_ID = farmer_data_history.Farmer_ID')
+        ->join('user_accounts','user_accounts.User_ID = farmer_profile.User_ID')
+        ->findAll();
+        
+    return $this->respond($dataHistory);
+    } catch (\Throwable $th) {
+        return $this->respond(["message" => "Error: " . $th->getMessage()]);
+    }
+  }  
 }
