@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 04, 2023 at 09:33 AM
+-- Generation Time: Dec 07, 2023 at 04:26 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -87,7 +87,8 @@ INSERT INTO `farmerlivestocks` (`FL_ID`, `Farmer_ID`, `Livestock_ID`, `Acquired_
 (22, 1, 25, '2023-12-01', 'Owned', 'Accessible'),
 (23, 1, 26, '2023-12-02', 'Owned', 'Accessible'),
 (24, 1, 27, '2023-12-02', 'Owned', 'Accessible'),
-(25, 1, 28, '2023-12-02', 'Owned', 'Accessible');
+(25, 1, 28, '2023-12-02', 'Owned', 'Accessible'),
+(26, 1, 29, '2023-12-05', 'Owned', 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -180,7 +181,11 @@ INSERT INTO `farmer_data_history` (`FDH_ID`, `Farmer_ID`, `Livestock_ID`, `Actio
 (88, 1, 23, 'Add', 'Breed Livestock', 'Breeding of CTL111 to CTL120', 'Breeding', '2023-12-04 16:16:39', 'Accessible'),
 (89, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL111 to CTL120', 'Breeding', '2023-12-04 16:16:39', 'Accessible'),
 (90, 1, 27, 'Add', 'Breed Livestock', 'Breeding of CTL127 to CTL120', 'Breeding', '2023-12-04 16:23:43', 'Accessible'),
-(91, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL120 to CTL127', 'Breeding', '2023-12-04 16:23:43', 'Accessible');
+(91, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL120 to CTL127', 'Breeding', '2023-12-04 16:23:43', 'Accessible'),
+(92, 1, 29, 'Add', 'Added New Livestock', 'Added a new Pig', 'Livestock', '2023-12-05 09:03:52', 'Accessible'),
+(93, 1, 21, 'Add', 'Report Livestock Mortality', 'Report mortality record of PG108', 'Mortality', '2023-12-05 09:11:37', 'Accessible'),
+(94, 1, 23, 'Add', 'Breed Livestock', 'Breeding of CTL111 to CTL120', 'Breeding', '2023-12-05 09:15:46', 'Accessible'),
+(95, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL120 to CTL111', 'Breeding', '2023-12-05 09:15:46', 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -263,14 +268,15 @@ INSERT INTO `livestocks` (`Livestock_ID`, `Livestock_TagID`, `Livestock_Type`, `
 (18, 'CTL110', 'Cattle', 'Holstein Friesian', 'Heifer', 2, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-26', 'Dead', 'Accessible'),
 (19, 'PG106', 'Pig', 'Duroc', 'Piglet', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-27', 'Alive', 'Archive'),
 (20, 'PG107', 'Pig', 'Duroc', 'Piglet', 3, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-26', 'Dead', 'Accessible'),
-(21, 'PG108', 'Pig', 'Landrace', 'Piglet', 2, 0, 0, 0, 'Female', 'Age-Suited', '2023-11-27', 'Alive', 'Accessible'),
+(21, 'PG108', 'Pig', 'Landrace', 'Piglet', 2, 0, 0, 0, 'Female', 'Age-Suited', '2023-11-27', 'Dead', 'Accessible'),
 (22, 'PG110', 'Pig', 'Duroc', 'Piglet', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-27', 'Alive', 'Accessible'),
 (23, 'CTL111', 'Cattle', 'Holstein Friesian', 'Calf', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-26', 'Alive', 'Accessible'),
 (24, 'PG112', 'Pig', 'Duroc', 'Piglet', 4, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-27', 'Alive', 'Archive'),
 (25, 'PG114', 'Pig', 'Duroc', 'Piglet', 3, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-28', 'Alive', 'Archive'),
 (26, 'PG120', 'Pig', 'Landrace', 'Piglet', 2, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-30', 'Alive', 'Accessible'),
 (27, 'CTL127', 'Cattle', 'Holstein Friesian', 'Calf', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-30', 'Alive', 'Accessible'),
-(28, 'CTL120', 'Cattle', 'Holstein Friesian', 'Calf', 2, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-30', 'Alive', 'Accessible');
+(28, 'CTL120', 'Cattle', 'Holstein Friesian', 'Calf', 2, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-30', 'Alive', 'Accessible'),
+(29, 'PG129', 'Pig', 'Landrace', 'Piglet', 2, 0, 0, 0, '', 'Not Age-Suited', '2023-12-02', 'Alive', 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -378,7 +384,8 @@ INSERT INTO `livestock_breedings` (`LB_ID`, `Farmer_ID`, `MaleLivestock`, `Femal
 (19, 1, 'CTL111', 'CTL120', 'ksbcakj', 'sncskjdnc', '2023-12-02', 'Accessible'),
 (20, 1, 'CTL127', 'CTL120', 'kjcbskdb', 'ksjdbcskjb', '2023-12-02', 'Accessible'),
 (21, 1, 'CTL111', 'CTL120', 'kasnckjasn', 'sdcksjnc', '2023-12-04', 'Accessible'),
-(22, 1, 'CTL127', 'CTL120', 's,cnsnkcjn', 'kjaksjcb', '2023-12-04', 'Accessible');
+(22, 1, 'CTL127', 'CTL120', 's,cnsnkcjn', 'kjaksjcb', '2023-12-04', 'Accessible'),
+(23, 1, 'CTL111', 'CTL120', 'jkfvbjks', 'asjxnak', '2023-12-05', 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -440,7 +447,8 @@ INSERT INTO `livestock_mortalities` (`LM_ID`, `Livestock_ID`, `Farmer_ID`, `Caus
 (8, 14, 1, 'salckn', '2023-11-28', 'Accessible'),
 (9, 16, 1, 'nabalian', '2023-11-28', 'Archive'),
 (10, 18, 1, 'di gumising ng maaga', '2023-11-29', 'Accessible'),
-(11, 20, 1, 'nagutom', '2023-11-29', 'Accessible');
+(11, 20, 1, 'nagutom', '2023-11-29', 'Accessible'),
+(12, 21, 1, 'African Swine Fever', '2023-12-05', 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -482,7 +490,8 @@ INSERT INTO `livestock_types` (`LT_ID`, `Type_Name`, `Livestock_Uses`) VALUES
 (3, 'Goat', 'Meat and milk production'),
 (4, 'Pig', 'Pork production'),
 (5, 'Cattle', 'Beef production'),
-(6, 'Sheep', 'Wool, Meat and Milk Production');
+(6, 'Sheep', 'Wool, Meat and Milk Production'),
+(11, 'Rabbit', 'Meat Production');
 
 -- --------------------------------------------------------
 
@@ -492,6 +501,7 @@ INSERT INTO `livestock_types` (`LT_ID`, `Type_Name`, `Livestock_Uses`) VALUES
 
 CREATE TABLE `livestock_vaccinations` (
   `Vaccination_ID` int NOT NULL,
+  `VaccineAdministratorID` int NOT NULL,
   `Livestock_ID` int NOT NULL,
   `Vaccination_Name` varchar(70) NOT NULL,
   `Vaccination_Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
@@ -503,19 +513,19 @@ CREATE TABLE `livestock_vaccinations` (
 -- Dumping data for table `livestock_vaccinations`
 --
 
-INSERT INTO `livestock_vaccinations` (`Vaccination_ID`, `Livestock_ID`, `Vaccination_Name`, `Vaccination_Description`, `Vaccination_Date`, `Record_Status`) VALUES
-(1, 1, 'vax1', 'vaccine 1', '2023-11-24', 'Archive'),
-(2, 2, 'Vax2', 'Vaccine 2.km.k ', '2023-11-24', 'Archive'),
-(3, 2, 'Vax2', 'Vaccine 2', '2023-11-24', 'Archive'),
-(4, 1, 'Vax 3', 'Vaccine 3', '2023-11-25', 'Archive'),
-(5, 1, 'Vax 3', 'Vaccine 3', '2023-11-25', 'Accessible'),
-(6, 2, 'Vax4', 'Vaccine 4', '2023-11-22', 'Archive'),
-(7, 1, 'Vax 5', 'Vaccine 5', '2023-11-25', 'Accessible'),
-(8, 2, 'Vax5', 'vaccine 5', '2023-11-25', 'Accessible'),
-(9, 11, 'Vax8', 'Vaccine 8', '2023-11-28', 'Archive'),
-(10, 11, 'Vax9', 'Vaccine 9', '2023-11-28', 'Archive'),
-(11, 18, 'Vax11', 'vACCINE 11eufbwnjksdc', '2023-11-29', 'Archive'),
-(12, 21, 'vaccine 10', 'vax 1010', '2023-12-01', 'Accessible');
+INSERT INTO `livestock_vaccinations` (`Vaccination_ID`, `VaccineAdministratorID`, `Livestock_ID`, `Vaccination_Name`, `Vaccination_Description`, `Vaccination_Date`, `Record_Status`) VALUES
+(1, 1, 1, 'vax1', 'vaccine 1', '2023-11-24', 'Archive'),
+(2, 1, 2, 'Vax2', 'Vaccine 2.km.k ', '2023-11-24', 'Archive'),
+(3, 1, 2, 'Vax2', 'Vaccine 2', '2023-11-24', 'Archive'),
+(4, 1, 1, 'Vax 3', 'Vaccine 3', '2023-11-25', 'Archive'),
+(5, 1, 1, 'Vax 3', 'Vaccine 3', '2023-11-25', 'Accessible'),
+(6, 1, 2, 'Vax4', 'Vaccine 4', '2023-11-22', 'Archive'),
+(7, 1, 1, 'Vax 5', 'Vaccine 5', '2023-11-25', 'Accessible'),
+(8, 1, 2, 'Vax5', 'vaccine 5', '2023-11-25', 'Accessible'),
+(9, 1, 11, 'Vax8', 'Vaccine 8', '2023-11-28', 'Archive'),
+(10, 1, 11, 'Vax9', 'Vaccine 9', '2023-11-28', 'Archive'),
+(11, 1, 18, 'Vax11', 'vACCINE 11eufbwnjksdc', '2023-11-29', 'Archive'),
+(12, 1, 21, 'vaccine 10', 'vax 1010', '2023-12-01', 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -689,7 +699,8 @@ ALTER TABLE `livestock_types`
 --
 ALTER TABLE `livestock_vaccinations`
   ADD PRIMARY KEY (`Vaccination_ID`),
-  ADD KEY `Livestock_ID` (`Livestock_ID`);
+  ADD KEY `Livestock_ID` (`Livestock_ID`),
+  ADD KEY `VaccineAdministratorID` (`VaccineAdministratorID`);
 
 --
 -- Indexes for table `sold_livestocks`
@@ -719,7 +730,7 @@ ALTER TABLE `da_personnels`
 -- AUTO_INCREMENT for table `farmerlivestocks`
 --
 ALTER TABLE `farmerlivestocks`
-  MODIFY `FL_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `FL_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `farmer_cerficates`
@@ -731,7 +742,7 @@ ALTER TABLE `farmer_cerficates`
 -- AUTO_INCREMENT for table `farmer_data_history`
 --
 ALTER TABLE `farmer_data_history`
-  MODIFY `FDH_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `FDH_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `farmer_profile`
@@ -749,7 +760,7 @@ ALTER TABLE `livestockbacthes`
 -- AUTO_INCREMENT for table `livestocks`
 --
 ALTER TABLE `livestocks`
-  MODIFY `Livestock_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `Livestock_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `livestock_age_classification`
@@ -767,7 +778,7 @@ ALTER TABLE `livestock_batch_associations`
 -- AUTO_INCREMENT for table `livestock_breedings`
 --
 ALTER TABLE `livestock_breedings`
-  MODIFY `LB_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `LB_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `livestock_breeds`
@@ -779,7 +790,7 @@ ALTER TABLE `livestock_breeds`
 -- AUTO_INCREMENT for table `livestock_mortalities`
 --
 ALTER TABLE `livestock_mortalities`
-  MODIFY `LM_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `LM_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `livestock_sales`
@@ -791,13 +802,13 @@ ALTER TABLE `livestock_sales`
 -- AUTO_INCREMENT for table `livestock_types`
 --
 ALTER TABLE `livestock_types`
-  MODIFY `LT_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `LT_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `livestock_vaccinations`
 --
 ALTER TABLE `livestock_vaccinations`
-  MODIFY `Vaccination_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Vaccination_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `sold_livestocks`
@@ -897,7 +908,8 @@ ALTER TABLE `livestock_sales`
 -- Constraints for table `livestock_vaccinations`
 --
 ALTER TABLE `livestock_vaccinations`
-  ADD CONSTRAINT `livestock_vaccinations_ibfk_1` FOREIGN KEY (`Livestock_ID`) REFERENCES `livestocks` (`Livestock_ID`);
+  ADD CONSTRAINT `livestock_vaccinations_ibfk_1` FOREIGN KEY (`Livestock_ID`) REFERENCES `livestocks` (`Livestock_ID`),
+  ADD CONSTRAINT `livestock_vaccinations_ibfk_2` FOREIGN KEY (`VaccineAdministratorID`) REFERENCES `farmer_profile` (`Farmer_ID`);
 
 --
 -- Constraints for table `sold_livestocks`
