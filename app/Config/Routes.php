@@ -13,16 +13,20 @@ $routes->get('/getLivestockAgeClass/(:any)', 'GeneralController::getLivestockAge
 $routes->get('/getLivestockForBreeding/(:any)', 'LivestocksController::getLivestockForBreeding/$1');
 
 $routes->group('apiCharts',static function($routes){
-    $routes->post('/getLivestockPopulationProgression', 'VisualizationController::getLivestockPopulationProgression');
-    $routes->post('/getFarmerLivestockPopulationProgression', 'VisualizationController::getFarmerLivestockPopulationProgression');
-    $routes->post('/getLivestockTypePopulationProgression', 'VisualizationController::getLivestockTypePopulationProgression');
-    $routes->post('/getFarmerLivestockTypePopulationProgression', 'VisualizationController::getFarmerLivestockTypePopulationProgression');
-    $routes->post('/getLivestockMortality', 'VisualizationController::getLivestockMortality');
-    $routes->post('/getFarmerLivestockMortality', 'VisualizationController::getFarmerLivestockMortality');
-    $routes->post('/getLivestockTypePopulationProgression', 'VisualizationController::getLivestockTypePopulationProgression');
-    $routes->post('/getFarmerLivestockTypePopulationProgression', 'VisualizationController::getFarmerLivestockTypePopulationProgression');
-    $routes->post('/getLivestockTypeMortality', 'VisualizationController::getLivestockTypeMortality');
-    $routes->post('/getFarmerLivestockTypeMortality', 'VisualizationController::getFarmerLivestockTypeMortality');
+    $routes->get('getLivestockPopulationProgression', 'VisualizationController::getLivestockPopulationProgression');
+    $routes->post('getFarmerLivestockPopulationProgression', 'VisualizationController::getFarmerLivestockPopulationProgression');
+    $routes->get('getLivestockBreedingProgression', 'VisualizationController::getLivestockBreedingProgression');
+    $routes->get('getLivestockMortality', 'VisualizationController::getLivestockMortality');
+    $routes->get('getLivestockVaccinationProgression', 'VisualizationController::getLivestockVaccinationProgression');
+
+
+    // Farmer Charts
+    $routes->get('getFarmerLivestockPopulationProgression/(:any)', 'VisualizationController::getFarmerLivestockPopulationProgression/$1');
+    $routes->get('getFarmerLivestockPopulationProgressionAgeClass/(:any)', 'VisualizationController::getFarmerLivestockPopulationProgressionAgeClass/$1');
+
+
+    // testing
+    $routes->get('getLivestockTypePopulationProgression', 'VisualizationController::getLivestockTypePopulationProgression');
 });
 
 $routes->group('admin',static function($routes){
@@ -38,6 +42,20 @@ $routes->group('admin',static function($routes){
     $routes->post('removeLivestockBreed', 'AdminController::removeLivestockBreed');
     $routes->get('getAllLivestock', 'LivestocksController::getAllLivestock');
     $routes->get('getLivestockTypes','LivestocksController::getLivestockTypes');
+    
+    // Admin Livestock Breeding Records
+    $routes->get('getLivestockBreedingRecords','LivestocksController::getLivestockBreedingRecords');
+    $routes->post('editLivestockBreedingRecord','LivestocksController::editLivestockBreedingRecord');
+    $routes->post('archiveLivestockBreedingRecord','LivestocksController::archiveLivestockBreedingRecord');
+
+    // Admin Livestock Mortality Records
+    $routes->get('getLivestockMortalityRecords','LivestocksController::getLivestockMortalityRecords');
+    
+    // Admin Livestock Vaccination Records
+    $routes->get('getVaccinationRecords','LivestocksController::getVaccinationRecords');
+
+    // Audit Trail
+    $routes->get('getDataHistory','FarmerController::getDataHistory');
 });
 
 $routes->group('farmer',static function($routes){

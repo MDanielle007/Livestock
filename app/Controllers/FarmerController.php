@@ -413,6 +413,7 @@ class FarmerController extends ResourceController
                 ->select('Title,Description,Type,Timestamp')
                 ->where('Farmer_ID',$farmerID)
                 ->whereNotIn('Action',$whereNotInClause)
+                ->orderBy('Timestamp','DESC')
                 ->findAll();
             
             return $this->respond($dataHistory);
