@@ -338,9 +338,41 @@ class VisualizationController extends ResourceController
     //     }
     // }
 
+    // public function getLivestockTypePopulationProgression1() {
+    //     try {
+    //         $livestockCounts = $this->livestocks
+    //             ->select("DATE_FORMAT(Date_Of_Birth, '%Y-%m-%d') as month, Livestock_Type, COUNT(*) as count")
+    //             ->groupBy("DATE_FORMAT(Date_Of_Birth, '%Y-%m-%d'), Livestock_Type")
+    //             ->orderBy("DATE_FORMAT(Date_Of_Birth, '%Y-%m-%d') ASC")
+    //             ->findAll();
+
+    //         if ($livestockCounts) {
+                
+    //             $labels = []; 
+    //             $data = []; 
+
+    //             foreach ($livestockCounts as $count) {
+    //                 $labels[] = $count['date'];
+    //                 $data[] = $count['count'];
+    //             }
+
+    //             $chartData = [
+    //                 'labels' => $labels,
+    //                 'data' => $data,
+    //             ];
+
+    //             return $this->respond($chartData, 200);
+    //         } else {
+    //             return $this->respond(['error' => 'No data found.']);
+    //         }
+    //     } catch (\Throwable $e) {
+    //         return $this->respond(["message" => "Error: " . $e->getMessage()]);
+    //     }
+    // }
+
     public function getLivestockTypePopulationProgression() {
         $livestockCounts = $this->livestocks
-            ->select("DATE_FORMAT(Date_Of_Birth, '%Y-%m-%d') as month, Livestock_Type, COUNT(*) as count")
+            ->select("DATE_FORMAT(Date_Of_Birth, '%Y-%m-%d') as date, Livestock_Type, COUNT(*) as count")
             ->groupBy("DATE_FORMAT(Date_Of_Birth, '%Y-%m-%d'), Livestock_Type")
             ->orderBy("DATE_FORMAT(Date_Of_Birth, '%Y-%m-%d') ASC")
             ->findAll();
@@ -349,7 +381,7 @@ class VisualizationController extends ResourceController
             $series = [];
     
             foreach ($livestockCounts as $count) {
-                $month = $count['month'];
+                $date = $count['date']; // Convert date to Unix timestamp
                 $type = $count['Livestock_Type'];
     
                 // Initialize the series if not exists
@@ -361,11 +393,11 @@ class VisualizationController extends ResourceController
                 }
     
                 // Add data to the series
-                $series[$type]['data'][$month] = $count['count'];
+                $series[$type]['data'][$date] = $count['count'];
             }
     
             $chartData = [
-                'labels' => array_unique(array_column($livestockCounts, 'month')),
+                'labels' => array_values(array_unique(array_column($livestockCounts, 'month'))),
                 'series' => array_values($series),
             ];
     
@@ -374,6 +406,7 @@ class VisualizationController extends ResourceController
             return $this->respond(['error' => 'No data found.'], 404);
         }
     }
+    
     
 
     public function getFarmerLivestockTypePopulationProgression() {

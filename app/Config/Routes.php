@@ -11,6 +11,7 @@ $routes->get('/getLivestockTypes', 'GeneralController::getLivestockTypes');
 $routes->get('/getLivestockBreed/(:any)', 'GeneralController::getLivestockBreed/$1');
 $routes->get('/getLivestockAgeClass/(:any)', 'GeneralController::getLivestockAgeClass/$1');
 $routes->get('/getLivestockForBreeding/(:any)', 'LivestocksController::getLivestockForBreeding/$1');
+$routes->get('/getFarmerNames', 'GeneralController::getFarmerNames');
 
 $routes->group('apiCharts',static function($routes){
     $routes->get('getLivestockPopulationProgression', 'VisualizationController::getLivestockPopulationProgression');
@@ -56,6 +57,9 @@ $routes->group('admin',static function($routes){
 
     // Audit Trail
     $routes->get('getDataHistory','FarmerController::getDataHistory');
+
+    // Livestock Advisory
+    $routes->post('createAdvisory','AdvisoryController::createAdvisory');
 });
 
 $routes->group('farmer',static function($routes){
