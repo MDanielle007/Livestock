@@ -16,7 +16,7 @@
         data: [21, 22, 10, 28, 16, 21, 13, 30],
       }],
       chart: {
-        height: 350,
+        height: 250,
         type: 'bar',
         events: {
           click: function (chart, w, e) {
@@ -51,7 +51,7 @@
         labels: {
           style: {
             colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#26a69a', '#D10CE8'],
-            fontSize: '12px',
+            fontSize: '8px',
           },
         },
       },

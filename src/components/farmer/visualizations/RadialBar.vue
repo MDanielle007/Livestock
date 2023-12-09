@@ -1,5 +1,5 @@
 <template>
-    <div id="chart">
+    <div id="chart" >
       <div ref="RadialBar"></div>
     </div>
   </template>
@@ -14,7 +14,7 @@
     let RadialBarChart = new ApexCharts(RadialBar.value, {
       series: [76, 67, 61, 90, 80],
       chart: {
-        height: 370,
+        height: 180,
         type: 'radialBar',
       },
       plotOptions: {
@@ -43,7 +43,7 @@
       legend: {
         show: true,
         floating: true,
-        fontSize: '16px',
+        fontSize: '8px',
         position: 'right',
         offsetX: 200,
         offsetY: 3,

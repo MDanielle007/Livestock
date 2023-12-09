@@ -14,27 +14,34 @@
     let BarChart = new ApexCharts(Bar.value, {
       series: [
         {
-          name: 'Net Profit',
+          name: 'Cattle',
           data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
         },
         {
-          name: 'Revenue',
+          name: 'Chicken',
           data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
         },
         {
-          name: 'Free Cash Flow',
+          name: 'Sheep',
+          data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+        },
+        {
+          name: 'Lamb',
           data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
         },
       ],
       chart: {
         type: 'bar',
         height: 350,
+        
       },
       plotOptions: {
         bar: {
           horizontal: false,
           columnWidth: '55%',
           endingShape: 'rounded',
+          
+          
         },
       },
       dataLabels: {
@@ -50,12 +57,13 @@
       },
       yaxis: {
         title: {
-          text: '$ (thousands)',
+          text: '',
         },
       },
       fill: {
         opacity: 1,
       },
+      colors:['#4269E2', '#2337C6', '#0604AB', '#021273'],
       tooltip: {
         y: {
           formatter: function (val) {

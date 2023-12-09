@@ -14,20 +14,27 @@
     let SplineChart = new ApexCharts(SplineArea.value, {
       series: [
         {
-          name: 'series1',
+          name: 'Population Rate',
           data: [31, 40, 28, 51, 42, 109, 100],
         },
         {
-          name: 'series2',
+          name: 'Mortality Rate',
           data: [11, 32, 45, 32, 34, 52, 41],
         },
       ],
       chart: {
         height: '350',
-        type: 'area',
       },
+      title: {
+          text: 'Dynamic Updating Chart',
+          align: 'left'
+        },
       dataLabels: {
         enabled: false,
+      },
+      colors:['#EB8C00', '#142195'],
+      fill: {
+      colors: ['', '']
       },
       stroke: {
         curve: 'smooth',

@@ -12,12 +12,13 @@
   
   onMounted(() => {
     let PieChart = new ApexCharts(Pie.value, {
-      series: [44, 55, 13, 43, 22],
+      series: [44, 55, 13, 43],
       chart: {
         width: 360,
         type: 'pie',
+        
       },
-      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+      labels: ['Chicken', 'Cattle', 'Sheep', 'Lamb'],
       responsive: [
         {
           breakpoint: 480,
@@ -31,6 +32,7 @@
           },
         },
       ],
+      colors:['#F17720', '#FFA630', '#00A7E1', '#0474BA']
     });
   
     PieChart.render();
