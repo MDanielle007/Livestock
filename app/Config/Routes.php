@@ -60,6 +60,7 @@ $routes->group('admin',static function($routes){
 
     // Livestock Advisory
     $routes->post('createAdvisory','AdvisoryController::createAdvisory');
+    $routes->get('getAdvisories','AdvisoryController::getAdvisories');
 });
 
 $routes->group('farmer',static function($routes){
@@ -89,4 +90,6 @@ $routes->group('farmer',static function($routes){
     $routes->get('getFarmerDataHistory/(:any)','FarmerController::getFarmerDataHistory/$1');
     $routes->get('getFarmerAccountData/(:any)','UserController::getFarmerAccountData/$1');
     $routes->post('recordBreeding','LivestocksController::recordBreeding');
+    $routes->get('getFarmerNotification/(:any)','AdvisoryController::getFarmerNotification/$1');
+
 });

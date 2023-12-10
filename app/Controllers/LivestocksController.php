@@ -135,7 +135,7 @@ class LivestocksController extends ResourceController
                 'livestock_vaccinations.Record_Status' => 'Accessible'
             ];
 
-            $vaccinationRecords = $this->getVaccinationRecords
+            $vaccinationRecords = $this->vaccination
                 ->select('livestock_vaccinations.Vaccination_ID,
                         livestock_vaccinations.Vaccination_ID as livestockID,
                         livestock_vaccinations.Vaccination_Name as vaccinationName,
@@ -146,7 +146,7 @@ class LivestocksController extends ResourceController
                         livestocks.Livestock_Type as LivestockType,
                         CONCAT(user_accounts.FirstName, " ", user_accounts.LastName) as VaccineAdministratorName,')
                 ->join('livestocks','livestocks.Livestock_ID = livestock_vaccinations.Livestock_ID')    
-                ->join('farmer_profile','farmer_profile.Farmer_ID = livestock_vaccinations.VaccineAdministrator_ID') 
+                ->join('farmer_profile','farmer_profile.Farmer_ID = livestock_vaccinations.VaccineAdministratorID') 
                 ->join('user_accounts','user_accounts.User_ID = farmer_profile.User_ID')  
                 ->where($whereClause)
                 ->findAll();
@@ -240,7 +240,7 @@ class LivestocksController extends ResourceController
 
     public function getLivestockMortalityRecords(){
         try {
-            $mortalityRecords = $this->getFarmerMortalityRecords
+            $mortalityRecords = $this->mortalityRecords 
                 ->select('livestock_mortalities.LM_ID,
                     livestock_mortalities.Livestock_ID as LivestockID, 
                     livestock_mortalities.Farmer_ID,
@@ -453,7 +453,7 @@ class LivestocksController extends ResourceController
 
     public function getLivestockBreedingRecords(){
         try {
-            $breedingRecords = $this->getLivestockBreedingRecords
+            $breedingRecords = $this->livestockBreedings
             ->select('livestock_breedings.LB_ID, livestock_breedings.Farmer_ID,
                         livestock_breedings.MaleLivestock, livestock_breedings.FemaleLivestock,
                         livestock_breedings.BreedResults, livestock_breedings.BreedNotes,
