@@ -4,14 +4,17 @@
     </div>
     <v-sheet class="bg-transparent">
         <v-row no-gutters>
+            <v-col cols="12" class="py-2 px-1" >
+                <AreaSpline :chartData="livestockPopulationData" :chartTitle="'Livestock Population'" :height="280" seriesName="Population Rate"/>
+            </v-col>
             <v-col cols="12" sm="6" md="4" class="py-2 px-1" >
-                <AreaSpline :chartData="livestockPopulationData" :chartTitle="'Livestock Population'" :height="'auto'" seriesName="Population Rate"/>
+                <AreaSpline :chartData="livestockVaccinationData" :chartTitle="'Livestock Vaccination'" :height="'auto'" seriesName="Population Rate" :seriesColors="['#49FF00']"/>
             </v-col>
             <v-col cols="12" sm="6" md="4" class="py-2 px-1">
-                <AreaSpline :chartData="livestockBreedingRateData" :chartTitle="'Livestock Breeding Rate'" :height="'auto'" seriesName="Breeding Rate"/>
+                <AreaSpline :chartData="livestockBreedingRateData" :chartTitle="'Livestock Breeding Rate'" :height="'auto'" seriesName="Breeding Rate" :seriesColors="['#EE7214']"/>
             </v-col>
             <v-col cols="12" sm="6" md="4" class="py-2 px-1" >
-                <AreaSpline :chartData="livestockMortalityData" :chartTitle="'Livestock Mortality Rate'" :height="'auto'" seriesName="Mortality Rate"/>
+                <AreaSpline :chartData="livestockMortalityData" :chartTitle="'Livestock Mortality Rate'" :height="'auto'" seriesName="Mortality Rate" :seriesColors="['#FE6363']"/>
             </v-col>
         </v-row>
 
@@ -59,6 +62,7 @@
 </template>
 <script>
 import AreaSpline from '@/components/general/charts/AreaSpline.vue'
+import AreaSplineManySeries from '@/components/general/charts/AreaSplineManySeries.vue'
 import MetricCard from '@/components/general/commons/MetricCard.vue'
 import LivestockTable from '@/components/admin/tables/LivestockTable.vue'
 import axios from 'axios'
@@ -70,6 +74,8 @@ export default {
             livestockPopulationData: null,
             livestockBreedingRateData: null,
             livestockMortalityData: null,
+            livestockVaccinationData: null,
+            livestockTypePopulationData: null,
             loading: true,
             error: null,
         }
@@ -77,7 +83,8 @@ export default {
     components:{
         AreaSpline,
         MetricCard,
-        LivestockTable
+        LivestockTable,
+        AreaSplineManySeries
     },
     methods:{
         async getLivestockPopulationData(){
@@ -112,12 +119,37 @@ export default {
             } finally {
                 this.loading = false;
             }
-        }
+        },
+        async getLivestockVaccinationData(){
+            try {
+                const response = await axios.get('apiCharts/getLivestockVaccinationProgression');
+                this.livestockVaccinationData = response.data;
+            } catch (error) {
+                console.error('Error fetching livestock vaccination data:', error);
+                this.error = 'Failed to fetch livestock vaccination data.';
+            } finally {
+                this.loading = false;
+            }
+        },
+        async getLivestockTypePopulationProgression(){
+            try {
+                const response = await axios.get('apiCharts/getLivestockTypePopulationProgression');
+                this.livestockTypePopulationData = response.data;
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error fetching livestock vaccination data:', error);
+                this.error = 'Failed to fetch livestock vaccination data.';
+            } finally {
+                this.loading = false;
+            }
+        },
     },
     created(){
         this.getLivestockPopulationData()
         this.getLivestockBreedingRateData()
         this.getLivestockMortalityData()
+        this.getLivestockVaccinationData()
+        this.getLivestockTypePopulationProgression()
     }
 }
 </script>

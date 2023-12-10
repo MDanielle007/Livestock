@@ -19,6 +19,8 @@ import LivestockTable from '@/components/admin/tables/LivestockTable.vue';
 import LivestockTypesTable from '@/components/admin/tables/LivestockTypesTable.vue';
 import AdminBreedingMonitoring from '@/views/admin/contents/AdminBreedingMonitoring.vue'
 import AdminMortalityMonitoring from '@/views/admin/contents/AdminMortalityMonitoring.vue'
+import AdminVaccinationMonitoring from '@/views/admin/contents/AdminVaccinationMonitoring.vue'
+import AdminLivestockAdvisories from '@/views/admin/contents/AdminLivestockAdvisories.vue'
 
 
 // Farmer Portal Routes
@@ -79,6 +81,11 @@ const routes = [
         component: AdminLivestockManagement,
       },
       {
+        path:'vaccination-monitoring',
+        name:'admin-vaccination-monitoring',
+        component: AdminVaccinationMonitoring,
+      },
+      {
         path:'breeding-monitoring',
         name:'admin-breeding-monitoring',
         component: AdminBreedingMonitoring,
@@ -97,6 +104,11 @@ const routes = [
         path:'audit',
         name:'admin-audit-trail',
         component:AdminAuditTrail
+      },
+      {
+        path:'advisories',
+        name:'admin-livestock-advisories',
+        component:AdminLivestockAdvisories
       },
       {
         path:'user-management',

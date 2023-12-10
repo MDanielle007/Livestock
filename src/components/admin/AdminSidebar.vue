@@ -59,6 +59,12 @@
                         </v-list-item>
                         <v-list-item 
                             class=" text-subtitle-2 rounded ma-1"
+                            :to="{name:'admin-vaccination-monitoring'}" 
+                            :class="{ 'active-item': $route.name === 'admin-vaccination-monitoring' }">
+                            Vaccination Monitoring
+                        </v-list-item>
+                        <v-list-item 
+                            class=" text-subtitle-2 rounded ma-1"
                             :to="{name:'admin-breeding-monitoring'}" 
                             :class="{ 'active-item': $route.name === 'admin-breeding-monitoring' }">
                             Breeding Monitoring
@@ -87,6 +93,14 @@
                 :to="{name:'admin-audit-trail'}" 
                 :class="{ 'active-item': $route.name === 'admin-audit-trail' }" 
                 >Audit Trail</v-list-item>
+            </v-list-item>
+
+            <v-list-item>
+                <v-list-item prepend-icon="fa-solid fa-bullhorn" 
+                value="reporting-analytics" 
+                :to="{name:'admin-livestock-advisories'}" 
+                :class="{ 'active-item': $route.name === 'admin-livestock-advisories' }" 
+                >Livestock Advisories</v-list-item>
             </v-list-item>
 
             <v-list-item>

@@ -1,5 +1,6 @@
 <template>
     <v-sheet class="bg-transparent">
+        <h1>Livestock Breeding Monitoring</h1>
         <v-row>
             <v-col cols="12" >
                 <AreaSpline :chartData="livestockBreedingRateData" :chartTitle="'Livestock Breeding Rate'" :height="280" seriesName="Breeding Rate"/>
