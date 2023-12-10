@@ -1,5 +1,5 @@
 <template>
-    <v-layout class="h-100" style="background-color: #F5F5F5">
+    <v-layout class="h-100" style="background-color: #F9FBFD">
         <AdminSidebar
             v-model="drawerVisible"
             style="position: fixed;"

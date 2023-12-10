@@ -8,9 +8,9 @@
         <v-list-item
              height="70">
             <v-img 
-            height="55"
-            width="55"
-            :src="require('@/assets/images/3HEADS OUTLINE.png')"
+            height="60"
+            width="60"
+            :src="require('@/assets/images/logo.jpg')"
             ></v-img>
         </v-list-item>
 

@@ -1,7 +1,11 @@
 <template>
-    <div id="chart">
+  <v-card style="height: 420px;">
+    <v-card-title>Annually Rate</v-card-title>
+   <div id="chart" >
       <div ref="Bar"></div>
-    </div>
+    </div> 
+  </v-card>
+    
   </template>
   
   <script setup>

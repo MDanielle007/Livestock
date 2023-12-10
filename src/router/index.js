@@ -21,6 +21,7 @@ import AdminBreedingMonitoring from '@/views/admin/contents/AdminBreedingMonitor
 import AdminMortalityMonitoring from '@/views/admin/contents/AdminMortalityMonitoring.vue'
 import AdminVaccinationMonitoring from '@/views/admin/contents/AdminVaccinationMonitoring.vue'
 import AdminLivestockAdvisories from '@/views/admin/contents/AdminLivestockAdvisories.vue'
+import AdminProfilePage from '@/views/admin/contents/AdminProfilePage.vue'
 
 
 // Farmer Portal Routes
@@ -119,6 +120,11 @@ const routes = [
         path:'register-user',
         name:'register-account',
         component:AdminRegisterAccount
+      },
+      {
+        path:'profile',
+        name:'admin-profile',
+        component:AdminProfilePage
       }
     ]
   },

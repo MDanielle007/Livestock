@@ -1,7 +1,7 @@
 <template>
-    <div id="chart">
+    <v-card class="pa-3">
       <div ref="Pie"></div>
-    </div>
+    </v-card>
   </template>
   
   <script setup>
@@ -14,17 +14,32 @@
     let PieChart = new ApexCharts(Pie.value, {
       series: [44, 55, 13, 43],
       chart: {
-        width: 360,
+       
         type: 'pie',
+        height: '370'
         
       },
       labels: ['Chicken', 'Cattle', 'Sheep', 'Lamb'],
+      legend: {
+        show: true,
+        position: 'bottom',
+        labels: {
+          useSeriesColors: true,
+        },
+        formatter: function (seriesName, opts) {
+          return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex];
+        },
+        itemMargin: {
+          vertical: 3,
+        },
+      },
       responsive: [
         {
           breakpoint: 480,
           options: {
             chart: {
-              width: 200,
+              height: 350,
+              
             },
             legend: {
               position: 'bottom',

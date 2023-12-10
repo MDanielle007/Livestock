@@ -5,28 +5,21 @@
       :sort-by="[{ key: 'calories', order: 'asc' }]"
     >
       <template v-slot:top>
-        <v-toolbar
-          flat
-        >
-          <v-toolbar-title>My CRUD</v-toolbar-title>
-          <v-divider
-            class="mx-4"
-            inset
-            vertical
-          ></v-divider>
-          <v-spacer></v-spacer>
+        <v-toolbar class="bg-orange-darken-4">
+          <v-toolbar-title >Livestock</v-toolbar-title>
           <v-dialog
             v-model="dialog"
             max-width="500px"
           >
             <template v-slot:activator="{ props }">
               <v-btn
-                color="primary"
+                
+                color="white"
                 dark
                 class="mb-2"
                 v-bind="props"
               >
-                New Item
+                Add new record
               </v-btn>
             </template>
             <v-card>

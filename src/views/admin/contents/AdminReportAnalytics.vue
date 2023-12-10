@@ -8,71 +8,78 @@
                 <p class="text-h6 text-left">
                     Municipalities of Oriental Mindoro
                 </p>
-                <v-col>
-                    <p class="text-subtitle-2 text-right">
-                        See more
-                    </p>
-                </v-col>
-
             </v-row>
 
             <v-row>
                 <v-col>
-                    <v-card
-                      class="mx-auto"
-                      max-width="400"
-                      height="140"
-                      title="Cattle"
-                      subtitle="Livestock Inventory Today"
-                    >
-                      <v-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</v-card-text>
-                    </v-card>
+                    <v-card class="mx-auto" max-width="500" height="auto">
+                    <div >
+                        <v-card-title class="pa-0 ml-3 mt-3">
+                            Puerto Galera
+                        </v-card-title>
+                    </div>
+                    <div class="d-flex" >
+                       <v-card-subtitle >Total Livestock</v-card-subtitle>
+                       <p class="font-weight-bold ml-10 text-orange-darken-4 text-h4"> 26%</p>
+                    </div>
+                    <div>
+                      <LineGradient/>  
+                    </div>
+                    </v-card>  
                 </v-col>
 
-                <v-col >
-                    <v-card
-                      class="mx-auto"
-                      max-width="400"
-                      height="140"
-                      title="Cattle"
-                      subtitle="Livestock Inventory Today"
-                    >
-                      <v-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</v-card-text>
-                    </v-card>
-                </v-col>
-            
-                <v-col >
-                    <v-card
-                      class="mx-auto"
-                      max-width="400"
-                      height="140"
-                      title="Cattle"
-                      subtitle="Livestock Inventory Today"
-                    >
-                      <v-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</v-card-text>
-                    </v-card>
+                <v-col>
+                    <v-card class="mx-auto" max-width="500" height="auto">
+                    <div >
+                        <v-card-title class="pa-0 ml-3 mt-3">
+                            Puerto Galera
+                        </v-card-title>
+                    </div>
+                    <div class="d-flex" >
+                       <v-card-subtitle >Total Livestock</v-card-subtitle>
+                       <p class="font-weight-bold ml-10 text-orange-darken-4 text-h4"> 26%</p>
+                    </div>
+                    <div>
+                      <LineGradient/>  
+                    </div>
+                    </v-card>  
                 </v-col>
 
-                <v-col >
-                    <v-card
-                      class="mx-auto"
-                      max-width="400"
-                      height="140"
-                      title="Cattle"
-                      subtitle="Livestock Inventory Today"
-                    >
-                      <v-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="8">
-                    <v-sheet>
-                        <MultipleYAxis/>
-                    </v-sheet>
+                <v-col>
+                    <v-card class="mx-auto" max-width="500" height="auto">
+                    <div >
+                        <v-card-title class="pa-0 ml-3 mt-3">
+                            Puerto Galera
+                        </v-card-title>
+                    </div>
+                    <div class="d-flex" >
+                       <v-card-subtitle >Total Livestock</v-card-subtitle>
+                       <p class="font-weight-bold ml-10 text-orange-darken-4 text-h4"> 26%</p>
+                    </div>
+                    <div>
+                      <LineGradient/>  
+                    </div>
+                    </v-card>  
                 </v-col>
 
-            
+               <v-col>
+                    <v-card class="mx-auto" max-width="500" height="auto">
+                    <div >
+                        <v-card-title class="pa-0 ml-3 mt-3">
+                            Puerto Galera
+                        </v-card-title>
+                    </div>
+                    <div class="d-flex" >
+                       <v-card-subtitle >Total Livestock</v-card-subtitle>
+                       <p class="font-weight-bold ml-10 text-orange-darken-4 text-h4"> 26%</p>
+                    </div>
+                    <div>
+                      <LineGradient/>  
+                    </div>
+                    </v-card>  
+                </v-col>
+
+                
             </v-row>
             <v-row>
                 <v-col>
@@ -85,12 +92,14 @@
 <script>
 import MultipleYAxis from '../../../components/admin/visualizations/MultipleYAxis.vue'
 import ReportAnalysisTable from '../../../components/admin/tables/ReportAnalysisTable.vue'
+import LineGradient from '../../../components/admin/visualizations/LineGradient.vue'
 
 export default{
     name:'AdminReportAnalytics',
     components:{
         MultipleYAxis, 
-        ReportAnalysisTable
+        ReportAnalysisTable,
+        LineGradient,
     }
 }
 </script>

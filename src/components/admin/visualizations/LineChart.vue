@@ -18,6 +18,7 @@
       }],
       chart: {
         height: 350,
+        width: 550,
         type: 'line',
         zoom: {
           enabled: false,
@@ -29,13 +30,9 @@
       stroke: {
         curve: 'straight',
       },
-      title: {
-        text: 'Product Trends by Month',
-        align: 'left',
-      },
       grid: {
         row: {
-          colors: ['#f3f3f3', 'transparent'],
+          colors: [ 'transparent'],
           opacity: 0.5,
         },
       },

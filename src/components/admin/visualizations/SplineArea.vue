@@ -1,63 +1,125 @@
 <template>
-    <div id="chart">
-      <div ref="SplineArea"></div>
-    </div>
-  </template>
+  <v-card   style="height: 525px;">
+    <v-row >
+          <div>
+            <v-col class="mt-3 ml-2">
+              <v-card-title>Annually Rate</v-card-title>
+            </v-col>
+          </div>
+            <v-col cols=" 3" class="d-flex justify-end ma-5">
+                  <v-select
+                  v-model="select"
+                  :hint="`${select.state}, ${select.abbr}`"
+                  :items="items"
+                  item-title="state"
+                  item-value="abbr"
+                  label="Select"
+                  persistent-hint
+                  return-object
+                  single-line
+                ></v-select>
+          </v-col>
+    </v-row>
   
-  <script setup>
-  import { onMounted, ref } from 'vue';
-  import ApexCharts from 'apexcharts';
-  
-  const SplineArea = ref(null);
-  
-  onMounted(() => {
-    let SplineChart = new ApexCharts(SplineArea.value, {
-      series: [
-        {
-          name: 'Population Rate',
-          data: [31, 40, 28, 51, 42, 109, 100],
-        },
-        {
-          name: 'Mortality Rate',
-          data: [11, 32, 45, 32, 34, 52, 41],
-        },
+    <v-row>
+      <v-col >
+        <div ref="SplineArea"></div>
+      </v-col>  
+      
+      <div style="position: absolute; top: 10; right: 0; z-index: 1;" class="mr-10 mt-5">
+        <v-col>
+          <v-sheet >
+            <div class="d-flex">
+               <i class="fa-solid fa-circle mt-2 ml-2 mr-2" style="font-size: 6px;"></i>
+               <v-card-subtitle class="text-subtitle-2 pa-0 ma-0">Livestock this month</v-card-subtitle>
+            </div>
+             <v-card-title class="text-h4 ml-2" >233</v-card-title>
+           </v-sheet>
+           
+          <v-sheet class="mr-2 mt-10" >
+            <div class="d-flex">
+               <i class="fa-solid fa-circle mt-2 ml-2 mr-2" style="font-size: 6px;"></i>
+               <v-card-subtitle class="text-subtitle-2 pa-0 ma-0">Livestock this month</v-card-subtitle>
+            </div>
+             <v-card-title class="text-h4 ml-2" >233</v-card-title>
+           </v-sheet>
+
+          <v-sheet class="mr-2 mt-10">
+           <div class="d-flex">
+              <i class="fa-solid fa-circle mt-2 ml-2 mr-2" style="font-size: 6px;"></i>
+              <v-card-subtitle class="text-subtitle-2 pa-0 ma-0">Livestock this month</v-card-subtitle>
+           </div>
+            <v-card-title class="text-h4 ml-2" >233</v-card-title>
+          </v-sheet>
+        </v-col>
+      </div> 
+  </v-row>  
+  </v-card>
+</template>
+
+<script setup>
+import { onMounted, ref } from 'vue';
+import ApexCharts from 'apexcharts';
+
+const SplineArea = ref(null);
+const select = ref('Municipality');
+const items = [
+  { state: 'Florida', abbr: 'FL' },
+  { state: 'Georgia', abbr: 'GA' },
+  { state: 'Nebraska', abbr: 'NE' },
+  { state: 'California', abbr: 'CA' },
+  { state: 'New York', abbr: 'NY' },
+];
+
+const renderChart = () => {
+  let SplineChart = new ApexCharts(SplineArea.value, {
+    series: [
+      {
+        name: 'Population Rate',
+        data: [31, 40, 28, 51, 42, 109, 100],
+      },
+      {
+        name: 'Mortality Rate',
+        data: [11, 32, 45, 32, 34, 52, 41],
+      },
+    ],
+    chart: {
+      height: '350',
+      width: '600',
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    colors: ['#EB8C00', '#142195'],
+    fill: {
+      colors: ['', ''],
+    },
+    stroke: {
+      curve: 'smooth',
+    },
+    xaxis: {
+      type: 'datetime',
+      categories: [
+        '2018-09-19T00:00:00.000Z',
+        '2018-09-19T01:30:00.000Z',
+        '2018-09-19T02:30:00.000Z',
+        '2018-09-19T03:30:00.000Z',
+        '2018-09-19T04:30:00.000Z',
+        '2018-09-19T05:30:00.000Z',
+        '2018-09-19T06:30:00.000Z',
       ],
-      chart: {
-        height: '350',
+    },
+    tooltip: {
+      x: {
+        format: 'dd/MM/yy HH:mm',
       },
-      title: {
-          text: 'Dynamic Updating Chart',
-          align: 'left'
-        },
-      dataLabels: {
-        enabled: false,
-      },
-      colors:['#EB8C00', '#142195'],
-      fill: {
-      colors: ['', '']
-      },
-      stroke: {
-        curve: 'smooth',
-      },
-      xaxis: {
-        type: 'datetime',
-        categories: [
-          '2018-09-19T00:00:00.000Z',
-          '2018-09-19T01:30:00.000Z',
-          '2018-09-19T02:30:00.000Z',
-          '2018-09-19T03:30:00.000Z',
-          '2018-09-19T04:30:00.000Z',
-          '2018-09-19T05:30:00.000Z',
-          '2018-09-19T06:30:00.000Z',
-        ],
-      },
-      tooltip: {
-        x: {
-          format: 'dd/MM/yy HH:mm',
-        },
-      },
-    });
-  
-    SplineChart.render();
+    },
   });
-  </script>
+
+  SplineChart.render();
+};
+
+onMounted(() => {
+  renderChart();
+});
+</script>
