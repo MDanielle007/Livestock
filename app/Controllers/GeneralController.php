@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\FarmerProfilesModel;
 use CodeIgniter\RESTful\ResourceController;
 use App\Models\FarmerLivestocksModel;
 use App\Models\LivestocksModel;
@@ -22,6 +23,8 @@ class GeneralController extends ResourceController
     private $livestockBreeds;
     private $livestockAgeClassification;
 
+    private $farmerProfiles;
+
     public function __construct() {
         $this->farmerlivestocks = new FarmerLivestocksModel();
         $this->livestocks = new LivestocksModel();
@@ -30,6 +33,7 @@ class GeneralController extends ResourceController
         $this->livestockTypes = new LivestockTypesModel();
         $this->livestockBreeds = new LivestockBreedModel();
         $this->livestockAgeClassification = new LivestockAgeClassificationModel();
+        $this->farmerProfiles = new FarmerProfilesModel();
     }
 
     public function getLivestockTypes(){
@@ -83,5 +87,16 @@ class GeneralController extends ResourceController
         }
     }
 
-    
+    public function getFarmerNames(){
+        try {
+            $farmers = $this->farmerProfiles
+                ->select('farmer_profile.Farmer_ID as itemID,
+                CONCAT(user_accounts.FirstName, " ", user_accounts.LastName) as itemName,')
+                ->join('user_accounts', 'user_accounts.User_ID = farmer_profile.User_ID')
+                ->findAll();
+            return $this->respond($farmers);
+        } catch (\Throwable $th) {
+            return $this->respond(["message" => "Error: " . $th->getMessage()]);
+        }
+    }
 }
