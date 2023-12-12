@@ -80,16 +80,18 @@ class LivestocksController extends ResourceController
 
     public function administerVaccine(){
         try {
+            $farmerID = $this->request->getVar('Farmer_ID');
             $livestockID = $this->request->getVar('livestockID');
             $data = [
                 'Livestock_ID' => $livestockID,
+                'VaccineAdministratorID' => $farmerID,
                 'Vaccination_Name' => $this->request->getVar('vaccinationName'),
                 'Vaccination_Description' => $this->request->getVar('vaccinationDescription'),
                 'Vaccination_Date' => $this->request->getVar('vaccinationDate'),
             ];
             $this->vaccination->save($data);
 
-            $farmerID = $this->request->getVar('Farmer_ID');
+            
             $livestockTagID = $this->request->getVar('LivestockTagID');
 
             $historyData = [

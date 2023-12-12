@@ -184,10 +184,10 @@ class FarmerController extends ResourceController
         }
     }
 
-    public function getAllFarmerLivestock($farmerID){
+    public function getAllFarmerLivestock($userID){
         try {
             $whereClause = [
-                'farmerlivestocks.Farmer_ID' => $farmerID,
+                'farmer_profile.User_ID' => $userID,
                 'livestocks.Livestock_Status' => 'Alive',
                 'livestocks.Record_Status' => 'Accessible'
             ];
@@ -214,6 +214,7 @@ class FarmerController extends ResourceController
                             ELSE "Unknown Age"
                         END as age')
                 ->join('farmerlivestocks','livestocks.Livestock_ID = farmerlivestocks.Livestock_ID')
+                ->join('farmer_profile','farmer_profile.Farmer_ID = farmerlivestocks.Farmer_ID')
                 ->where($whereClause)
                 ->findAll();
             if($livestockRecords){
@@ -250,13 +251,13 @@ class FarmerController extends ResourceController
 
     public function getFarmerProfile(){
         try {
-            $farmerID = $this->request->getVar('Farmer_ID');
+            $userid = $this->request->getVar('Farmer_ID');
 
             $farmerRecord = $this->userAccount
                 ->select('user_accounts.*, 
                         farmer_profile.Years_Of_Farming')
                 ->join('farmer_profile','user_accounts.User_ID = farmer_profile.User_ID')
-                ->where('farmer_profile.Farmer_ID',$farmerID)
+                ->where('user_accounts.User_ID',$userid)
                 ->first();
 
             if($farmerRecord){
@@ -439,6 +440,7 @@ class FarmerController extends ResourceController
         ->join('livestocks','livestocks.Livestock_ID = farmer_data_history.Livestock_ID')
         ->join('farmer_profile','farmer_profile.Farmer_ID = farmer_data_history.Farmer_ID')
         ->join('user_accounts','user_accounts.User_ID = farmer_profile.User_ID')
+        ->orderBy('farmer_data_history.Timestamp','DESC')
         ->findAll();
         
     return $this->respond($dataHistory);

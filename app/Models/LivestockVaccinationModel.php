@@ -12,7 +12,7 @@ class LivestockVaccinationModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['Livestock_ID', 'Vaccination_Name', 'Vaccination_Description', 'Vaccination_Date','Record_Status'];
+    protected $allowedFields    = ['Livestock_ID', 'VaccineAdministratorID','Vaccination_Name', 'Vaccination_Description', 'Vaccination_Date','Record_Status'];
 
     // Dates
     protected $useTimestamps = false;
