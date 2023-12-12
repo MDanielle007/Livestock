@@ -1,0 +1,11 @@
+Livestock_TagID,Livestock_Type,Breed_Name,Age_Classification,Age_Days,Age_Weeks,Age_Months,Age_Years,Sex,Breeding_Eligibility,Date_Of_Birth,Livestock_Status,Record_Status
+CHK101', 'Chicken', 'Native Chicken', 'Pullet', 0, 3, 0, 0, 'Male', 'Not Age-Suited', '2023-09-12', 'Dead', 'Accessible
+PG101', 'Pig', 'Duroc', 'Piglet', 0, 2, 0, 0, 'Female', 'Not Age-Suited', '2023-09-12', 'Alive', 'Archive'),
+CTL101', 'Cattle', NULL, 'Calf', 2, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-24', 'Alive', 'Accessible'),
+CTL102', 'Cattle', NULL, 'Calf', 2, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-22', 'Alive', 'Accessible'),
+CTL103', 'Cattle', NULL, 'Yearling', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-24', 'Dead', 'Accessible'),
+CRB101', 'Carabao', NULL, 'Heifer', 3, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-22', 'Dead', 'Accessible'),
+GT101', 'Goat', NULL, 'Kid', 2, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-23', 'Alive', 'Archive'),
+CRB102', 'Carabao', NULL, 'Calf', 3, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-24', 'Alive', 'Archive'),
+CRB103', 'Carabao', NULL, 'Calf', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-26', 'Alive', 'Archive'),
+CTL104', 'Cattle', NULL, 'Calf', 2, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-26', 'Dead', 'Accessible'),

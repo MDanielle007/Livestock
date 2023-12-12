@@ -12,6 +12,8 @@ $routes->get('/getLivestockBreed/(:any)', 'GeneralController::getLivestockBreed/
 $routes->get('/getLivestockAgeClass/(:any)', 'GeneralController::getLivestockAgeClass/$1');
 $routes->get('/getLivestockForBreeding/(:any)', 'LivestocksController::getLivestockForBreeding/$1');
 $routes->get('/getFarmerNames', 'GeneralController::getFarmerNames');
+$routes->post('/importCsvToDbLivestock', 'GeneralController::importCsvToDbLivestock');
+
 
 $routes->group('apiCharts',static function($routes){
     $routes->get('getLivestockPopulationProgression', 'VisualizationController::getLivestockPopulationProgression');
@@ -64,15 +66,23 @@ $routes->group('admin',static function($routes){
 });
 
 $routes->group('farmer',static function($routes){
+    
+    // Livestock CRUD
     $routes->post('addLivestock', 'FarmerController::addLivestock');
     $routes->post('editLivestockDetails', 'FarmerController::editLivestockDetails');
     $routes->post('archiveLivestockRecord', 'FarmerController::archiveLivestockRecord');
+
+    // Farmer Profile
     $routes->post('getFarmerProfile', 'FarmerController::getFarmerProfile');
+
+    // Fetch Livestocks
     $routes->get('getOneLivestock/(:segment)', 'FarmerController::getOneLivestock/$1');
     $routes->get('getAllFarmerLivestock/(:any)', 'FarmerController::getAllFarmerLivestock/$1');
     $routes->post('getLivestockTypeCount','FarmerController::getLivestockTypeCount');
     $routes->post('getFarmerLivestockTypeCount','FarmerController::getLivestockTypeCount');
     $routes->post('searchFarmerLivestocks','FarmerController::searchFarmerLivestocks');
+
+    
     $routes->post('addLivestockMortality','FarmerController::addLivestockMortality');
     $routes->get('fetchFarmerLivestockMortalityRecords/(:any)','FarmerController::fetchFarmerLivestockMortalityRecords/$1');
     $routes->post('commitSalesTransaction', 'SalesController::commitSalesTransaction');
