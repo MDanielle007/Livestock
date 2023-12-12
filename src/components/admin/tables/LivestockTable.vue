@@ -15,7 +15,8 @@
                   vertical
               ></v-divider>
               <v-spacer></v-spacer>
-              <v-dialog
+              <div class="d-flex ga-3 align-center mx-5">
+                <v-dialog
                     v-model="dialog"
                     width="1024"
                 >
@@ -23,8 +24,8 @@
                       <v-btn
                           color="primary"
                           dark
-                          class="mb-2"
                           v-bind="props"
+                          variant="tonal"
                       >
                           New Livestock
                       </v-btn>
@@ -181,11 +182,13 @@
               <v-btn
                     color="primary"
                     dark
-                    class="mb-2"
                     :to="{name:'livestock-types'}"
+                    variant="tonal"
                 >
                     New Livestock Type
                 </v-btn>
+                <UploadLivestockFile/>
+              </div>
           </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
@@ -225,6 +228,7 @@
 </template>
 <script>
 import axios from 'axios'
+import UploadLivestockFile from '@/components/general/inputs/UploadLivestockFile.vue'
 
 export default {
   data: () => ({
@@ -268,6 +272,11 @@ export default {
             Livestock_Status:'',
         },
   }),
+
+  components:{
+    UploadLivestockFile
+  },
+
   computed: {
       formTitle () {
           return this.editedIndex === -1 ? 'New Livestock' : 'Edit Livestock'

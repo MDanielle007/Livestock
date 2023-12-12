@@ -9,13 +9,15 @@
             <v-btn
                 color="primary"
                 v-bind="props"
+                variant="tonal"
+                prepend-icon="fa-solid fa-plus"
             >
-                New Livestock
+            New
             </v-btn>
             </template>
             <v-card>
             <v-card-title>
-                <span class="text-h5">Livestock Details</span>
+                Livestock Details
             </v-card-title>
             <v-card-text>
                 <v-container>

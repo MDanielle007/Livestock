@@ -13,12 +13,6 @@
                 flat
                 >
                 <v-toolbar-title>Livestocks</v-toolbar-title>
-                <v-divider
-                    class="mx-4"
-                    inset
-                    vertical
-                ></v-divider>
-                <v-spacer></v-spacer>
                 <v-dialog
                     v-model="dialog"
                     max-width="800px"
@@ -136,8 +130,10 @@
                     </v-card>
                 </v-dialog>
                 
-                <NewLivestockForm @livestockAdded="getFarmerLivestock" :farmerID="userid"/>
-
+                <div class="d-flex ga-5 align-center mx-5">
+                    <NewLivestockForm @livestockAdded="getFarmerLivestock" :farmerID="userid"/>
+                    <UploadLivestockFile upload-to="Livestock" :userId="userid"/>
+                </div>
                 <v-dialog v-model="dialogDelete" max-width="500px">
                     <v-card>
                     <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
@@ -200,6 +196,7 @@ import axios from 'axios'
 import NewLivestockForm from '../forms/NewLivestockForm.vue'
 import LivestockVaxForm from '../forms/LivestockVaxForm.vue'
 import LivestockMortalityForm from '../forms/AddLivestockMortalityForm.vue'
+import UploadLivestockFile from '@/components/general/inputs/UploadLivestockFile.vue'
 import { getCookie } from '@/utils/cookieUtils.js'
 import { jwtDecode as jwt_decode } from 'jwt-decode';
 
@@ -250,7 +247,8 @@ export default {
     components:{
         NewLivestockForm,
         LivestockVaxForm,
-        LivestockMortalityForm
+        LivestockMortalityForm,
+        UploadLivestockFile
     },
 
     computed: {
