@@ -96,7 +96,8 @@
 
     <v-row>
         <v-col cols="12" sm="8" class="py-2 px-1">
-            <ColumnChart :chart-data="farmerLivestockPopulationData" :chart-title="'Population Rate'" :height="200" :series-name="'Population Rate'"/>
+            <!-- <ColumnChart :chart-data="farmerLivestockPopulationData" :chart-title="'Population Rate'" :height="200" :series-name="'Population Rate'"/> -->
+            <Distributed/>
         </v-col>
         <v-col cols="12" sm="4" class="py-2 px-1">
             <DonutChart :chart-data="farmerLivestockPopulationDataAgeClass" :height="210"/>
@@ -110,6 +111,7 @@ import { getCookie } from '@/utils/cookieUtils.js'
 import { jwtDecode as jwt_decode } from 'jwt-decode';
 import ColumnChart from '@/components/general/charts/ColumnChart.vue';
 import DonutChart from '@/components/general/charts/DonutChart.vue';
+import Distributed from '@/components/farmer/visualizations/Distributed.vue';
 
 
 export default{
@@ -117,6 +119,7 @@ export default{
     components:{
        ColumnChart,
        DonutChart,
+       Distributed,
     },
     data(){
         return{

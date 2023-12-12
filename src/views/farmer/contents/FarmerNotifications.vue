@@ -1,16 +1,6 @@
 <template>
 	<div>
-		<v-snackbar v-model="notificationSnackbar" vertical style="position:;">
-			<div class="text-subtitle-1 pb-2">This is a snackbar message</div>
-
-			<p>This is a longer paragraph explaining something</p>
-
-			<template v-slot:actions>
-				<v-btn color="indigo" variant="text" @click="notificationSnackbar = false">
-					Close
-				</v-btn>
-			</template>
-		</v-snackbar>
+		<v-sheet class="bg-teal-darken-1 rounded-t-xl" height="60"></v-sheet>
 		<v-list lines="three" height="480" class="rounded-b-xl">
 			<v-list-item-group v-if="farmerNotification.length > 0">
 				<v-list-item v-for="(item, index) in farmerNotification" :key="index" v-lazy
