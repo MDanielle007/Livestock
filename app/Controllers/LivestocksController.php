@@ -111,10 +111,10 @@ class LivestocksController extends ResourceController
         }
     }
 
-    public function getFarmerVaccinationRecords($farmerID){
+    public function getFarmerVaccinationRecords($userID){
         try {
             $whereClause = [
-                'farmerlivestocks.Farmer_ID' => $farmerID,
+                'farmer_profile.User_ID' => $userID,
                 'livestock_vaccinations.Record_Status' => 'Accessible'
             ];
 
@@ -123,6 +123,7 @@ class LivestocksController extends ResourceController
                 livestocks.Livestock_TagID as LivestockTagID, livestocks.Livestock_Type as LivestockType')
                 ->join('livestocks','livestocks.Livestock_ID = livestock_vaccinations.Livestock_ID')
                 ->join('farmerlivestocks','farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
+                ->join('farmer_profile','farmer_profile.Farmer_ID = farmerlivestocks.Farmer_ID')
                 ->where($whereClause)
                 ->findAll();
             return $this->respond($vaccinationRecords);
@@ -221,10 +222,10 @@ class LivestocksController extends ResourceController
         }
     }
 
-    public function getFarmerMortalityRecords($farmerID){
+    public function getFarmerMortalityRecords($userID){
         try {
             $whereClause = [
-                'livestock_mortalities.Farmer_ID' => $farmerID,
+                'livestock_mortalities.Farmer_ID' => $userID,
                 'livestock_mortalities.Record_Status' => 'Accessible'
             ];
 
@@ -232,6 +233,8 @@ class LivestocksController extends ResourceController
                 ->select('livestock_mortalities.LM_ID, livestock_mortalities.Livestock_ID as LivestockID, livestock_mortalities.Farmer_ID, livestock_mortalities.Cause_Of_Death as causeOfDeath, livestock_mortalities.Date_Of_Death as dateOfDeath,
                     livestocks.Livestock_TagID as LivestockTagID, livestocks.Livestock_Type as LivestockType')
                 ->join('livestocks','livestocks.Livestock_ID = livestock_mortalities.Livestock_ID')
+                ->join('farmer_profile','farmer_profile.Farmer_ID = livestock_mortalities.Farmer_ID') 
+                ->join('user_accounts','user_accounts.User_ID = farmer_profile.User_ID')  
                 ->where($whereClause)
                 ->findAll();
             return $this->respond($mortalityRecords);
