@@ -1,16 +1,18 @@
 <template>
 	<div>
-		<v-sheet class="bg-teal-darken-1 rounded-t-xl" height="60"></v-sheet>
-		<v-list lines="three" height="480" class="rounded-b-xl">
+		<v-sheet class="bg-teal-darken-1 rounded-t-xl" height="60">
+			<v-img :src="require('@/assets/images/bg/another-bg.jpg')" cover gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)" class="rounded-t-xl" ></v-img>
+		</v-sheet>
+		<v-list lines="three" height="480" class="rounded-b-xl pa-3">
 			<v-list-item-group v-if="farmerNotification.length > 0">
-				<v-list-item v-for="(item, index) in farmerNotification" :key="index" v-lazy
+				<v-list-item v-for="(item, index) in farmerNotification" :key="index" v-lazy class="rounded-xl"
 					@click="openNotification(item)">
 					<template v-slot:prepend>
 						<v-avatar>
 							<v-img :src="getImagePath(item.Is_General)" alt="Type Image" />
 						</v-avatar>
 					</template>
-					<!-- Display your item data here -->
+					
 					<v-list-item-content>
 						<v-list-item-title><strong>{{ item.Subject }}</strong></v-list-item-title>
 						<v-list-item-subtitle>{{ item.Content }} <br> <small>{{ item.Date_Published

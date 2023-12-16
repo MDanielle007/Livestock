@@ -1,10 +1,10 @@
 <template>
     <CurvedBottomNavigation
         :options="options" v-model="selected"
-        foreground-color='#42A5F5'
+        foreground-color='#009688'
         badge-color='#FBC02D'
         background-color='#FFFFFF'
-        icon-color='#0000008A'
+        icon-color='#00796B'
         style="
             font-size:x-large;"
         />
