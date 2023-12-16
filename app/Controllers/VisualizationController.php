@@ -160,15 +160,19 @@ class VisualizationController extends ResourceController
 
     // Farmer Chart API
     // nagana and tested
-    public function getFarmerLivestockPopulationProgression($farmerID) {
+    public function getFarmerLivestockTypes($userID) {
         try {
+            $whereClause = [
+                'farmer_profile.User_ID' => $userID,
+                'livestocks.Livestock_Status' => 'Alive'
+            ];
 
             $livestockCounts = $this->livestocks
-                ->select("DATE_FORMAT(livestocks.Date_Of_Birth, '%Y-%m ') as month, COUNT(*) as count")
+                ->select("livestocks.Livestock_Type as label, COUNT(*) as count")
                 ->join('farmerlivestocks','farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
-                ->where('farmerlivestocks.Farmer_ID', $farmerID)
-                ->groupBy("DATE_FORMAT(livestocks.Date_Of_Birth, '%Y-%m ')")
-                ->orderBy("DATE_FORMAT(Date_Of_Birth, '%Y-%m ') ASC")
+                ->join('farmer_profile','farmer_profile.Farmer_ID = farmerlivestocks.Farmer_ID')
+                ->where($whereClause)
+                ->groupBy('livestocks.Livestock_Type')
                 ->findAll();
 
             if ($livestockCounts) {
@@ -177,7 +181,7 @@ class VisualizationController extends ResourceController
                 $data = []; 
 
                 foreach ($livestockCounts as $count) {
-                    $labels[] = $count['month'];
+                    $labels[] = $count['label'];
                     $data[] = $count['count'];
                 }
 
@@ -196,13 +200,20 @@ class VisualizationController extends ResourceController
     }
 
     // nagana and tested
-    public function getFarmerLivestockPopulationProgressionAgeClass($farmerID){
+    public function getFarmerLivestockPopulationProgressionAgeClass($userID){
         try {
+            $whereClause = [
+                'farmer_profile.User_ID' => $userID,
+                'livestocks.Livestock_Status' => 'Alive'
+            ];
+
             $livestockCounts = $this->livestocks
                 ->select('livestocks.Age_Classification, COUNT(*) as LivestockCount')
                 ->groupBy('livestocks.Age_Classification')
+                ->groupBy('livestocks.Livestock_Type')
                 ->join('farmerlivestocks','farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
-                ->where('farmerlivestocks.Farmer_ID', $farmerID)
+                ->join('farmer_profile','farmer_profile.Farmer_ID = farmerlivestocks.Farmer_ID')
+                ->where($whereClause)
                 ->findAll();
 
 
@@ -226,6 +237,52 @@ class VisualizationController extends ResourceController
             }
         } catch (\Throwable $th) {
             return $this->respond(["message" => "Error: " . $th->getMessage()]);
+        }
+    }
+
+    // nagana and tested
+    public function getfarmerDashboardCards($userID){
+        try {
+            $whereClause = [
+                'farmer_profile.User_ID' => $userID,
+                'livestocks.Livestock_Status' => 'Alive'
+            ];
+
+            $cardsData = $this->livestocks
+                ->select('livestocks.Age_Classification, COUNT(*) as LivestockCount, livestocks.Livestock_Type')
+                ->groupBy('livestocks.Age_Classification')
+                ->groupBy('livestocks.Livestock_Type')
+                ->join('farmerlivestocks','farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
+                ->join('farmer_profile','farmer_profile.Farmer_ID = farmerlivestocks.Farmer_ID')
+                ->where($whereClause)
+                ->orderBy('LivestockCount', 'DESC')
+                ->findAll();
+
+            return $this->respond($cardsData);
+        } catch (\Throwable $th) {
+            return $this->respond(["message" => "Error: " . $th->getMessage()]);
+        }
+    }
+
+    public function getFarmerLivestockCount($userID) {
+        try {
+            $whereClause = [
+                'farmer_profile.User_ID' => $userID,
+                'livestocks.Livestock_Status' => 'Alive'
+            ];
+
+            $livestockCounts = $this->livestocks
+                ->select("COUNT(*) as count")
+                ->join('farmerlivestocks','farmerlivestocks.Livestock_ID = livestocks.Livestock_ID')
+                ->join('farmer_profile','farmer_profile.Farmer_ID = farmerlivestocks.Farmer_ID')
+                ->where($whereClause)
+                ->findAll();
+
+            $count = array_column($livestockCounts, 'count');
+
+            return $this->respond($count[0], 200);
+        } catch (\Throwable $e) {
+            return $this->respond(["message" => "Error: " . $e->getMessage()]);
         }
     }
 

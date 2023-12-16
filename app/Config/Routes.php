@@ -24,8 +24,10 @@ $routes->group('apiCharts',static function($routes){
 
 
     // Farmer Charts
-    $routes->get('getFarmerLivestockPopulationProgression/(:any)', 'VisualizationController::getFarmerLivestockPopulationProgression/$1');
+    $routes->get('getFarmerLivestockCount/(:any)', 'VisualizationController::getFarmerLivestockCount/$1');
+    $routes->get('getFarmerLivestockTypes/(:any)', 'VisualizationController::getFarmerLivestockTypes/$1');
     $routes->get('getFarmerLivestockPopulationProgressionAgeClass/(:any)', 'VisualizationController::getFarmerLivestockPopulationProgressionAgeClass/$1');
+    $routes->get('getfarmerDashboardCards/(:any)', 'VisualizationController::getfarmerDashboardCards/$1');
 
 
     // testing
