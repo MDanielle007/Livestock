@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 07, 2023 at 04:26 PM
+-- Generation Time: Dec 17, 2023 at 08:25 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -185,7 +185,15 @@ INSERT INTO `farmer_data_history` (`FDH_ID`, `Farmer_ID`, `Livestock_ID`, `Actio
 (92, 1, 29, 'Add', 'Added New Livestock', 'Added a new Pig', 'Livestock', '2023-12-05 09:03:52', 'Accessible'),
 (93, 1, 21, 'Add', 'Report Livestock Mortality', 'Report mortality record of PG108', 'Mortality', '2023-12-05 09:11:37', 'Accessible'),
 (94, 1, 23, 'Add', 'Breed Livestock', 'Breeding of CTL111 to CTL120', 'Breeding', '2023-12-05 09:15:46', 'Accessible'),
-(95, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL120 to CTL111', 'Breeding', '2023-12-05 09:15:46', 'Accessible');
+(95, 1, 28, 'Add', 'Breed Livestock', 'Breeding of CTL120 to CTL111', 'Breeding', '2023-12-05 09:15:46', 'Accessible'),
+(96, 1, 29, 'Edit', 'Edit Livestock Record', 'Edited a livestock details of PG129', 'Livestock', '2023-12-08 11:15:57', 'Accessible'),
+(97, 1, 18, 'Edit', 'Edit Mortality Record', 'Edited a mortality record of CTL110', 'Mortality', '2023-12-10 23:33:56', 'Accessible'),
+(98, 1, 20, 'Edit', 'Edit Mortality Record', 'Edited a mortality record of PG107', 'Mortality', '2023-12-10 23:34:38', 'Accessible'),
+(99, 1, 13, 'Edit', 'Edit Mortality Record', 'Edited a mortality record of PG102', 'Mortality', '2023-12-10 23:35:01', 'Accessible'),
+(100, 1, 14, 'Edit', 'Edit Mortality Record', 'Edited a mortality record of PG105', 'Mortality', '2023-12-10 23:35:21', 'Accessible'),
+(101, 1, 22, 'Edit', 'Edit Livestock Record', 'Edited a livestock details of PG110', 'Livestock', '2023-12-11 10:15:06', 'Accessible'),
+(102, 1, 22, 'Add', 'Administer Vaccine', 'Adminsiter vaccine to PG110', 'Vaccination', '2023-12-11 10:46:36', 'Accessible'),
+(103, 1, 22, 'Add', 'Administer Vaccine', 'Adminsiter vaccine to PG110', 'Vaccination', '2023-12-11 10:53:40', 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -205,7 +213,8 @@ CREATE TABLE `farmer_profile` (
 --
 
 INSERT INTO `farmer_profile` (`Farmer_ID`, `User_ID`, `Years_Of_Farming`, `Record_Status`) VALUES
-(1, 1, 3, 'Accessible');
+(1, 1, 3, 'Accessible'),
+(3, 8, 3, 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -269,14 +278,46 @@ INSERT INTO `livestocks` (`Livestock_ID`, `Livestock_TagID`, `Livestock_Type`, `
 (19, 'PG106', 'Pig', 'Duroc', 'Piglet', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-27', 'Alive', 'Archive'),
 (20, 'PG107', 'Pig', 'Duroc', 'Piglet', 3, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-26', 'Dead', 'Accessible'),
 (21, 'PG108', 'Pig', 'Landrace', 'Piglet', 2, 0, 0, 0, 'Female', 'Age-Suited', '2023-11-27', 'Dead', 'Accessible'),
-(22, 'PG110', 'Pig', 'Duroc', 'Piglet', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-27', 'Alive', 'Accessible'),
+(22, 'PG110', 'Pig', 'Landrace', 'Piglet', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-27', 'Alive', 'Accessible'),
 (23, 'CTL111', 'Cattle', 'Holstein Friesian', 'Calf', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-26', 'Alive', 'Accessible'),
 (24, 'PG112', 'Pig', 'Duroc', 'Piglet', 4, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-27', 'Alive', 'Archive'),
 (25, 'PG114', 'Pig', 'Duroc', 'Piglet', 3, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-28', 'Alive', 'Archive'),
 (26, 'PG120', 'Pig', 'Landrace', 'Piglet', 2, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-30', 'Alive', 'Accessible'),
 (27, 'CTL127', 'Cattle', 'Holstein Friesian', 'Calf', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-11-30', 'Alive', 'Accessible'),
 (28, 'CTL120', 'Cattle', 'Holstein Friesian', 'Calf', 2, 0, 0, 0, 'Female', 'Not Age-Suited', '2023-11-30', 'Alive', 'Accessible'),
-(29, 'PG129', 'Pig', 'Landrace', 'Piglet', 2, 0, 0, 0, '', 'Not Age-Suited', '2023-12-02', 'Alive', 'Accessible');
+(29, 'PG129', 'Pig', 'Landrace', 'Piglet', 2, 0, 0, 0, 'Male', 'Not Age-Suited', '2023-12-02', 'Alive', 'Accessible');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `livestock_advisories`
+--
+
+CREATE TABLE `livestock_advisories` (
+  `Advisory_ID` int NOT NULL,
+  `Subject` varchar(100) NOT NULL,
+  `Content` text NOT NULL,
+  `Target_Farmer_ID` int DEFAULT NULL,
+  `Is_General` tinyint(1) NOT NULL,
+  `Date_Published` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Is_Read` tinyint(1) NOT NULL DEFAULT '0',
+  `Record_Status` enum('Accessible','Archive') NOT NULL DEFAULT 'Accessible'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `livestock_advisories`
+--
+
+INSERT INTO `livestock_advisories` (`Advisory_ID`, `Subject`, `Content`, `Target_Farmer_ID`, `Is_General`, `Date_Published`, `Is_Read`, `Record_Status`) VALUES
+(1, 'Attention to All 2', 'trial 7', NULL, 1, '2023-12-09 18:47:56', 0, 'Accessible'),
+(2, 'Attention to All', 'trial 6', NULL, 1, '2023-12-09 18:47:56', 0, 'Accessible'),
+(4, 'Hi Farmer', 'trial 5', 1, 0, '2023-12-10 03:29:51', 0, 'Accessible'),
+(5, 'Hello', 'trial 4', 1, 0, '2023-12-10 13:56:50', 0, 'Accessible'),
+(6, 'Hi', 'Trial 3', 1, 0, '2023-12-10 13:59:50', 0, 'Accessible'),
+(7, 'Hi', 'trial 2', 1, 0, '2023-12-10 14:48:46', 0, 'Accessible'),
+(8, 'GLobal to', 'General Advisory', NULL, 1, '2023-12-10 14:51:09', 0, 'Accessible'),
+(9, 'Hi', 'andito si Xander', 1, 0, '2023-12-11 10:16:11', 0, 'Accessible'),
+(10, 'Hello', 'I\'m now presenting a progress report', 1, 0, '2023-12-12 08:27:25', 0, 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -443,11 +484,11 @@ INSERT INTO `livestock_mortalities` (`LM_ID`, `Livestock_ID`, `Farmer_ID`, `Caus
 (4, 1, 1, 'inubo', '2023-11-25', 'Archive'),
 (5, 5, 1, 'natapilok', '2023-11-25', 'Archive'),
 (6, 10, 1, 'inubo ng malakas', '2023-11-28', 'Archive'),
-(7, 13, 1, 'inubo', '2023-11-28', 'Accessible'),
-(8, 14, 1, 'salckn', '2023-11-28', 'Accessible'),
+(7, 13, 1, 'Porcine Reproductive and Respiratory Syndrome', '2023-11-28', 'Accessible'),
+(8, 14, 1, 'Salmonellosis', '2023-11-28', 'Accessible'),
 (9, 16, 1, 'nabalian', '2023-11-28', 'Archive'),
-(10, 18, 1, 'di gumising ng maaga', '2023-11-29', 'Accessible'),
-(11, 20, 1, 'nagutom', '2023-11-29', 'Accessible'),
+(10, 18, 1, 'Bovine Respiratory Disease', '2023-11-29', 'Accessible'),
+(11, 20, 1, 'Foot and Mouth Disease ', '2023-11-29', 'Accessible'),
 (12, 21, 1, 'African Swine Fever', '2023-12-05', 'Accessible');
 
 -- --------------------------------------------------------
@@ -525,7 +566,9 @@ INSERT INTO `livestock_vaccinations` (`Vaccination_ID`, `VaccineAdministratorID`
 (9, 1, 11, 'Vax8', 'Vaccine 8', '2023-11-28', 'Archive'),
 (10, 1, 11, 'Vax9', 'Vaccine 9', '2023-11-28', 'Archive'),
 (11, 1, 18, 'Vax11', 'vACCINE 11eufbwnjksdc', '2023-11-29', 'Archive'),
-(12, 1, 21, 'vaccine 10', 'vax 1010', '2023-12-01', 'Accessible');
+(12, 1, 21, 'vaccine 10', 'vax 1010', '2023-12-01', 'Accessible'),
+(17, 1, 22, 'Vaccine 101', 'Vaccine 101 Da best', '2023-12-11', 'Accessible'),
+(18, 1, 22, 'vaccine 202', 'Vaccine 202 Da Bestiest', '2023-12-11', 'Accessible');
 
 -- --------------------------------------------------------
 
@@ -579,7 +622,8 @@ INSERT INTO `user_accounts` (`User_ID`, `Username`, `Password`, `Email`, `Firstn
 (1, 'Farmer', '$2y$10$EnOsFGlLTvjeRGMYR5VYguPlwRpjOwmYIGe7tvvQOyP0WI9uSw/he', 'danielle@gmail.com', 'Marc Danielle', 'Marasigan', 'Cabatay', '2002-10-26', 'Male', 'Single', 'Lagunlong', 'Water', 'Baco', 'Oriental Mindoro', '09876543210', '1700376529_3f6e7e22e84048b5f11a.jpg', 'Farmer', 'Inactive', NULL, '2023-11-11 23:05:25', 'Accessible', NULL),
 (2, 'Admin', '$2y$10$at9ik1RpIVyC1MEBFTo5IOd725sJBw3TDaUknW7PtvrSeq5glejMm', 'danielle@gmail.com', 'Marc Danielle', 'Marasigan', 'Cabatay', '2002-10-26', 'Male', 'Single', 'Lagunlong', 'Water', 'Baco', 'Oriental Mindoro', '09876543210', NULL, 'DA Personnel', 'Inactive', NULL, '2023-11-11 23:06:14', 'Accessible', NULL),
 (3, 'danielleAdmin', '$2y$10$8.7y9pVxirYXCRqr0HsiWO1UrT4sm9QO5jkw6goqEQl4shM/w4TjO', 'danielleAdmin@gmail.com', 'Marc Danielle', 'Marasigan', 'Cabatay', '2002-10-26', 'Male', 'Single', 'Lagunlong', 'Wate', 'Baco', 'Oriental Mindoro', '09876543210', '1700376736_396262f955f52cfc554b.jpg', 'DA Personnel', 'Inactive', NULL, '2023-11-19 14:52:16', 'Accessible', NULL),
-(7, 'edaGFSGH', '$2y$10$7eutjPrNpZOe0N4lqDJ6Hu4x85Zz5Rg2Y0skFLtpvz6fWlzdyViMS', 'tse@gmail.com', 'Esairah Meril', 'Agpalasin', 'Matira', '2023-01-17', 'Female', 'Single', 'Sitio 7', 'Bagong Silang', 'Victoria', 'Oriental Mindoro', '09123456789', '1700388105_ba38a478057c736c8dc8.jpg', 'DA Personnel', 'Inactive', NULL, '2023-11-19 18:01:45', 'Accessible', NULL);
+(7, 'edaGFSGH', '$2y$10$7eutjPrNpZOe0N4lqDJ6Hu4x85Zz5Rg2Y0skFLtpvz6fWlzdyViMS', 'tse@gmail.com', 'Esairah Meril', 'Agpalasin', 'Matira', '2023-01-17', 'Female', 'Single', 'Sitio 7', 'Bagong Silang', 'Victoria', 'Oriental Mindoro', '09123456789', '1700388105_ba38a478057c736c8dc8.jpg', 'DA Personnel', 'Inactive', NULL, '2023-11-19 18:01:45', 'Accessible', NULL),
+(8, 'juanDelaCruz101', '$2y$10$TzK7EcO6OAMXcOn8KaKWZuuECHZ4iEjqhU3Tou6uXNfmv3eY964py', 'juandcrz@gmail.com', 'Juan', '', 'Dela Cruz', '2000-01-01', 'Male', 'Single', 'Irrigation', 'Masipit', 'Calapan City', 'Oriental Mindoro', '0987654321', '1702764911_66bbe4de557c5c199e78.png', 'Farmer', 'Inactive', NULL, '2023-12-17 06:15:11', 'Accessible', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJMaXZlc3RvY2sgT3V0bG9vayIsImF1ZCI6IkZhcm1lciIsInN1YiI6IkxpdmVzdG9jayBNb25pdG9yaW5nIFN5c3RlbSIsImVtYWlsIjoianVhbmRjcnpAZ21haWwuY29tIiwidXNlcm5hbWUiOiJqdWFuRGVsYUNydXoxMDEiLCJwYXNzd29yZCI6IiQyeSQxMCRUeks3RWNPNk');
 
 --
 -- Indexes for dumped tables
@@ -638,6 +682,13 @@ ALTER TABLE `livestocks`
   ADD KEY `Livestock_Type_ID` (`Livestock_Type`),
   ADD KEY `Breed_ID` (`Breed_Name`),
   ADD KEY `Age_Classification` (`Age_Classification`);
+
+--
+-- Indexes for table `livestock_advisories`
+--
+ALTER TABLE `livestock_advisories`
+  ADD PRIMARY KEY (`Advisory_ID`),
+  ADD KEY `Target_Farmer_ID` (`Target_Farmer_ID`);
 
 --
 -- Indexes for table `livestock_age_classification`
@@ -742,13 +793,13 @@ ALTER TABLE `farmer_cerficates`
 -- AUTO_INCREMENT for table `farmer_data_history`
 --
 ALTER TABLE `farmer_data_history`
-  MODIFY `FDH_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `FDH_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `farmer_profile`
 --
 ALTER TABLE `farmer_profile`
-  MODIFY `Farmer_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Farmer_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `livestockbacthes`
@@ -761,6 +812,12 @@ ALTER TABLE `livestockbacthes`
 --
 ALTER TABLE `livestocks`
   MODIFY `Livestock_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `livestock_advisories`
+--
+ALTER TABLE `livestock_advisories`
+  MODIFY `Advisory_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `livestock_age_classification`
@@ -808,7 +865,7 @@ ALTER TABLE `livestock_types`
 -- AUTO_INCREMENT for table `livestock_vaccinations`
 --
 ALTER TABLE `livestock_vaccinations`
-  MODIFY `Vaccination_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Vaccination_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `sold_livestocks`
@@ -820,7 +877,7 @@ ALTER TABLE `sold_livestocks`
 -- AUTO_INCREMENT for table `user_accounts`
 --
 ALTER TABLE `user_accounts`
-  MODIFY `User_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `User_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -871,6 +928,12 @@ ALTER TABLE `livestocks`
   ADD CONSTRAINT `livestocks_ibfk_3` FOREIGN KEY (`Breed_Name`) REFERENCES `livestock_breeds` (`Breed_Name`),
   ADD CONSTRAINT `livestocks_ibfk_4` FOREIGN KEY (`Livestock_Type`) REFERENCES `livestock_types` (`Type_Name`),
   ADD CONSTRAINT `livestocks_ibfk_5` FOREIGN KEY (`Age_Classification`) REFERENCES `livestock_age_classification` (`Age_Classification_Name`);
+
+--
+-- Constraints for table `livestock_advisories`
+--
+ALTER TABLE `livestock_advisories`
+  ADD CONSTRAINT `livestock_advisories_ibfk_1` FOREIGN KEY (`Target_Farmer_ID`) REFERENCES `farmer_profile` (`Farmer_ID`);
 
 --
 -- Constraints for table `livestock_age_classification`
