@@ -123,6 +123,21 @@ class UserController extends ResourceController
                             'Image' => $newName
                         ];
 
+                        $key = getenv('JWT_SECRET');
+                
+                        $payload = array(
+                            "iss" => "Livestock Outlook",
+                            "aud" => $data['User_Role'],
+                            "sub" => "Livestock Monitoring System",
+                            "email" => $data['Email'],
+                            "username" => $data['Username'],
+                            "password" => $data['Password'],
+                        );
+
+                        $token = JWT::encode($payload, $key, 'HS256');
+
+                        $data['User_Token'] = $token;
+
                         $file->move('./uploads', $newName);
 
                         $this->userAccounts->save($data);
