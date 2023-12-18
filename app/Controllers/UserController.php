@@ -30,10 +30,7 @@ class UserController extends ResourceController
     public function getUserAccounts(){
         try {
             $data = $this->userAccounts->select('User_ID, Firstname, Lastname, User_Role, User_Status, Image')->findAll();
-    
-            // $data['ImageFile'] = base_url('/uploads/'.$data['Image']);
-            // Add the base URL for images to the response
-            $baseUrl = 'http://livestockbackend.test/'; // This assumes you have configured the base URL in CodeIgniter.
+            $baseUrl = 'http://livestockbackend.test/orminlivestock/livestockbackend/';
     
             foreach ($data as &$account) {
                 $account['Image'] = $baseUrl . 'uploads/' . $account['Image'];
@@ -331,7 +328,7 @@ class UserController extends ResourceController
             ->where('user_accounts.User_ID',$userID)
             ->get()->getResultArray();
 
-            $baseUrl = 'http://livestockbackend.test/';
+            $baseUrl = 'http://livestockbackend.test/orminlivestock/livestockbackend/';
             $userAccountData[0]['Image'] = $baseUrl . 'uploads/' . $userAccountData[0]['Image'];
 
             return $this->respond($userAccountData);
