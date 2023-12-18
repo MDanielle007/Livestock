@@ -27,9 +27,9 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => 'root',
-        'password'     => '',
-        'database'     => 'livestockoutlook',
+        'username'     => 'u262559041_orminls',
+        'password'     => 'Or.Min.Livestocks.101',
+        'database'     => 'u262559041_livestocks',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
