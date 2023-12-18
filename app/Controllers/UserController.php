@@ -30,7 +30,7 @@ class UserController extends ResourceController
     public function getUserAccounts(){
         try {
             $data = $this->userAccounts->select('User_ID, Firstname, Lastname, User_Role, User_Status, Image')->findAll();
-            $baseUrl = 'http://livestockbackend.test/orminlivestock/livestockbackend/';
+            $baseUrl = 'https://orminlivestock.online/orminlivestock/';
     
             foreach ($data as &$account) {
                 $account['Image'] = $baseUrl . 'uploads/' . $account['Image'];
@@ -328,7 +328,7 @@ class UserController extends ResourceController
             ->where('user_accounts.User_ID',$userID)
             ->get()->getResultArray();
 
-            $baseUrl = 'http://livestockbackend.test/orminlivestock/livestockbackend/';
+            $baseUrl = 'https://orminlivestock.online/orminlivestock/';
             $userAccountData[0]['Image'] = $baseUrl . 'uploads/' . $userAccountData[0]['Image'];
 
             return $this->respond($userAccountData);
