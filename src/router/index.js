@@ -53,7 +53,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: AdminLayout,
-    // meta: { requiresAuth: true, allowedRoles: ['DA Personnel'] },
+    meta: { requiresAuth: true, allowedRoles: ['DA Personnel'] },
     children:[
       {
         path:'dashboard',
@@ -132,7 +132,7 @@ const routes = [
     path:'/farmer',
     name:'farmer',
     component:FarmerLayout,
-    // meta: { requiresAuth: true, allowedRoles: ['Farmer'] },
+    meta: { requiresAuth: true, allowedRoles: ['Farmer'] },
     children:[
       {
         path:'home',
