@@ -141,3 +141,8 @@
 #--------------------------------------------------------------------
 
 # curlrequest.shareOptions = true
+
+#--------------------------------------------------------------------
+# JWT
+#--------------------------------------------------------------------
+#JWT_SECRET = 'Livestock Outlook A Cross Platform Data-Driven Approach for Sustainable Agriculture Monitoring in Oriental Mindoro'
