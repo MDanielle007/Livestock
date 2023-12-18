@@ -9,7 +9,7 @@ import "bottom-navigation-vue/dist/style.css";
 import '@/assets/sass/variables.scss'
 import store from './store'
 
-axios.defaults.baseURL = 'http://livestockbackend.test/'
+axios.defaults.baseURL = 'https://orminlivestock.online/orminlivestock/'
 // loadFonts()
 
 createApp(App)

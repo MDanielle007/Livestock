@@ -5,7 +5,7 @@
                 <v-icon>fa-solid fa-bell</v-icon>
             </v-btn>
         </template>
-            <v-list lines="two" width="500" height="550" class="rounded-lg" v-lazy>
+            <v-list lines="two" width="400" height="550" class="rounded-lg" v-lazy>
                 <v-list-item-group v-if="dataHistory.length > 0">
                     <v-list-item v-for="(item, index) in dataHistory" :key="index" v-lazy>
                         <template v-slot:prepend>

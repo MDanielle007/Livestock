@@ -1,7 +1,4 @@
 <template>
-    <div>
-        <h2>Farmer Dashboard </h2>
-    </div>
     <div class="d-flex flex-wrap ga-3 justify-center">
         <v-card width="100" flat :elevation="1" class="rounded-lg flex-grow-1" v-for="cardData in farmerCardData">
             <div class="d-flex flex-column">
@@ -40,10 +37,10 @@
     </div>
 
     <v-row class="my-3">
-        <v-col cols="12" sm="8" class="py-2 px-1">
+        <v-col v-if="farmerLivestockTypes" cols="12" sm="8" class="py-2 px-1">
             <DistributedChart :chart-data="farmerLivestockTypes" :height="210" seriesName="Livestock Type"/>
         </v-col>
-        <v-col cols="12" md="4" class="py-2 px-1">
+        <v-col v-if="farmerLivestockPopulationDataAgeClass" cols="12" md="4" class="py-2 px-1">
             <DonutChart :chart-data="farmerLivestockPopulationDataAgeClass" :height="210" seriesName="Age Classification"/>
         </v-col>
     </v-row>

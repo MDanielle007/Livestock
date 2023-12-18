@@ -10,17 +10,17 @@
             ></v-img>
             </v-col>
             
-            <v-col sm="12" md="4" class=" h-100 d-flex pt-16">
+            <v-col sm="12" md="4" class=" h-100 d-flex pt-7">
                 <v-container class="px-10" >
                     <div class="d-flex d-md-none justify-center">
                         <v-img
                         height="140"
                         :src="require('@/assets/images/3HEADS OUTLINE.png')"></v-img>
                     </div>
-                    <div class=" text-center text-indigo-darken-4 font-weight-bold" style="font-size: 40px;">
+                    <div class="text-h3 text-center text-indigo-darken-4 font-weight-bold">
                         Welcome Back!
                     </div>
-                    <div class=" text-center mb-16 text-indigo-darken-4" style="font-size: 18px;">
+                    <div class=" text-center mb-sm-16 mb-xs-10 mb-5  text-indigo-darken-4" style="font-size: 18px;">
                         We're thrilled to see you again!
                     </div>
                     <v-form fast-fail @submit.prevent="loginUser">
@@ -36,7 +36,7 @@
                         ></v-text-field>
                         <a href="#" class="text-body-3 font-weight-regular float-right" style="text-decoration: none; color: navy; " >Forgot Password?</a>
 
-                        <v-btn type="submit" color="primary" block class="mt-16" size="large">Sign in</v-btn>
+                        <v-btn type="submit" color="primary" block class="mt-10" size="large">Sign in</v-btn>
 
                         <v-alert 
                             v-if="errorMessage" 

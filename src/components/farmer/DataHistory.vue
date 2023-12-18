@@ -23,18 +23,26 @@
 
 <script>
 import axios from 'axios';
+import { getCookie } from '@/utils/cookieUtils.js'
+import { jwtDecode as jwt_decode } from 'jwt-decode';
 
 export default {
   data: () => ({
     dataHistory: [],
     isLoading: false,
     error: null,
+    userid:'',
   }),
   methods: {
     async getFarmerDataHistory() {
       try {
+        const token = getCookie('token');
+
+        const decodedToken = jwt_decode(token);
+
+        this.userid = decodedToken.userid
         this.isLoading = true;
-        const response = await axios.get(`farmer/getFarmerDataHistory/${1}`);
+        const response = await axios.get(`farmer/getFarmerDataHistory/${this.userid}`);
         this.dataHistory = response.data;
       } catch (error) {
         console.error(error);

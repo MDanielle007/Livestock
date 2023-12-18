@@ -26,6 +26,7 @@
             <v-img 
             :src="item.Image" 
             aspect-ratio="1"
+            height="75"
             cover
             class="ma-5"
             ></v-img>
@@ -62,7 +63,7 @@ export default {
                     title: 'Image', 
                     key: 'Image', 
                     src: 'Image',
-                    align: 'end' 
+                    align: 'center' 
                 },
             ],
             search: '',

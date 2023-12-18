@@ -23,7 +23,7 @@
                 </v-menu>
             </template>
 
-            <v-app-bar-title>
+            <v-app-bar-title class="font-weight-bold">
                 {{ this.$route.name }}
             </v-app-bar-title>
 

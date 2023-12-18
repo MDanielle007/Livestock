@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h2>Farmer Data History</h2>
         <DataHistory/>
     </div>
 </template>

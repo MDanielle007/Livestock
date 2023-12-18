@@ -97,7 +97,7 @@
 
             <v-list-item>
                 <v-list-item prepend-icon="fa-solid fa-bullhorn" 
-                value="reporting-analytics" 
+                value="livestock-advisories" 
                 :to="{name:'admin-livestock-advisories'}" 
                 :class="{ 'active-item': $route.name === 'admin-livestock-advisories' }" 
                 >Livestock Advisories</v-list-item>
