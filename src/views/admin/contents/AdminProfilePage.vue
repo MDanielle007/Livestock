@@ -2,11 +2,11 @@
     <div class="bg-red">
         <v-card class="mt-3" width="auto" height="650">
         <div class="pa-4 relative-position">
-          <v-img class="rounded-lg" src="https://picsum.photos/350/165?random" height="150" cover></v-img>
+          <v-img class="rounded-lg" :src="require('@/assets/images/bg/another-bg.jpg')" height="150" cover></v-img>
   
           <div class="bg-secondary rounded-circle w-100">
             <v-avatar size="120" class="avatar-position">
-                <v-img  class="rounded-img" src="@/assets/images/3HEADS CIRCLE.png" alt="Descriptive Text for Image"></v-img>
+                <v-img  class="rounded-img" :src="userProfile" alt="Descriptive Text for Image"></v-img>
               </v-avatar>
           </div>
         </div>
@@ -19,37 +19,27 @@
   
         <div class="mt-3">
           <v-row no-gutters >
-            <v-col cols="12" sm="3">
-                <v-text-field density="compact" width="auto" class="ma-1 pa-2 " v-model="userId" label="User ID" variant="outlined"></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="3">
+              <v-col cols="12" sm="4">
                 <v-text-field density="compact" width="auto" class="ma-1 pa-2" v-model="username" label="Username" variant="outlined"></v-text-field>
               </v-col>
-              <v-col cols="12" sm="3">
-                <v-text-field density="compact" width="auto" class="ma-1 pa-2" v-model="password" label="Password" variant="outlined"></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="3">
+              <v-col cols="12" sm="8">
                 <v-text-field density="compact" width="auto" class="ma-1 pa-2" v-model="email" label="Email" variant="outlined"></v-text-field>
               </v-col>
-            </v-row>
-         <v-row no-gutters>
-            <v-col cols="2.4" >
+            <v-col cols="12" sm="6">
               <v-text-field density="compact" width="auto" class="ma-1 pa-2" v-model="firstname" label="Firstname" variant="outlined"></v-text-field>
             </v-col>
-            <v-col cols="2.4" >
+            <v-col cols="12" sm="6">
               <v-text-field density="compact" width="auto" class="ma-1 pa-2" v-model="lastname" label="Lastname" variant="outlined"></v-text-field>
             </v-col>
-            <v-col cols="2.4" >
-              <v-text-field density="compact" width="auto" class="ma-1 pa-2" v-model="dob" label="Date of Birth" variant="outlined"></v-text-field>
+            <v-col cols="12" sm="6" md="4" >
+              <v-text-field density="compact" width="auto" type="date" class="ma-1 pa-2" v-model="dob" label="Date of Birth" variant="outlined"></v-text-field>
             </v-col>
-            <v-col cols="2.4" >
+            <v-col cols="12" sm="4" md="3" >
               <v-select density="compact" width="auto" class="ma-1 pa-2" v-model="gender" label="Gender" :items="genderOptions" variant="outlined"></v-select>
             </v-col>
-            <v-col cols="2.4" >
+            <v-col cols="12" sm="4" md="3" >
               <v-select density="compact" width="auto" class="ma-1 pa-2" v-model="civilStatus" label="Civil Status" :items="civilStatusOptions" variant="outlined"></v-select>
-            </v-col>
-        </v-row>
-        <v-row no-gutters>
+            </v-col>  
             <v-col cols="12" sm="3">
               <v-text-field density="compact" width="auto" class="ma-1 pa-2" v-model="sitio" label="Sitio" variant="outlined"></v-text-field>
             </v-col>
@@ -81,6 +71,9 @@
   </template>
   
   <script>
+  import axios from 'axios'
+import { getCookie } from '@/utils/cookieUtils.js'
+import { jwtDecode as jwt_decode } from 'jwt-decode';
   export default {
     data() {
       return {
@@ -101,8 +94,35 @@
         position: '',
         genderOptions: ['Male', 'Female'],
         civilStatusOptions: ['Single', 'Married', 'Divorced', 'Widowed'],
+        userProfile: '',
+
       };
     },
+    methods:{
+      async getAdminProfile(){
+        const response = await axios.get(`admin/getAdminAccountData/${this.userId}`)
+        const accountData = response.data
+        this.username = response.data[0].Username
+        this.email = response.data[0].Email
+        this.firstname = response.data[0].FirstName
+        this.lastname = response.data[0].Lastname
+        this.dob = response.data[0].Date_Of_Birth
+        this.gender = response.data[0].Gender
+        this.civilStatus = response.data[0].Civil_Status
+        this.sitio = response.data[0].Sitio
+        this.barangay = response.data[0].Barangay
+        this.city = response.data[0].City
+        this.province = response.data[0].Province
+        this.userProfile = response.data[0].Image
+      }
+    },
+    created(){
+      const token = getCookie('token');
+      const decodedToken = jwt_decode(token);
+      this.userId = decodedToken.userid
+
+      this.getAdminProfile()
+    }
   };
   </script>
   

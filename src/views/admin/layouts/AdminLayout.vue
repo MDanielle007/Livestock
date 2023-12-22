@@ -10,7 +10,7 @@
            <v-container>
                 <router-view></router-view>
            </v-container>
-           <v-footer>{{ new Date().getFullYear() }} — <strong>Vuetify</strong></v-footer>
+           <v-footer>{{ new Date().getFullYear() }} — <strong>OrMin Livestock</strong></v-footer>
         </v-main>
     </v-layout>
 </template>

@@ -10,6 +10,7 @@ import '@/assets/sass/variables.scss'
 import store from './store'
 
 axios.defaults.baseURL = 'https://orminlivestock.online/orminlivestock/'
+// axios.defaults.baseURL = 'http://livestockbackend.test/'
 // loadFonts()
 
 createApp(App)

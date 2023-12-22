@@ -1,5 +1,5 @@
 <template>
-  <v-list lines="three" height="550">
+  <v-list lines="three" class="h-screen">
     <v-list-item-group v-if="dataHistory.length > 0">
       <v-list-item v-for="(item, index) in dataHistory" :key="index" v-lazy>
         <template v-slot:prepend>
