@@ -32,7 +32,7 @@
                     <v-card class="mx-auto" max-width="500" height="auto">
                     <div >
                         <v-card-title class="pa-0 ml-3 mt-3">
-                            Puerto Galera
+                            Baco
                         </v-card-title>
                     </div>
                     <div class="d-flex" >
@@ -49,7 +49,7 @@
                     <v-card class="mx-auto" max-width="500" height="auto">
                     <div >
                         <v-card-title class="pa-0 ml-3 mt-3">
-                            Puerto Galera
+                            Calapan City
                         </v-card-title>
                     </div>
                     <div class="d-flex" >
@@ -66,7 +66,7 @@
                     <v-card class="mx-auto" max-width="500" height="auto">
                     <div >
                         <v-card-title class="pa-0 ml-3 mt-3">
-                            Puerto Galera
+                            Naujan
                         </v-card-title>
                     </div>
                     <div class="d-flex" >
@@ -83,7 +83,7 @@
             </v-row>
             <v-row>
                 <v-col>
-                    <ReportAnalysisTable/>
+                    <LivestockTable/>
                 </v-col>
             </v-row>
         </v-container>
@@ -91,14 +91,14 @@
 </template>
 <script>
 import MultipleYAxis from '../../../components/admin/visualizations/MultipleYAxis.vue'
-import ReportAnalysisTable from '../../../components/admin/tables/ReportAnalysisTable.vue'
+import LivestockTable from '@/components/admin/tables/LivestockTable.vue'
 import LineGradient from '../../../components/admin/visualizations/LineGradient.vue'
 
 export default{
     name:'AdminReportAnalytics',
     components:{
         MultipleYAxis, 
-        ReportAnalysisTable,
+        LivestockTable,
         LineGradient,
     }
 }

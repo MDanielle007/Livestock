@@ -1,12 +1,10 @@
 <template>
-  <v-card   style="height: 525px;">
-    <v-row >
-          <div>
+  <v-card style="height: 525px;">
+    <v-row no-gutters>
             <v-col class="mt-3 ml-2">
-              <v-card-title>Annually Rate</v-card-title>
+              <v-card-title class="text-h4 font-weight-bold">Annually Rate</v-card-title>
             </v-col>
-          </div>
-            <v-col cols=" 3" class="d-flex justify-end ma-5">
+            <v-col cols="4" class="d-flex justify-end ma-5">
                   <v-select
                   v-model="select"
                   :hint="`${select.state}, ${select.abbr}`"
@@ -14,19 +12,15 @@
                   item-title="state"
                   item-value="abbr"
                   label="Select"
-                  persistent-hint
                   return-object
                   single-line
                 ></v-select>
           </v-col>
-    </v-row>
-  
-    <v-row>
       <v-col >
         <div ref="SplineArea"></div>
       </v-col>  
       
-      <div style="position: absolute; top: 10; right: 0; z-index: 1;" class="mr-10 mt-5">
+      <div class="mr-10 mt-5">
         <v-col>
           <v-sheet >
             <div class="d-flex">
@@ -64,11 +58,11 @@ import ApexCharts from 'apexcharts';
 const SplineArea = ref(null);
 const select = ref('Municipality');
 const items = [
-  { state: 'Florida', abbr: 'FL' },
-  { state: 'Georgia', abbr: 'GA' },
-  { state: 'Nebraska', abbr: 'NE' },
-  { state: 'California', abbr: 'CA' },
-  { state: 'New York', abbr: 'NY' },
+  { state: 'Puerto Galera'},
+  { state: 'San Teodoro'},
+  { state: 'Baco'},
+  { state: 'Calapan City'},
+  { state: 'Naujan'},
 ];
 
 const renderChart = () => {
