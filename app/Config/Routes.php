@@ -65,6 +65,8 @@ $routes->group('admin',static function($routes){
     // Livestock Advisory
     $routes->post('createAdvisory','AdvisoryController::createAdvisory');
     $routes->get('getAdvisories','AdvisoryController::getAdvisories');
+
+    $routes->get('getAdminAccountData/(:any)','UserController::getAdminAccountData/$1');
 });
 
 $routes->group('farmer',static function($routes){

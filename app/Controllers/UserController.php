@@ -336,4 +336,31 @@ class UserController extends ResourceController
             return $this->respond(["message" => "Error: " . $th->getMessage()],);
         }
     }
+
+    public function getAdminAccountData($userID){
+        try {
+            $userAccountData = $this->userAccounts
+            ->select('user_accounts.Username, user_accounts.FirstName,
+                        user_accounts.MiddleName, user_accounts.Lastname,
+                        user_accounts.Date_Of_Birth,user_accounts.Gender,
+                        user_accounts.Civil_Status,user_accounts.Sitio,
+                        user_accounts.Barangay,user_accounts.City,
+                        user_accounts.Email,
+                        user_accounts.Province,user_accounts.Phone_Number,
+                        user_accounts.Image,user_accounts.User_Role,
+                        da_personnels.Position, da_personnels.Division,
+                        CONCAT(user_accounts.Sitio, ", ", user_accounts.Barangay, ", ", user_accounts.City, ", ", user_accounts.Province) as Address')
+            ->join('da_personnels','da_personnels.User_ID = user_accounts.User_ID')
+            ->where('user_accounts.User_ID',$userID)
+            ->get()->getResultArray();
+
+            $baseUrl = 'https://orminlivestock.online/orminlivestock/';
+            $userAccountData[0]['Image'] = $baseUrl . 'uploads/' . $userAccountData[0]['Image'];
+
+            return $this->respond($userAccountData);
+        } catch (\Throwable $th) {
+            return $this->respond(["message" => "Error: " . $th->getMessage()],);
+        }
+    }
+
 }
