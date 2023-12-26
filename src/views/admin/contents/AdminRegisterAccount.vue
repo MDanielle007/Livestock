@@ -1,6 +1,9 @@
 <template>
     <div>
-        <h1>Register Account</h1>
+        <div class="d-flex justify-space-between">
+            <h1>Register Account</h1>
+            <v-btn variant="tonal" class="secondary" prepend-icon="fa-solid fa-caret-left" @click="this.$router.go(-1);">Back</v-btn>
+        </div>
         <RegisterForm/>
     </div>
 </template>

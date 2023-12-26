@@ -208,8 +208,23 @@
                 :disabled="!termsPolicy"
                 @click="registerUser"
                 >Register User</v-btn>
-                <v-btn @click="resetBtn" size="large" color="#CF6679" variant="outlined">Reset Form</v-btn>
+                <v-btn @click="resetInputs" size="large" color="#CF6679" variant="outlined">Reset Form</v-btn>
             </div>
+
+            <v-dialog
+                v-model="registeredUserDialog"
+                width="500"
+                >
+                <v-card>
+                    <v-card-text class="text-center py-8 d-flex flex-column ga-8 justify-center align-center">
+                        <v-icon size="x-large" color="success">fa-solid fa-user-check</v-icon>
+                        <div class="text-h5 font-weight-bold">{{ Username }} Registration Complete</div>
+                    </v-card-text>
+                    <v-card-actions>
+                    <v-btn color="primary" block @click="registeredUserDialog = false">Close</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
             
         </template>
     </v-stepper>
@@ -243,6 +258,7 @@ export default {
             Position:'',
             TypeFarmer: false,
             termsPolicy: false,
+            registeredUserDialog:false,
 
             step: 1,
             items: [
@@ -279,7 +295,7 @@ export default {
             }
             return null;
         },
-        async resetBtn(){
+        resetInputs(){
             this.step = 1
             this.Username=''
             this.Password=''
@@ -303,31 +319,31 @@ export default {
         },
         async registerUser(){
             console.log("Register User");
-            const formData = new FormData();
-            formData.append('file', this.selectedFile[0], this.selectedFile[0].name);
-            formData.append('Username', this.Username);
-            formData.append('Password', this.Password);
-            formData.append('Email', this.Email);
-            formData.append('Firstname', this.Firstname);
-            formData.append('Middlename', this.Middlename);
-            formData.append('Lastname', this.Lastname);
-            formData.append('Date_Of_Birth', this.dateOfBirth);
-            formData.append('Gender', this.Gender);
-            formData.append('Civil_Status',this.CivilStatus);
-            formData.append('Sitio',this.Sitio);
-            formData.append('Barangay', this.Barangay);
-            formData.append('City', this.City);
-            formData.append('Province', this.Province);
-            formData.append('Phone_Number', this.Phone_Number);
-            formData.append('User_Role', this.userType);
-            formData.append('Position', this.Position);
-            formData.append('Division', this.Division);
-            formData.append('YearsFarming', this.YearsFarming);
-
-            
-            console.log(formData.values);
             // Make the Axios request to your backend
             try {
+                const formData = new FormData();
+                formData.append('file', this.selectedFile[0], this.selectedFile[0].name);
+                formData.append('Username', this.Username);
+                formData.append('Password', this.Password);
+                formData.append('Email', this.Email);
+                formData.append('Firstname', this.Firstname);
+                formData.append('Middlename', this.Middlename);
+                formData.append('Lastname', this.Lastname);
+                formData.append('Date_Of_Birth', this.dateOfBirth);
+                formData.append('Gender', this.Gender);
+                formData.append('Civil_Status',this.CivilStatus);
+                formData.append('Sitio',this.Sitio);
+                formData.append('Barangay', this.Barangay);
+                formData.append('City', this.City);
+                formData.append('Province', this.Province);
+                formData.append('Phone_Number', this.Phone_Number);
+                formData.append('User_Role', this.userType);
+                formData.append('Position', this.Position);
+                formData.append('Division', this.Division);
+                formData.append('YearsFarming', this.YearsFarming);
+
+                
+                console.log(formData.values);
                 const response = await axios.post("admin/registerUserAccount", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -337,11 +353,11 @@ export default {
                 console.log('Request Data:', formData);
 
                 console.log(response);
+                this.resetInputs()
+                this.registeredUserDialog = true;
             } catch (error) {
                 console.log(error);
             }
-
-            console.log(this.selectedFile);
         }
     }
 }
