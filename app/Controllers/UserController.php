@@ -31,6 +31,7 @@ class UserController extends ResourceController
         try {
             $data = $this->userAccounts->select('User_ID, Firstname, Lastname, User_Role, User_Status, Image')->findAll();
             $baseUrl = 'https://orminlivestock.online/orminlivestock/';
+            // $baseUrl = 'http://livestockbackent.test/';
     
             foreach ($data as &$account) {
                 $account['Image'] = $baseUrl . 'uploads/' . $account['Image'];
@@ -355,6 +356,7 @@ class UserController extends ResourceController
             ->get()->getResultArray();
 
             $baseUrl = 'https://orminlivestock.online/orminlivestock/';
+            // $baseUrl = 'http://livestockbackent.test/';
             $userAccountData[0]['Image'] = $baseUrl . 'uploads/' . $userAccountData[0]['Image'];
 
             return $this->respond($userAccountData);
