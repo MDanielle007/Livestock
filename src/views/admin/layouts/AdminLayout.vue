@@ -1,25 +1,49 @@
 <template>
-  <div class="surface-300 flex min-w-full min-h-screen">
-    <AdminSidebar />
-    <div class="bg-orange-300 relative h-screen w-full">
-        <AdminAppbar  />
-      <main class="bg-green-300 mt-8">
-        <router-view></router-view>
-      </main>
+    <div class="flex min-w-full min-h-screen">
+        <AdminSidebar :visible="sideBarVisible" />
+        <div class="h-screen w-full">
+            <AdminAppbar @hideSideBar="hideAdminSideBar" />
+            <main class="bg-green-300">
+                <router-view></router-view>
+            </main>
+        </div>
     </div>
-  </div>
 </template>
+
 <script>
 import { RouterView } from "vue-router";
 import AdminAppbar from "@/components/admin/AdminAppbar.vue";
 import AdminSidebar from "@/components/admin/AdminSidebar.vue";
 
 export default {
-  components: {
-    RouterView,
-    AdminAppbar,
-    AdminSidebar,
-  },
+    data() {
+        return {
+            sideBarVisible: true,
+        };
+    },
+    components: {
+        RouterView,
+        AdminAppbar,
+        AdminSidebar,
+    },
+    methods: {
+        hideAdminSideBar() {
+            this.sideBarVisible = !this.sideBarVisible;
+        },
+    },
 };
 </script>
-<style></style>
+
+<style>
+.slidedown-enter-active,
+.slideup-leave-active {
+    transition: margin-left 0.5s;
+}
+
+.slidedown-enter,
+.slidedown-leave-to,
+.slideup-enter,
+.slideup-leave-to {
+    margin-left: -19rem; /* Adjust this value based on your sidebar width */
+}
+</style>

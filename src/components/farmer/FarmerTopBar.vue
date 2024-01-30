@@ -1,12 +1,9 @@
 <template>
     <div
-        class=" h-5rem p-2"
+        class=" h-5rem"
     >
-        <div class="flex justify-content-between align-items-center w-full shadow-3 px-3 py-2 border-round-md">
+        <div class="layout-appbar flex justify-content-between align-items-center w-full shadow-2 px-3 py-1 border-round-md">
             <div class="flex align-items-center gap-3 text-700">
-                <a @click="hideSideBar">
-                    <i class="pi pi-bars text-3xl cursor-pointer"></i>
-                </a>
                 <div class="font-bold text-3xl ">
                     {{ splitPascalCase(this.$route.name) }}
                 </div>
@@ -24,9 +21,6 @@ import { splitPascalCase } from "@/utils/StringFormatters.js";
 export default {
     methods: {
         splitPascalCase,
-        hideSideBar() {
-            this.$emit("hideSideBar");
-        },
     },
 };
 </script>
