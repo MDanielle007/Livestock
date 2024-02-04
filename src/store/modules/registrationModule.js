@@ -17,7 +17,6 @@ export default {
             } else {
                 state.user[field] = value;
             }
-            console.log(`Updated user field: ${field}, value: ${value}`);
         },
         // Mutation to reset the user state
         resetUserState(state) {
@@ -36,7 +35,7 @@ export default {
             dispatch("saveUserDataToLocalStorage"); // Save user data after resetting
         },
         // Action to submit the user registration
-        async submitRegistration({ state }) {
+        async submitRegistration({ dispatch }) {
             try {
                 // Implement your logic to send the registration data to the server
                 // You can use state.user to access the user data
@@ -51,7 +50,8 @@ export default {
                 // Handle success response
                 console.log("Registration successful:", response.data);
 
-                // You might want to perform additional actions here, like redirecting the user
+                dispatch("resetUserState");
+                this.$router.push({ name: "AdminViewUsers" });
             } catch (error) {
                 // Handle error
                 console.error("Error during registration:", error.message);
