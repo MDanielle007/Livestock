@@ -3,7 +3,7 @@
         <AdminSidebar :visible="sideBarVisible" />
         <div class="h-screen w-full">
             <AdminAppbar @hideSideBar="hideAdminSideBar" />
-            <main class="bg-green-300">
+            <main class="p-2 overflow-y-auto h-30rem content-container">
                 <router-view></router-view>
             </main>
         </div>

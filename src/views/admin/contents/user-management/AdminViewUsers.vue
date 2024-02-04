@@ -1,6 +1,28 @@
 <template>
-    <div>
-        <router-view></router-view>
+    <Toolbar class="mb-2 bg-white">
+        <template v-slot:start>
+            <span class="block p-input-icon-left">
+                <i class="pi pi-search" />
+                <InputText placeholder="Search..." />
+            </span>
+        </template>
+        <template v-slot:end>
+            <div class="my-1">
+                <router-link :to="{ name: 'AdminRegisterUser' }">
+                    <Button
+                        label="New User"
+                        icon="pi pi-user-plus"
+                        class="p-button-success mr-2"
+                    />
+                </router-link>
+            </div>
+        </template>
+    </Toolbar>
+    <div
+        v-if="users"
+        class="flex gap-3 flex-wrap px-5 py-3 border-1 border-200 border-round-md"
+    >
+        <UserCard v-for="user in users" :key="user.id" :user="user" />
     </div>
 </template>
 <script>

@@ -17,10 +17,16 @@ import AdminUserManagement from "@/views/admin/contents/AdminUserManagement.vue"
 import AdminSettings from "@/views/admin/contents/AdminSettings.vue";
 import AdminAuditTrail from "@/views/admin/contents/AdminAuditTrail.vue";
 import AdminProfile from "@/views/admin/contents/AdminProfile.vue";
+import AdminViewUsers from "@/views/admin/contents/user-management/AdminViewUsers.vue";
+import AdminRegisterUser from "@/views/admin/contents/user-management/AdminRegisterUser.vue";
+import UserPersonalInfoForm from "@/views/admin/contents/user-management/user-registration-steps/UserPersonalInfoForm.vue";
+import UserAccountInfoForm from "@/views/admin/contents/user-management/user-registration-steps/UserAccountInfoForm.vue";
+import UserAdditionalInfoForm from "@/views/admin/contents/user-management/user-registration-steps/UserAdditionalInfoForm.vue";
+import UserConfirmRegistration from "@/views/admin/contents/user-management/user-registration-steps/UserConfirmRegistration.vue";
 
 // Farmer routes
 import FarmerLayout from "@/views/farmer/layouts/FarmerLayout.vue";
-import FarmerDashboard from '@/views/farmer/contents/FarmerDashboard.vue';
+import FarmerDashboard from "@/views/farmer/contents/FarmerDashboard.vue";
 import FarmerLivestock from "@/views/farmer/contents/FarmerLivestock.vue";
 import FarmerHistory from "@/views/farmer/contents/FarmerHistory.vue";
 import FarmerNotification from "@/views/farmer/contents/FarmerNotification.vue";
@@ -86,8 +92,41 @@ const router = createRouter({
                 },
                 {
                     path: "user-mgmt",
-                    name: "AdminUserManagement",
                     component: AdminUserManagement,
+                    children: [
+                        {
+                            path: "users",
+                            name: "AdminUserManagement",
+                            component: AdminViewUsers,
+                        },
+                        {
+                            path: "register-user",
+                            component: AdminRegisterUser,
+                            children: [
+                                {
+                                    path: "personal-info",
+                                    name: "AdminRegisterUser",
+                                    component: UserPersonalInfoForm,
+                                    
+                                },
+                                {
+                                    path: "account-info",
+                                    name: "UserAccountInfoForm",
+                                    component: UserAccountInfoForm,
+                                },
+                                {
+                                    path: "additional-info",
+                                    name: "UserAdditionalInfoForm",
+                                    component: UserAdditionalInfoForm,
+                                },
+                                {
+                                    path: "confirm-registration",
+                                    name: "UserConfirmRegistration",
+                                    component: UserConfirmRegistration,
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     path: "settings",

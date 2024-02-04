@@ -4,6 +4,7 @@ import '@/assets/styles/style.scss'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 
 import PrimeVue from 'primevue/config'
 import AutoComplete from 'primevue/autocomplete'
@@ -89,7 +90,7 @@ import 'primevue/resources/themes/lara-light-blue/theme.css'
 
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.baseURL = import.meta.env.VITE_APP_API_BASE_URL
 
 const app = createApp(App)
 
@@ -100,6 +101,7 @@ app.use(PrimeVue, {
 app.use(ToastService)
 app.use(DialogService)
 app.use(ConfirmationService)
+app.use(store)
 
 app.directive('tooltip', Tooltip)
 app.directive('badge', BadgeDirective)
