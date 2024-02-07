@@ -16,22 +16,22 @@
             </div>
         </template>
         <template #subtitle>
-            <div v-if="cardSubtitle" class="bg-yellow-400 text-white px-2 py-1">
+            <div class="bg-yellow-400 text-white px-2 py-1">
                 {{ cardSubtitle }}
             </div>
         </template>
         <template #content>
             <div
-                class="bg-red-300 p-3 border-round-bottom-lg flex justify-content-between align-items-center"
+                class="bg-white p-3 border-round-bottom-lg flex justify-content-between align-items-center"
                 :style="{ height: contentHeight }"
             >
-                <div class="font-bold text-3xl">
+                <div class="font-medium text-3xl">
                     {{ cardContent }}
                 </div>
-                <div class="bg-blue-300">
-                    <img
-                        class="h-2rem"
-                        alt="user header"
+                <div v-if="cardContent || contentType">
+                    <Image
+                        :alt="cardSubtitle"
+                        width="45"
                         :src="getImagePath()"
                     />
                 </div>
@@ -45,26 +45,31 @@ export default {
     props: {
         cardTitle: String,
         cardSubtitle: String,
-        cardContent: Number,
+        cardContent: String,
         contentHeight: String,
         contentType: String,
     },
     methods: {
         getImagePath() {
+            if(this.contentType === 'Farmer'){
+                return '/src/assets/icons/user-icons/farmer-96.png'
+            }else if(this.contentType === 'DA'){
+                return '/src/assets/icons/user-icons/admin-96.png'
+            }
 
-            switch (type) {
+            switch (this.cardSubtitle) {
                 case "Cattle":
-                    return require("@/assets/icons/livestock-icons/cattle-96.png");
+                    return '/src/assets/icons/livestock-icons/cattle-96.png'
                 case "Chicken":
-                    return require("@/assets/icons/livestock-icons/chicken-96.png");
+                    return '/src/assets/icons/livestock-icons/chicken-96.png'
                 case "Goat":
-                    return require("@/assets/icons/livestock-icons/goat-96.png");
+                    return '/src/assets/icons/livestock-icons/goat-96.png'
                 case "Pig":
-                    return require("@/assets/icons/livestock-icons/pig-96.png");
+                    return '/src/assets/icons/livestock-icons/pig-96.png'
                 case "Sheep":
-                    return require("@/assets/icons/livestock-icons/sheep-96.png");
+                    return '/src/assets/icons/livestock-icons/sheep-96.png'
                 case "Carabao":
-                    return require("@/assets/icons/livestock-icons/water-buffalo-96.png");
+                    return '/src/assets/icons/livestock-icons/water-buffalo-96.png'
                 default:
                     return ""; // You can provide a default image path if needed
             }

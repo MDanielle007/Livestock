@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-300 max-w-screen p-3">
+  <div class="max-w-screen p-3">
     <div class="m-0 flex flex-wrap gap-2 justify-content-between">
       <div class="w-7rem" v-for="livestock in livestocks">
         <LivestockCard
@@ -9,7 +9,7 @@
         />
       </div>
       <div class="flex-grow-1">
-        <LivestockCard :cardTitle="'Total Livestocks'" :cardContent="16" :contentHeight="'6rem'"/>
+        <LivestockCard :cardTitle="'Total Livestocks'" :cardContent="`${16} Livestocks`" :contentHeight="'6.4rem'" />
       </div>
     </div>
   </div>

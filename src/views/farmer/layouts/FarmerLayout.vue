@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-column min-w-screen min-h-screen">
+    <div class="surface-100 flex flex-column min-w-screen min-h-screen">
         <div class="absolute">
             <FarmerTopBar />
         </div>

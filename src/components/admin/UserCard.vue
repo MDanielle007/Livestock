@@ -47,6 +47,11 @@
 
 <script>
 export default {
-    props: ["user"],
+    props:{
+        user: {
+            type: Object,
+            required: true,
+        },
+    },
 };
 </script>
