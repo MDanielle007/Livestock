@@ -3,11 +3,12 @@
         <div class="absolute">
             <FarmerTopBar />
         </div>
-        <main class="min-h-screen flex flex-column justify-content-center align-items-center">
+        <main class="mt-8">
             <router-view></router-view>
         </main>
-        <FarmerDockNavigation/>
+        
     </div>
+    <FarmerDockNavigation/>
 </template>
 <script>
 import { RouterView } from 'vue-router';

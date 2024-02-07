@@ -1,5 +1,5 @@
 <template>
-    <div class="min-w-screen">
+    <div>
         <Dock
             :model="items"
             :position="position"
@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import Divider from 'primevue/divider';
-
 export default {
     data() {
         return {
