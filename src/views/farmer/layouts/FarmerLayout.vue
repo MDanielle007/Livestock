@@ -3,7 +3,7 @@
         <div class="absolute">
             <FarmerTopBar />
         </div>
-        <main class="bg-blue-300 farmer-content-container my-8 overflow-y-auto p-3">
+        <main class="farmer-content-container my-8 overflow-y-auto p-3">
             <router-view></router-view>
         </main>
         <FarmerDockNavigation/>
