@@ -1,7 +1,7 @@
 <template>
-  <div class="max-w-screen p-3">
-    <div class="m-0 flex flex-wrap gap-2 justify-content-between">
-      <div class="w-7rem" v-for="livestock in livestocks">
+  <div class="max-w-screen">
+    <div class="m-0 flex flex-wrap gap-3 justify-content-between">
+      <div class="w-6rem" v-for="livestock in livestocks">
         <LivestockCard
           :cardSubtitle="livestock.livestockType"
           :cardTitle="livestock.livestockAgeClass"
@@ -24,22 +24,22 @@ export default {
         {
           livestockType: "Pig",
           livestockAgeClass: "Piglet",
-          livestockCount: 7,
+          livestockCount: "7",
         },
         {
           livestockType: "Cattle",
           livestockAgeClass: "Calf",
-          livestockCount: 5,
+          livestockCount: "5",
         },
         {
           livestockType: "Goat",
           livestockAgeClass: "Kid",
-          livestockCount: 2,
+          livestockCount: "2",
         },
         {
           livestockType: "Carabao",
           livestockAgeClass: "Calf",
-          livestockCount: 2,
+          livestockCount: "2",
         },
       ],
     };

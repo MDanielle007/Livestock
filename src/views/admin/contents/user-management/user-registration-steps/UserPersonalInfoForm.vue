@@ -41,6 +41,7 @@
                             inputId="gender"
                             v-model="user.gender"
                             :options="genderOptions"
+                            optionValue="code"
                             optionLabel="name"
                             placeholder="Select Gender"
                         ></Dropdown>
@@ -53,6 +54,7 @@
                             inputId="civilStatus"
                             v-model="user.civilStatus"
                             :options="civilStatusOptions"
+                            optionValue="code"
                             optionLabel="name"
                             placeholder="Select Status"
                         ></Dropdown>
@@ -65,6 +67,7 @@
                             inputId="userType"
                             v-model="user.userType"
                             :options="userTypes"
+                            optionValue="code"
                             optionLabel="name"
                             placeholder="Select Type"
                         ></Dropdown>

@@ -110,7 +110,7 @@
     <div
         class="flex justify-content-between p-3 border-1 border-200 border-round-bottom-md"
     >
-        <router-link :to="{ name: 'UserAdditionalInfoForm' }">
+        <router-link :to="{ name: 'UserAccountInfoForm' }">
             <Button severity="secondary" outlined label="Prev" />
         </router-link>
         <Button

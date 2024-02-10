@@ -21,7 +21,6 @@ import AdminViewUsers from "@/views/admin/contents/user-management/AdminViewUser
 import AdminRegisterUser from "@/views/admin/contents/user-management/AdminRegisterUser.vue";
 import UserPersonalInfoForm from "@/views/admin/contents/user-management/user-registration-steps/UserPersonalInfoForm.vue";
 import UserAccountInfoForm from "@/views/admin/contents/user-management/user-registration-steps/UserAccountInfoForm.vue";
-import UserAdditionalInfoForm from "@/views/admin/contents/user-management/user-registration-steps/UserAdditionalInfoForm.vue";
 import UserConfirmRegistration from "@/views/admin/contents/user-management/user-registration-steps/UserConfirmRegistration.vue";
 
 // Farmer routes
@@ -31,6 +30,10 @@ import FarmerLivestock from "@/views/farmer/contents/FarmerLivestock.vue";
 import FarmerHistory from "@/views/farmer/contents/FarmerHistory.vue";
 import FarmerNotification from "@/views/farmer/contents/FarmerNotification.vue";
 import FarmerProfile from "@/views/farmer/contents/FarmerProfile.vue";
+import FarmerLivestockManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockManagement.vue";
+import FarmerLivestockVaccinationManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockVaccinationManagement.vue";
+import FarmerLivestockBreedingManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockBreedingManagement.vue";
+import FarmerLivestockMortalityManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockMortalityManagement.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -115,11 +118,6 @@ const router = createRouter({
                                     component: UserAccountInfoForm,
                                 },
                                 {
-                                    path: "additional-info",
-                                    name: "UserAdditionalInfoForm",
-                                    component: UserAdditionalInfoForm,
-                                },
-                                {
                                     path: "confirm-registration",
                                     name: "UserConfirmRegistration",
                                     component: UserConfirmRegistration,
@@ -152,8 +150,29 @@ const router = createRouter({
                 },
                 {
                     path: "livestock",
-                    name: "FarmerLivestock",
                     component: FarmerLivestock,
+                    children:[
+                        {
+                            path: '',
+                            name: "FarmerLivestock",
+                            component: FarmerLivestockManagement,
+                        },
+                        {
+                            path: 'vaccinations',
+                            name: "FarmerLivestockVaccinations",
+                            component: FarmerLivestockVaccinationManagement,
+                        },
+                        {
+                            path: 'breedings',
+                            name: "FarmerLivestockBreedings",
+                            component: FarmerLivestockBreedingManagement,
+                        },
+                        {
+                            path: 'mortalities',
+                            name: "FarmerLivestockMortalities",
+                            component: FarmerLivestockMortalityManagement,
+                        },
+                    ]
                 },
                 {
                     path: "history",

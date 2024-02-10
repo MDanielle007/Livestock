@@ -41,9 +41,6 @@ export default {
                     label: "Account Information",
                 },
                 {
-                    label: "Additional Information",
-                },
-                {
                     label: "Confirm Registration",
                 },
             ],
@@ -58,11 +55,8 @@ export default {
                 case "UserAccountInfoForm":
                     this.active = 1;
                     break;
-                case "UserAdditionalInfoForm":
-                    this.active = 2;
-                    break;
                 case "UserConfirmRegistration":
-                    this.active = 3;
+                    this.active = 2;
                     break;
                 default:
             }

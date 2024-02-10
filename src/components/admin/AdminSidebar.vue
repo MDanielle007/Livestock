@@ -1,7 +1,7 @@
 <template>
     <div :class="{ hidden: !visible }">
-        <div class="flex flex-column max-h-screen w-19rem p-2">
-            <div class="border-round-lg shadow-3">
+        <div class="flex flex-column max-h-screen w-19rem p-1">
+            <div class="border-round-lg shadow-1">
                 <div
                     class="flex align-items-center justify-content-between px-4 h-5rem flex-shrink-0 mt-2"
                 >

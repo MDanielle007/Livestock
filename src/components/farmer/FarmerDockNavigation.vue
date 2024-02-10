@@ -1,9 +1,12 @@
 <template>
-    <div>
+    <div class="farmer-dock-nav">
         <Dock
             :model="items"
             :position="position"
             :pt="{
+                container:{
+                    style: { backgroundColor:'#396C7B42', backdropFilter: 'blur(10px)' },
+                },
                 menuitem: {
                     style: {
                         padding: '0.1rem',  

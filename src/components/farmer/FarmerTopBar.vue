@@ -1,10 +1,10 @@
 <template>
     <div
-        class=" h-5rem"
+        class="h-5rem"
     >
-        <div class="layout-appbar flex justify-content-between align-items-center w-full shadow-2 px-3 py-1 border-round-md">
+        <div class="farmer-layout-appbar flex justify-content-between align-items-center w-full shadow-2 px-3 py-1 border-round-bottom-md">
             <div class="flex align-items-center gap-3 text-700">
-                <div class="font-bold text-3xl ">
+                <div class="font-bold text-3xl text-white">
                     {{ splitPascalCase(this.$route.name) }}
                 </div>
             </div>

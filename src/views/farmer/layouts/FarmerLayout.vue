@@ -1,14 +1,13 @@
 <template>
-    <div class="surface-100 flex flex-column min-w-screen min-h-screen">
+    <div class="surface-100 flex flex-column min-h-screen">
         <div class="absolute">
             <FarmerTopBar />
         </div>
-        <main class="mt-8">
+        <main class="bg-blue-300 farmer-content-container my-8 overflow-y-auto p-3">
             <router-view></router-view>
         </main>
-        
+        <FarmerDockNavigation/>
     </div>
-    <FarmerDockNavigation/>
 </template>
 <script>
 import { RouterView } from 'vue-router';

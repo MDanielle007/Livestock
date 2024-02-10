@@ -33,6 +33,7 @@ import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import DeferredContent from 'primevue/deferredcontent'
 import DialogService from 'primevue/dialogservice'
 import Divider from 'primevue/divider'
+import Dialog from 'primevue/dialog'
 import Dock from 'primevue/dock'
 import Dropdown from 'primevue/dropdown'
 import DynamicDialog from 'primevue/dynamicdialog'
@@ -133,6 +134,7 @@ app.component('DeferredContent', DeferredContent)
 app.component('Divider', Divider)
 app.component('Dock', Dock)
 app.component('Dropdown', Dropdown)
+app.component('Dialog', Dialog)
 app.component('DynamicDialog', DynamicDialog)
 app.component('Fieldset', Fieldset)
 app.component('FileUpload', FileUpload)

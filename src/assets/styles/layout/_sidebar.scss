@@ -1,6 +1,5 @@
 .layout-sidebar{
-    position: fixed;
-    z-index: 997;
-    top: 0;
-    left: 0;
+    @media screen and (max-width:1048px){
+        display: none;
+    }
 }
