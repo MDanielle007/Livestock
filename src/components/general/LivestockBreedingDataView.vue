@@ -1,44 +1,68 @@
 <template>
     <div class="card">
         <Dialog
-            v-model:visible="newLivestockVaccinationDialog"
+            v-model:visible="newLivestockBreedingDialog"
             modal
-            header="New Livestock Vaccination"
+            header="New Livestock Breeding"
             :style="{ width: '22rem' }"
         >
             <div class="mt-3 formgrid grid-nogutter h-25rem overflow-y-auto">
                 <div class="field col-12 flex align-items-center gap-2">
                     <Calendar
-                        inputId="vaccinationDate"
-                        v-model="livestockVaccination.vaccinationDate"
+                        inputId="breedingDate"
+                        v-model="livestockBreeding.breedDate"
                         class="w-full"
-                        placeholder="Select Vaccination Date"
+                        placeholder="Select Breeding Date"
                         dateFormat="yy-mm-dd"
                         showIcon
                     />
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Dropdown
-                        inputId="livestockSex"
-                        v-model="livestockVaccination.livestockId"
-                        :options="livestockToVaccinate"
+                        inputId="livestockType"
+                        v-model="livestockBreeding.livestockTypeId"
+                        :options="livestockTypesOptions"
                         optionValue="code"
                         optionLabel="name"
                         class="w-full"
-                        placeholder="Select Livestock"
+                        placeholder="Select Livestock Type"
                     ></Dropdown>
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
-                    <InputText
-                        v-model="livestockVaccinations.vaccinationName"
-                        placeholder="Vaccine name"
+                    <Dropdown
+                        inputId="livestockType"
+                        v-model="livestockBreeding.maleLivestockTagId"
+                        :options="maleLivestocksOptions"
+                        optionValue="code"
+                        optionLabel="name"
+                        class="flex-1"
+                        placeholder="Male"
+                    ></Dropdown>
+                    <Dropdown
+                        inputId="livestockType"
+                        v-model="livestockBreeding.femaleLivestockTagId"
+                        :options="femaleLivestockOptions"
+                        optionValue="code"
+                        optionLabel="name"
+                        class="flex-1"
+                        placeholder="Female"
+                    ></Dropdown>
+                </div>
+                <div class="field col-12 flex align-items-center gap-2">
+                    <Dropdown
+                        inputId="livestockType"
+                        v-model="livestockBreeding.breedResult"
+                        :options="breedingResultsOptions"
+                        optionValue="code"
+                        optionLabel="name"
                         class="w-full"
-                    />
+                        placeholder="Breeding Result"
+                    ></Dropdown>
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Textarea
-                        v-model="livestockVaccination.vaccinationDescription"
-                        placeholder="Vaccination description"
+                        v-model="livestockBreeding.breedAdditionNotes"
+                        placeholder="Breeding Additional Notes"
                         rows="5"
                         class="w-full"
                         cols="30"
@@ -50,17 +74,17 @@
                     type="button"
                     label="Cancel"
                     severity="secondary"
-                    @click="newLivestockVaccinationDialog = false"
+                    @click="newLivestockBreedingDialog = false"
                 ></Button>
                 <Button
                     type="button"
-                    label="Add Livestock"
-                    @click="addNewLivestockVaccination(livestockVaccination)"
+                    label="Save"
+                    @click="addNewLivestockBreeding(livestockBreeding)"
                 ></Button>
             </div>
         </Dialog>
         <Dialog
-            v-model:visible="viewLivestockVaccinationDialog"
+            v-model:visible="viewLivestockBreedingDialog"
             modal
             header="Vaccination Details"
             :style="{ width: '22rem' }"
@@ -68,13 +92,9 @@
             <div>
                 <img
                     class="block xl:block mx-auto border-round h-5rem"
-                    :src="
-                        getImagePath(viewLivestockVaccination.livestockTypeId)
-                    "
+                    :src="getImagePath(viewLivestockBreeding.livestockTypeId)"
                     :alt="
-                        getLivestockType(
-                            viewLivestockVaccination.livestockTypeId
-                        )
+                        getLivestockType(viewLivestockBreeding.livestockTypeId)
                     "
                 />
             </div>
@@ -82,7 +102,7 @@
                 <div class="field col-12 flex align-items-center gap-2">
                     <Calendar
                         inputId="vaccinationDate"
-                        v-model="viewLivestockVaccination.vaccinationDate"
+                        v-model="viewLivestockBreeding.breedDate"
                         class="w-full"
                         placeholder="Select Vaccination Date"
                         dateFormat="yy-mm-dd"
@@ -91,26 +111,50 @@
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Dropdown
-                        inputId="livestockSex"
-                        v-model="viewLivestockVaccination.livestockId"
-                        :options="livestockToVaccinate"
+                        inputId="livestockType"
+                        v-model="viewLivestockBreeding.livestockTypeId"
+                        :options="livestockTypesOptions"
                         optionValue="code"
                         optionLabel="name"
                         class="w-full"
-                        placeholder="Select Livestock"
+                        placeholder="Select Livestock Type"
                     ></Dropdown>
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
-                    <InputText
-                        v-model="viewLivestockVaccination.vaccinationName"
-                        placeholder="Vaccine name"
+                    <Dropdown
+                        inputId="livestockType"
+                        v-model="viewLivestockBreeding.maleLivestockTagId"
+                        :options="generateLivestockOptions(viewLivestockBreeding.livestockTypeId, 'Male')"
+                        optionValue="code"
+                        optionLabel="name"
+                        class="flex-1"
+                        placeholder="Male"
+                    ></Dropdown>
+                    <Dropdown
+                        inputId="livestockType"
+                        v-model="viewLivestockBreeding.femaleLivestockTagId"
+                        :options="generateLivestockOptions(viewLivestockBreeding.livestockTypeId, 'Female')"
+                        optionValue="code"
+                        optionLabel="name"
+                        class="flex-1"
+                        placeholder="Female"
+                    ></Dropdown>
+                </div>
+                <div class="field col-12 flex align-items-center gap-2">
+                    <Dropdown
+                        inputId="livestockType"
+                        v-model="viewLivestockBreeding.breedResult"
+                        :options="breedingResultsOptions"
+                        optionValue="code"
+                        optionLabel="name"
                         class="w-full"
-                    />
+                        placeholder="Breeding Result"
+                    ></Dropdown>
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Textarea
-                        v-model="viewLivestockVaccination.vaccinationDescription"
-                        placeholder="Vaccination description"
+                        v-model="viewLivestockBreeding.breedAdditionNotes"
+                        placeholder="Breeding Additional Notes"
                         rows="5"
                         class="w-full"
                         cols="30"
@@ -122,24 +166,22 @@
                     type="button"
                     label="Cancel"
                     severity="secondary"
-                    @click="viewLivestockVaccinationDialog = false"
+                    @click="viewLivestockBreedingDialog = false"
                 ></Button>
                 <Button
                     type="button"
                     label="Save"
-                    @click="
-                        saveEditLivestockVaccination(viewLivestockVaccination)
-                    "
+                    @click="saveEditLivestockBreeding(viewLivestockBreeding)"
                 ></Button>
             </div>
         </Dialog>
-        <DataView :value="livestockVaccinations">
+        <DataView :value="livestockBreedings">
             <template #header>
                 <div class="flex justify-content-between">
-                    <div class="text-3xl font-semibold">Vaccinations</div>
+                    <div class="text-3xl font-semibold">Breedings</div>
                     <Button
                         label="New"
-                        @click="newLivestockVaccinationDialog = true"
+                        @click="newLivestockBreedingDialog = true"
                     />
                 </div>
             </template>
@@ -151,12 +193,12 @@
                         class="col-12"
                     >
                         <div
-                            class="flex sm:align-items-center p-4 gap-3"
+                            class="flex sm:align-items-center p-2 gap-3"
                             :class="{
                                 'border-top-1 surface-border': index !== 0,
                             }"
                         >
-                            <div class="w-4rem relative">
+                            <div class="w-5rem relative">
                                 <img
                                     class="block xl:block mx-auto border-round w-full"
                                     :src="getImagePath(item.livestockTypeId)"
@@ -171,44 +213,37 @@
                                 <div
                                     class="flex flex-column justify-content-between align-items-start gap-2"
                                 >
-                                    <div class="w-full">
+                                    <div class="w-full flex flex-column gap-2">
+                                        <div class="flex justify-content-end">
+                                            <div
+                                                class="font-medium text-secondary text-sm"
+                                            >
+                                                {{ item.breedDate }}
+                                            </div>
+                                        </div>
+                                        <div class="text-md font-bold text-900">
+                                            {{ item.breedResult }}
+                                        </div>
+
                                         <div
                                             class="flex justify-content-between"
                                         >
-                                            <div
-                                                class="font-medium text-secondary text-sm"
-                                            >
-                                                {{
-                                                    getLivestockType(
-                                                        item.livestockTypeId
-                                                    )
-                                                }}
+                                            <div class="font-semibold text-sm">
+                                                {{ item.maleLivestockTagId }}
                                             </div>
-                                            <div
-                                                class="font-medium text-secondary text-sm"
-                                            >
-                                                {{ item.vaccinationDate }}
+                                            <div class="font-semibold text-sm">
+                                                {{ item.femaleLivestockTagId }}
                                             </div>
-                                        </div>
-                                        <div
-                                            class="text-lg font-bold text-900 mt-2"
-                                        >
-                                            {{ item.vaccinationName }}
-                                        </div>
-                                        <div
-                                            class="text-md font-semibold text-700"
-                                        >
-                                            {{ item.livestockTagId }}
                                         </div>
                                     </div>
                                     <Button
                                         icon="pi pi-pencil"
                                         label="View Info"
                                         severity="secondary"
-                                        outlined
                                         class="w-full"
+                                        outlined
                                         @click="
-                                            viewLivestockVaccinationDetails(
+                                            viewLivestockBreedingDetails(
                                                 item.id
                                             )
                                         "
@@ -216,6 +251,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div
+                            class="flex justify-content-between w-full px-2"
+                        ></div>
                     </div>
                 </div>
             </template>
@@ -227,22 +265,24 @@
 export default {
     data() {
         return {
-            viewLivestockVaccinationDialog: false,
-            newLivestockVaccinationDialog: false,
-            livestockVaccination: {
-                livestockId: "",
-                vaccinationName: "",
-                vaccinationDescription: "",
-                vaccinationDate: "",
-            },
-            viewLivestockVaccination: {
-                id: "",
-                livestockId: "",
-                livestockTagId: "",
+            viewLivestockBreedingDialog: false,
+            newLivestockBreedingDialog: false,
+            livestockBreeding: {
                 livestockTypeId: "",
-                vaccinationName: "",
-                vaccinationDescription: "",
-                vaccinationDate: "",
+                maleLivestockTagId: "",
+                femaleLivestockTagId: "",
+                breedResult: "",
+                breedAdditionNotes: "",
+                breedDate: "",
+            },
+            viewLivestockBreeding: {
+                id: "",
+                livestockTypeId: "",
+                maleLivestockTagId: "",
+                femaleLivestockTagId: "",
+                breedResult: "",
+                breedAdditionNotes: "",
+                breedDate: "",
             },
             livestockTypesOptions: [
                 {
@@ -258,48 +298,20 @@ export default {
                     code: "3",
                 },
             ],
-            livestockVaccinations: [
+            livestockBreedings: [
                 {
                     id: "1",
-                    livestockId: "1",
-                    livestockTagId: "CTL-101",
-                    livestockTypeId: "3",
-                    vaccinationName: "Clostridium novyi",
-                    vaccinationDescription:
-                        "Guards against black disease, another clostridial infection",
-                    vaccinationDate: "2024-1-31",
-                },
-                {
-                    id: "2",
-                    livestockId: "1",
-                    livestockTagId: "CTL-101",
-                    livestockTypeId: "3",
-                    vaccinationName: "Bovine Coronavirus",
-                    vaccinationDescription:
-                        "Guards against respiratory and enteric diseases",
-                    vaccinationDate: "2024-2-1",
-                },
-                {
-                    id: "3",
-                    livestockId: "2",
-                    livestockTagId: "PG-101",
                     livestockTypeId: "2",
-                    vaccinationName: "Porcine Circovirus Type 2 (PCV2) Vaccine",
-                    vaccinationDescription:
-                        "Protects against Porcine Circovirus Type 2",
-                    vaccinationDate: "2024-2-1",
-                },
-                {
-                    id: "4",
-                    livestockId: "3",
-                    livestockTagId: "PG-102",
-                    livestockTypeId: "2",
-                    vaccinationName: "Porcine Circovirus Type 2 (PCV2) Vaccine",
-                    vaccinationDescription:
-                        "Protects against Porcine Circovirus Type 2",
-                    vaccinationDate: "2024-2-1",
+                    maleLivestockTagId: "PG-101",
+                    femaleLivestockTagId: "PG-102",
+                    breedResult: "Successful Pregnancy",
+                    breedAdditionNotes:
+                        "Overall, breeding event deemed successful, with high hopes for a healthy and productive outcome",
+                    breedDate: "2024-2-6",
                 },
             ],
+            maleLivestocksOptions: [],
+            femaleLivestockOptions: [],
             livestocks: [
                 {
                     id: "1",
@@ -338,7 +350,36 @@ export default {
                     livestockHealthStatus: "Alive",
                 },
             ],
-            livestockToVaccinate: [],
+            breedingResultsOptions: [
+                {
+                    name: "Successful Pregnancy",
+                    code: "Successful Pregnancy",
+                },
+                {
+                    name: "Failed Pregnancy",
+                    code: "Failed Pregnancy",
+                },
+                {
+                    name: "Live Birth",
+                    code: "Live Birth",
+                },
+                {
+                    name: "Stillbirth",
+                    code: "Stillbirth",
+                },
+                {
+                    name: "Multiple Births",
+                    code: "Multiple Births",
+                },
+                {
+                    name: "Single Birth",
+                    code: "Single Birth",
+                },
+                {
+                    name: "Fertility Issues",
+                    code: "Fertility Issues",
+                },
+            ]
         };
     },
     methods: {
@@ -376,38 +417,62 @@ export default {
                 return "Unknown"; // Return a default value or handle the error accordingly
             }
         },
-        viewLivestockVaccinationDetails(id) {
-            this.viewLivestockVaccination = this.livestockVaccinations.find(
-                (vaccination) => vaccination.id === id
+        viewLivestockBreedingDetails(id) {
+            this.viewLivestockBreeding = this.livestockBreedings.find(
+                (breeding) => breeding.id === id
             );
-            this.viewLivestockVaccinationDialog = true;
+            this.viewLivestockBreedingDialog = true;
         },
-        async saveEditLivestockVaccination(livestockVaccination) {
-            console.log(JSON.stringify(livestockVaccination));
+        async saveEditLivestockBreeding(livestockBreeding) {
+            console.log(JSON.stringify(livestockBreeding));
+            this.viewLivestockBreedingDialog = false;
         },
-        async addNewLivestockVaccination(livestockVaccination) {
-            console.log(JSON.stringify(livestockVaccination));
+        async addNewLivestockBreeding(livestockBreeding) {
+            console.log(JSON.stringify(livestockBreeding));
+            this.newLivestockBreedingDialog = false;
         },
-        generatelivestockVaccinateOptions() {
-            if (this.livestocks) {
-                this.livestockToVaccinate = this.livestocks.map(
-                    (livestock) => ({
-                        name: livestock.livestockTagId,
-                        code: livestock.id,
-                    })
+        filterLivestocksBySexAndType(livestockSex, livestockType) {
+            return this.livestocks.filter((livestock) => {
+                return (
+                    livestock.sex === livestockSex &&
+                    livestock.livestockTypeId === livestockType
                 );
-            }
+            });
         },
+        generateLivestockOptions(livestockTypeId, livestockSex) {
+            const livestockOptions = this.livestocks.filter((livestock) => {
+                return (
+                    livestock.sex === livestockSex &&
+                    livestock.livestockTypeId === livestockTypeId
+                );
+            });
+
+            return livestockOptions.map((livestock) => ({
+                name: livestock.livestockTagId,
+                code: livestock.livestockTagId,
+            }));
+        }
     },
     watch: {
-        "livestock.livestockTypeId"(newVal, oldVal) {
-            this.livestockBreedsOptions = this.livestockBreeds[newVal.code];
-            this.livestockAgeClassesOptions =
-                this.livestockAgeClasses[newVal.code];
+        "livestockBreeding.livestockTypeId"(newVal, oldVal) {
+            const maleLivestocks = this.filterLivestocksBySexAndType(
+                "Male",
+                newVal
+            );
+            this.maleLivestocksOptions = maleLivestocks.map((livestock) => ({
+                name: livestock.livestockTagId,
+                code: livestock.livestockTagId,
+            }));
+
+            const femaleLivestocks = this.filterLivestocksBySexAndType(
+                "Female",
+                newVal
+            );
+            this.femaleLivestockOptions = femaleLivestocks.map((livestock) => ({
+                name: livestock.livestockTagId,
+                code: livestock.livestockTagId,
+            }));
         },
-    },
-    created() {
-        this.generatelivestockVaccinateOptions();
     },
 };
 </script>

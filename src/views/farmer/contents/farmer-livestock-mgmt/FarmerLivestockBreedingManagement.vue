@@ -1,11 +1,15 @@
 <template>
     <div>
-        Livestock Breeding Management
+        <LivestockBreedingDataView/>
     </div>
 </template>
 <script>
+import LivestockBreedingDataView from '@/components/general/LivestockBreedingDataView.vue';
+
 export default {
-    
+    components:{
+        LivestockBreedingDataView
+    }   
 }
 </script>
 <style>
