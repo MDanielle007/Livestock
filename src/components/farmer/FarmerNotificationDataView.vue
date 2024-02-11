@@ -220,9 +220,9 @@ export default {
         getImagePath(type) {
             switch (type) {
                 case "true":
-                    return "icons/user-icons/earth-planet-96.png";
+                    return "/icons/user-icons/earth-planet-96.png";
                 case "false":
-                    return "icons/user-icons/farmer-96.png";
+                    return "/icons/user-icons/farmer-96.png";
             }
         },
         viewNotification(id) {
