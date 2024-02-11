@@ -386,17 +386,17 @@ export default {
         getImagePath(type) {
             switch (type) {
                 case "1":
-                    return "/src/assets/icons/livestock-icons/chicken-96.png";
+                    return "/icons/livestock-icons/chicken-96.png";
                 case "2":
-                    return "/src/assets/icons/livestock-icons/pig-96.png";
+                    return "/icons/livestock-icons/pig-96.png";
                 case "3":
-                    return "/src/assets/icons/livestock-icons/cattle-96.png";
+                    return "/icons/livestock-icons/cattle-96.png";
                 case "4":
-                    return "/src/assets/icons/livestock-icons/water-buffalo-96.png";
+                    return "/icons/livestock-icons/water-buffalo-96.png";
                 case "5":
-                    return "/src/assets/icons/livestock-icons/goat-96.png";
+                    return "/icons/livestock-icons/goat-96.png";
                 case "6":
-                    return "/src/assets/icons/livestock-icons/sheep-96.png";
+                    return "/icons/livestock-icons/sheep-96.png";
                 default:
                     return ""; // You can provide a default image path if needed
             }

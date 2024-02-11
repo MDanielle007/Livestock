@@ -37,27 +37,27 @@ export default {
             items: [
                 {
                     label: "Home",
-                    icon: "/src/assets/icons/dock-icons/home-48.png",
+                    icon: "/icons/dock-icons/home-48.png",
                     path: "FarmerDashboard",
                 },
                 {
                     label: "Livestock",
-                    icon: "/src/assets/icons/dock-icons/pig-food-48.png",
+                    icon: "/icons/dock-icons/pig-food-48.png",
                     path: "FarmerLivestock",
                 },
                 {
                     label: "History",
-                    icon: "/src/assets/icons/dock-icons/history-48.png",
+                    icon: "/icons/dock-icons/history-48.png",
                     path: "FarmerHistory",
                 },
                 {
                     label: "Notification",
-                    icon: "/src/assets/icons/dock-icons/notification-48.png",
+                    icon: "/icons/dock-icons/notification-48.png",
                     path: "FarmerNotification",
                 },
                 {
                     label: "Profile",
-                    icon: "/src/assets/icons/dock-icons/male-user-48.png",
+                    icon: "/icons/dock-icons/male-user-48.png",
                     path: "FarmerProfile",
                 },
             ],

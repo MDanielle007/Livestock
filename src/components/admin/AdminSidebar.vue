@@ -7,7 +7,7 @@
                 >
                     <span class="inline-flex align-items-center gap-2">
                         <Image
-                            src="/src/assets/icons/android-chrome-512x512.png"
+                            src="/icons/android-chrome-512x512.png"
                             alt="Image"
                             width="80"
                         />

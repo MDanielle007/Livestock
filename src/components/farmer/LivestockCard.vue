@@ -52,24 +52,24 @@ export default {
     methods: {
         getImagePath() {
             if(this.contentType === 'Farmer'){
-                return '/src/assets/icons/user-icons/farmer-96.png'
+                return '/icons/user-icons/farmer-96.png'
             }else if(this.contentType === 'DA'){
-                return '/src/assets/icons/user-icons/admin-96.png'
+                return '/icons/user-icons/admin-96.png'
             }
 
             switch (this.cardSubtitle) {
                 case "Cattle":
-                    return '/src/assets/icons/livestock-icons/cattle-96.png'
+                    return '/icons/livestock-icons/cattle-96.png'
                 case "Chicken":
-                    return '/src/assets/icons/livestock-icons/chicken-96.png'
+                    return '/icons/livestock-icons/chicken-96.png'
                 case "Goat":
-                    return '/src/assets/icons/livestock-icons/goat-96.png'
+                    return '/icons/livestock-icons/goat-96.png'
                 case "Pig":
-                    return '/src/assets/icons/livestock-icons/pig-96.png'
+                    return '/icons/livestock-icons/pig-96.png'
                 case "Sheep":
-                    return '/src/assets/icons/livestock-icons/sheep-96.png'
+                    return '/icons/livestock-icons/sheep-96.png'
                 case "Carabao":
-                    return '/src/assets/icons/livestock-icons/water-buffalo-96.png'
+                    return '/icons/livestock-icons/water-buffalo-96.png'
                 default:
                     return ""; // You can provide a default image path if needed
             }
