@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="flex gap-2">
-                <Button icon="pi pi-bell text-xl" text rounded aria-label="Filter" />
+                <Button icon="pi pi-bell text-xl text-white" text rounded />
                 <Avatar label="U" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" shape="circle" />
             </div>
         </div>
