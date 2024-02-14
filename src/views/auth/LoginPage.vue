@@ -1,86 +1,141 @@
 <template>
     <div
-        class="min-w-screen min-h-screen flex flex-column justify-content-center align-items-center overflow-hidden"
+        class="login-page min-w-screen min-h-screen flex flex-column justify-content-center align-items-center overflow-hidden"
     >
         <div
-            class="bg-blue-300 px-7 py-6 flex flex-column justify-content-center align-items-center border-round-3xl shadow-4"
+            class="bg-white flex justify-content-center align-items-center border-round-3xl shadow-4"
         >
-            <div class="text-center mb-5">
-                <div class="text-900 text-3xl font-medium mb-3">
-                    Welcome Back!
-                </div>
-                <span class="text-600 font-medium">Sign in to continue</span>
-            </div>
-            <div>
-                <label
-                    for="email1"
-                    class="block text-900 text-xl font-medium mb-2"
-                    >Email</label
-                >
-                <InputText
-                    id="email1"
-                    type="text"
-                    placeholder="Email address"
-                    class="w-full md:w-30rem mb-5"
-                    style="padding: 1rem"
-                    v-model="email"
-                />
-
-                <label
-                    for="password1"
-                    class="block text-900 font-medium text-xl mb-2"
-                    >Password</label
-                >
-                <Password
-                    id="password1"
-                    v-model="password"
-                    placeholder="Password"
-                    :toggleMask="true"
-                    class="w-full mb-3"
-                    inputClass="w-full"
-                    :inputStyle="{ padding: '1rem' }"
-                    :feedback="false"
-                ></Password>
-
-                <div
-                    class="flex align-items-center justify-content-between mb-5 gap-5"
-                >
-                    <div class="flex align-items-center">
-                        <Checkbox
-                            v-model="checked"
-                            id="rememberme1"
-                            binary
-                            class="mr-2"
-                        ></Checkbox>
-                        <label for="rememberme1">Remember me</label>
+            <div class="px-7 py-6">
+                <div class="flex w-full justify-content-between">
+                    <Image src="/images/logo/3HEADS OUTLINE.png" width="100" />
+                    <div class="text-left mb-5">
+                        <div
+                            class="text-900 font-bold mb-3"
+                            style="font-size: 48px"
+                        >
+                            Welcome Back!
+                        </div>
+                        <span class="text-lg text-600 font-medium"
+                            >Sign in to continue</span
+                        >
                     </div>
-                    <a
-                        class="font-medium no-underline ml-2 text-right cursor-pointer"
-                        style="color: var(--primary-color)"
-                        >Forgot password?</a
-                    >
                 </div>
-                <Button
-                    label="Sign In"
-                    class="w-full p-3 text-xl"
-                    onClick=""
-                ></Button>
+                <div>
+                    <label
+                        for="email1"
+                        class="block text-900 text-xl font-medium mb-2"
+                        >Username</label
+                    >
+                    <InputText
+                        id="email1"
+                        type="text"
+                        placeholder="Username"
+                        class="w-full md:w-30rem mb-5"
+                        style="padding: 1rem"
+                        v-model="username"
+                    />
+
+                    <label
+                        for="password1"
+                        class="block text-900 font-medium text-xl mb-2"
+                        >Password</label
+                    >
+                    <Password
+                        id="password1"
+                        v-model="password"
+                        placeholder="Password"
+                        :toggleMask="true"
+                        class="w-full mb-3"
+                        inputClass="w-full"
+                        :inputStyle="{ padding: '1rem' }"
+                        :feedback="false"
+                    ></Password>
+                    <InlineMessage v-if="invalidMessage " class="mb-3 w-full" severity="error">{{ errorMessage }}</InlineMessage>
+
+                    <div
+                        class="flex align-items-center justify-content-between mb-5 gap-5"
+                    >
+                        <div class="flex align-items-center">
+                            <Checkbox
+                                v-model="checked"
+                                id="rememberme1"
+                                binary
+                                class="mr-2"
+                            ></Checkbox>
+                            <label for="rememberme1">Remember me</label>
+                        </div>
+                        <a
+                            class="font-medium no-underline ml-2 text-right cursor-pointer"
+                            style="color: var(--primary-color)"
+                            >Forgot password?</a
+                        >
+                    </div>
+                    <Button
+                        label="Sign In"
+                        class="w-full p-3 text-xl"
+                        @click="loginAuth"
+                    ></Button>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import axios from "axios";
+import { jwtDecode as jwt_decode } from 'jwt-decode';
+import { setCookie } from '@/utils/CookieUtils'
 
 export default {
     data() {
         return {
-            email: "",
+            username: "",
             password: "",
             checked: false,
+            errorMessage: "",
+            invalidMessage: false
         };
     },
-    methods: {},
+    methods: {
+        async loginAuth() {
+            try {
+                const response = await axios.post("/login", {
+                    username: this.username,
+                    password: this.password,
+                });
+                console.log(response);
+                if (!response.data.login) {
+                    // response.data.error // this contains an error message that says "Invalid username or password"
+                    this.errorMessage = response.data.error;
+                    this.password = "";
+                    this.invalidMessage = true;
+
+                } else {
+                    const decodedToken = jwt_decode(response.data.token);
+                    const userRole = decodedToken.aud;
+
+                    console.log(userRole);
+
+                    // Set the token as an HTTP-only cookie with an expiration time
+                    setCookie("token", response.data.token, 1); // 1 day expiration
+
+                    switch (userRole) {
+                        case "Farmer":
+                        case "Care Taker":
+                            this.$router.push({ name: "FarmerDashboard" });
+                            break;
+                        case "DA Personnel":
+                            this.$router.push({ name: "AdminDashboard" });
+                            break;
+                        // Handle other roles if needed
+                        default:
+                            this.$router.push("/login");
+                    }
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        },
+    },
 };
 </script>
 <style></style>
