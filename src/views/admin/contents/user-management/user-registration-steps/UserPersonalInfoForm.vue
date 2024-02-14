@@ -25,10 +25,10 @@
                 </div>
                 <div class="field col-12 md:col-3">
                     <div class="flex flex-column">
-                        <label for="birthDate">Birth date</label>
+                        <label for="dateOfBirth">Date of Birth</label>
                         <Calendar
-                            inputId="birthDate"
-                            v-model="user.birthDate"
+                            inputId="dateOfBirth"
+                            v-model="user.dateOfBirth"
                             dateFormat="yy-mm-dd"
                             showIcon
                         />
@@ -146,16 +146,16 @@ export default {
             ],
             userTypes: [
                 {
-                    name: "Admin",
-                    code: "Admin",
+                    name: "DA Personnel",
+                    code: "DA Personnel",
                 },
                 {
                     name: "Farmer",
                     code: "Farmer",
                 },
                 {
-                    name: "Caretaker",
-                    code: "Caretaker",
+                    name: "Care Taker",
+                    code: "Care Taker",
                 },
             ],
         };
@@ -178,7 +178,7 @@ export default {
         // Method to navigate to the next form
         nextForm() {
             try {
-                const formattedBirthDate = new Date(this.user.birthDate)
+                const formattedDateOfBirth = new Date(this.user.dateOfBirth)
                     .toISOString()
                     .split("T")[0];
                 // Update user data in the store before navigating
@@ -186,7 +186,7 @@ export default {
                     firstName: this.user.firstName,
                     middleName: this.user.middleName,
                     lastName: this.user.lastName,
-                    birthDate: formattedBirthDate,
+                    dateOfBirth: formattedDateOfBirth,
                     gender: this.user.gender,
                     civilStatus: this.user.civilStatus,
                     userType: this.user.userType,

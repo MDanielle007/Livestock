@@ -43,7 +43,7 @@ export default {
                     localStorage.getItem(localStorageKey)
                 );
                 const response = await axios.post(
-                    "register-user",
+                    "admin/register-user",
                     savedUserData
                 );
 

@@ -6,7 +6,7 @@
         <div class="account-info-form">
             <div class="flex justify-content-center align-content-center">
                 <div class="grid">
-                    <div class="formgrid grid row-gap-3 col-6">
+                    <div class="formgrid grid row-gap-2 col-6">
                         <div class="field col-12">
                             <div class="flex flex-column">
                                 <label for="username">Username</label>
@@ -56,26 +56,42 @@
                                 </InputGroup>
                             </div>
                         </div>
+                        <div class="field col-12">
+                            <div class="flex flex-column">
+                                <label for="phoneNumber">Phone Number</label>
+                                <InputGroup>
+                                    <InputGroupAddon>
+                                        <i class="pi pi-envelope"></i>
+                                    </InputGroupAddon>
+                                    <InputText
+                                        id="phoneNumber"
+                                        v-model="user.phoneNumber"
+                                        placeholder="Phone Number"
+                                    />
+                                </InputGroup>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-6">
-                    <FileUpload
-                        name="file[]"
-                        :url="`${baseUrl}upload`"
-                        accept="image/*"
-                        @upload="onAdvancedUpload($event)"
-                        :maxFileSize="3000000"
-                        :pt="{
-                            thumbnail: {
-                                class: 'h-7rem w-auto',
-                            },
-                            content: { class: 'min-h-9rem' },
-                        }"
-                    >
-                        <template #empty>
-                            <p>Drag and drop files to here to upload.</p>
-                        </template>
-                    </FileUpload>
-                </div>
+                        <FileUpload
+                            name="file[]"
+                            :url="`${baseUrl}upload`"
+                            accept="image/*"
+                            customUpload
+                            @uploader="customBase64Uploader"
+                            :maxFileSize="3000000"
+                            :pt="{
+                                thumbnail: {
+                                    class: 'h-7rem w-auto',
+                                },
+                                content: { class: 'min-h-9rem' },
+                            }"
+                        >
+                            <template #empty>
+                                <p>Drag and drop files to here to upload.</p>
+                            </template>
+                        </FileUpload>
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,11 +106,12 @@
     </div>
 </template>
 <script>
+import axios from "axios";
 import { mapState, mapActions } from "vuex";
 const backendUrl = import.meta.env.VITE_APP_API_BASE_URL;
 
 export default {
-    data(){
+    data() {
         return {
             baseUrl: backendUrl,
             filePath: "",
@@ -115,7 +132,7 @@ export default {
                 username: this.user.username,
                 email: this.user.email,
                 password: this.user.password,
-                userImage: this.filePath
+                userImage: this.filePath,
             };
 
             if (
@@ -140,17 +157,6 @@ export default {
 
             this.$router.push({ name: "UserConfirmRegistration" });
         },
-        onAdvancedUpload(event) {
-            this.$toast.add({
-                severity: "info",
-                summary: "Success",
-                detail: "File Uploaded",
-                life: 3000,
-            });
-            const responseObj = JSON.parse(event.xhr.response);
-
-            this.filePath = responseObj.path;
-        },
         formatSize(bytes) {
             const k = 1024;
             const dm = 3;
@@ -166,6 +172,20 @@ export default {
             );
 
             return `${formattedSize} ${sizes[i]}`;
+        },
+        async customBase64Uploader(event) {
+            const file = event.files[0];
+
+            const formData = new FormData();
+            formData.append("file", file, file.name);
+
+            const response = await axios.post("upload", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            this.filePath = response.data.path;
         },
     },
     created() {
