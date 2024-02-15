@@ -18,37 +18,38 @@
             <span class="text-h5">Livestock Mortality Form</span>
         </v-card-title>
         <v-card-text>
-            <v-container>
-            <v-row>
-                <v-col>
+            <v-row no-gutters>
+                <v-col cols="12">
                     <v-text-field
+                    density="compact"
                     label="Livestock Type"
                     v-model="livestockData.livestockType"
                     readonly
                     ></v-text-field>
                 </v-col>
-                <v-col>
+                <v-col cols="12">
                     <v-text-field
+                    density="compact"
                     label="Livestock Type"
                     v-model="livestockData.LivestockTagID"
                     readonly
                     ></v-text-field>
                 </v-col>
-                <v-col>
+                <v-col cols="12"> 
                     <v-text-field
+                    density="compact"
                     label="Date of Death"
                     v-model="dateOfDeath"
                     type="date"
                     ></v-text-field>
                 </v-col>
-            </v-row>
-            <v-row>
-                <v-textarea
+                <v-col cols="12">
+                    <v-textarea
                 label="Cause of Death"
                 v-model="causeOfDeath"
                 ></v-textarea>
+                </v-col>
             </v-row>
-            </v-container>
             <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>

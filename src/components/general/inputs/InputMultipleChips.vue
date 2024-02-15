@@ -8,6 +8,7 @@
     multiple
     :prepend-icon="icon"
     variant="outlined"
+    density="compact"
   >
     <template v-slot:selection="{ attrs, item, select, selected }">
       <v-chip

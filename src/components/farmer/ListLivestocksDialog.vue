@@ -8,6 +8,7 @@
             <template v-slot:activator="{ props }">
                 <v-container>
                     <v-text-field
+                    density="compact"
                     color="primary"
                     v-bind="props"
                     :label="labelText"

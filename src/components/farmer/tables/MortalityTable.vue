@@ -18,13 +18,13 @@
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
               <v-card-text>
-                <v-container>
-                  <v-row>
+                <v-row no-gutters>
                     <v-col
                       cols="12"
                       sm="6"
                     >
                       <v-text-field
+                      density="compact"
                         v-model="editedItem.LivestockID"
                         label="Livestock ID"
                       ></v-text-field>
@@ -34,6 +34,7 @@
                       sm="6"
                     >
                       <v-text-field
+                      density="compact"
                         v-model="editedItem.LivestockType"
                         label="Livestock Type"
                         readonly
@@ -44,6 +45,7 @@
                       sm="6"
                     >
                       <v-text-field
+                      density="compact"
                         v-model="editedItem.LivestockTagID"
                         label="Livestock Tag ID"
                         readonly
@@ -55,6 +57,7 @@
                       sm="6"
                     >
                       <v-text-field
+                      density="compact"
                         type="date"
                         v-model="editedItem.dateOfDeath"
                         label="Date of Death"
@@ -71,7 +74,6 @@
                     </v-col>
                     
                   </v-row>
-                </v-container>
               </v-card-text>
   
               <v-card-actions>

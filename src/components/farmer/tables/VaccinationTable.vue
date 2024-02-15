@@ -18,13 +18,13 @@
                 </v-card-title>
     
                 <v-card-text>
-                    <v-container>
-                    <v-row>
+                    <v-row no-gutters>
                         <v-col
                         cols="12"
                         sm="6"
                         >
                         <v-text-field
+                        density="compact"
                             v-model="editedItem.LivestockTagID"
                             label="Livestock ID"
                             readonly
@@ -36,6 +36,7 @@
                         sm="6"
                         >
                         <v-text-field
+                        density="compact"
                             v-model="editedItem.LivestockType"
                             label="Livestock Type"
                             readonly
@@ -46,6 +47,7 @@
                         cols="12"
                         >
                         <v-text-field
+                        density="compact"
                             v-model="editedItem.vaccinationName"
                             label="Vaccination Name"
                         ></v-text-field>
@@ -69,7 +71,6 @@
                         ></v-text-field>
                         </v-col>
                     </v-row>
-                    </v-container>
                 </v-card-text>
     
                 <v-card-actions>

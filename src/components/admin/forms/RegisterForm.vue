@@ -11,18 +11,21 @@
                 <v-row>
                     <v-col cols="12" sm="4">
                         <v-text-field 
+                        density="compact"
                         v-model="Firstname" 
                         label="Firstname" 
                         variant="outlined"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="4">
                         <v-text-field 
+                        density="compact"
                         v-model="Middlename" 
                         label="Middlename" 
                         variant="outlined"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="4">
                         <v-text-field 
+                        density="compact"
                         v-model="Lastname" 
                         label="Lastname" 
                         variant="outlined"></v-text-field>
@@ -30,6 +33,7 @@
 
                     <v-col cols="12" sm="6" md="4" lg="3">
                         <v-text-field 
+                        density="compact"
                         label="Date of Birth" 
                         variant="outlined" 
                         type="date"
@@ -39,6 +43,7 @@
 
                     <v-col cols="12" sm="6" md="4" lg="3">
                         <v-select
+                        density="compact"
                         v-model="Gender"
                         label="Gender"
                         variant="outlined"
@@ -48,6 +53,7 @@
                     
                     <v-col cols="12" sm="6" md="4" lg="3">
                         <v-select
+                        density="compact"
                         v-model="CivilStatus"
                         label="Civil Status"
                         variant="outlined"
@@ -56,6 +62,7 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4" lg="3">
                         <v-select
+                        density="compact"
                         label="User Type"
                         variant="outlined"
                         :items="['DA Personnel', 'Farmer', 'Care Taker']"
@@ -66,6 +73,7 @@
                 <v-row>
                     <v-col cols="12" sm="6" md="4" lg="3">
                         <v-text-field 
+                        density="compact"
                             label="Province"
                             variant="outlined"
                             v-model="Province"
@@ -73,6 +81,7 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4" lg="3">
                         <v-text-field 
+                        density="compact"
                             label="City"
                             variant="outlined"
                             v-model="City"
@@ -80,6 +89,7 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4" lg="3">
                         <v-text-field 
+                        density="compact"
                             label="Barangay"
                             variant="outlined"
                             v-model="Barangay"
@@ -87,6 +97,7 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4" lg="3">
                         <v-text-field 
+                        density="compact"
                             label="Sitio"
                             variant="outlined"
                             v-model="Sitio"
@@ -103,14 +114,16 @@
             <v-container>
                 <v-row>
                     <v-col cols="12">
-                        <v-text-field 
+                        <v-text-field
+                        density="compact" 
                         label="Username" 
                         variant="outlined"
                         v-model="Username"
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12">
-                        <v-text-field 
+                        <v-text-field
+                        density="compact" 
                         label="Email" 
                         variant="outlined"
                         v-model="Email"></v-text-field>
@@ -119,6 +132,7 @@
                 <v-row>
                     <v-col cols="12" sm="6">
                         <v-text-field 
+                        density="compact"
                             label="Password"
                             variant="outlined"
                             v-model="Password"
@@ -126,6 +140,7 @@
                     </v-col>
                     <v-col cols="12" sm="6">
                         <v-text-field 
+                        density="compact"
                             label="Confirm Password"
                             variant="outlined"
                             v-model="ConfirmPassword"
@@ -151,6 +166,7 @@
                             "
                             ></v-img>
                             <FileUploadInput
+                            density="compact"
                                 v-model="selectedFile"
                                 @update:value="selectedFile = $event"
                                 ref="FileInput"
@@ -159,6 +175,7 @@
                     <v-col cols="12" md="9" class="d-flex flex-column">
                         <div v-if="TypeFarmer">
                             <v-text-field 
+                            density="compact"
                             label="Years of Farming" 
                             variant="outlined"
                             v-model="YearsFarming"
@@ -166,11 +183,13 @@
                         </div>
                         <div v-if="!TypeFarmer">
                             <v-text-field 
+                            density="compact"
                             label="Division" 
                             variant="outlined"
                             v-model="Division"
                             ></v-text-field>
                             <v-text-field 
+                            density="compact"
                             label="Position" 
                             variant="outlined"
                             v-model="Position"
@@ -178,6 +197,7 @@
                         </div>
                         <div>
                             <v-text-field 
+                            density="compact"
                             label="ContactNumber" 
                             variant="outlined"
                             v-model="Phone_Number"

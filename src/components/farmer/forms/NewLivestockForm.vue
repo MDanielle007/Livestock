@@ -20,16 +20,17 @@
                 Livestock Details
             </v-card-title>
             <v-card-text>
-                <v-container>
-                <v-row>
+                <v-row no-gutters>
                     <v-col cols="12">
                         <v-text-field
+                        density="compact"
                             label="Livestock Tag ID"
                             v-model="livestock.Livestock_TagID"
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="5">
                         <v-select
+                        density="compact"
                             label="Livestock Type"
                             :items="livestocktypes"
                             v-model="livestock.Livestock_Type"
@@ -37,6 +38,7 @@
                     </v-col>
                     <v-col cols="12" md="5">
                         <v-select
+                        density="compact"
                             label="Breed"
                             :items="breednames"
                             v-model="livestock.Breed_Name"
@@ -44,15 +46,15 @@
                     </v-col>
                     <v-col cols="12" md="2">
                         <v-select
+                        density="compact"
                             label="Sex"
                             :items="['Male','Female']"
                             v-model="livestock.Sex"
                         ></v-select>
                     </v-col>
-                </v-row>
-                <v-row>
                     <v-col cols="12" md="6" lg="3">
                         <v-select
+                        density="compact"
                             label="Livestock Age Classification"
                             :items="ageClass"
                             v-model="livestock.Age_Class"
@@ -61,24 +63,28 @@
                     
                     <v-col cols="12" md="2">
                         <v-text-field
+                        density="compact"
                             :label="activeAgeInput > 1 ? 'Age in Days':'Livestock Age'"
                             v-model="livestock.AgeDays"
                         ></v-text-field>
                     </v-col>
                     <v-col v-if="activeAgeInput > 1" cols="12" md="2">
                         <v-text-field
+                        density="compact"
                             label="Age in Weeks"
                             v-model="livestock.AgeWeeks"
                         ></v-text-field>
                     </v-col>
                     <v-col v-if="activeAgeInput > 2" cols="12" md="2">
                         <v-text-field
+                        density="compact"
                             label="Age in Months"
                             v-model="livestock.AgeMonths"
                         ></v-text-field>
                     </v-col>
                     <v-col v-if="activeAgeInput > 3" cols="12" md="2">
                         <v-text-field
+                        density="compact"
                             label="Age in Years"
                             v-model="livestock.AgeYears"
                         ></v-text-field>
@@ -86,15 +92,15 @@
 
                     <v-col cols="12" md="2">
                         <v-select
+                        density="compact"
                         label="Age Based on"
                         :items="['Days','Weeks','Months','Years']"
                         v-model="AgeBasedOn"
                         ></v-select>
                     </v-col>
-                </v-row>
-                <v-row>
                     <v-col cols="12" md="4">
                         <v-select
+                        density="compact"
                             type="date"
                             :items="['Age-Suited','Not Age-Suited']"
                             label="Breeding Eligibility"
@@ -103,6 +109,7 @@
                     </v-col>
                     <v-col cols="12" md="4">
                         <v-text-field
+                        density="compact"
                             type="date"
                             label="Date Of Birth"
                             v-model="livestock.Date_Of_Birth"
@@ -110,14 +117,13 @@
                     </v-col>
                     <v-col cols="12" md="4">
                         <v-text-field
+                        density="compact"
                             type="date"
                             label="Acquired Date"
                             v-model="livestock.Date_Acquired"
                         ></v-text-field>
                     </v-col>
-
                 </v-row>
-                </v-container>
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>

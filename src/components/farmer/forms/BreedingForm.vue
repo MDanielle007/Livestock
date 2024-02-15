@@ -1,7 +1,7 @@
 <template>
     <v-card class="pa-5">
         <h2>Livestock Breeding Form</h2>
-        <v-row dense="true">
+        <v-row dense="true" no-gutters>
             <v-col cols="6">
                 <ListLivestocksDialog 
                     ref="maleLivestocksDialog"
@@ -20,13 +20,13 @@
                     @livestock-selectedID="handleLivestockSelectedFemaleID"/>
             </v-col>
             <v-col cols="12" sm="6">
-                <v-text-field label="Breeding Results" variant="outlined" v-model="breedResult"></v-text-field>
+                <v-text-field density="compact" label="Breeding Results" variant="outlined" v-model="breedResult"></v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
-                <v-text-field label="Date" type="date" variant="outlined" v-model="breedDate"></v-text-field>
+                <v-text-field density="compact" label="Date" type="date" variant="outlined" v-model="breedDate"></v-text-field>
             </v-col>
             <v-col cols="12">
-                <v-textarea label="Notes" variant="outlined" v-model="breedNotes"></v-textarea>
+                <v-textarea density="compact" label="Notes" variant="outlined" v-model="breedNotes"></v-textarea>
             </v-col>
         </v-row>
         <v-row>

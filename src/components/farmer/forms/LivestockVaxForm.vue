@@ -18,17 +18,18 @@
             <span class="text-h5">Livestock Vaccine Form</span>
         </v-card-title>
         <v-card-text>
-            <v-container>
-            <v-row >
-                <v-col cols="4">
+            <v-row no-gutters>
+                <v-col cols="12">
                     <v-text-field
+                    density="compact"
                         label="Vaccine Name"
                         v-model="vaccinationName"
                     ></v-text-field>
                 </v-col>
 
-                <v-col cols="4">
+                <v-col cols="12">
                     <v-text-field
+                    density="compact"
                         label="Vaccination Date"
                         type="date"
                         v-model="vaccinationDate"
@@ -41,7 +42,6 @@
                     ></v-textarea>
                 </v-col>
             </v-row>
-            </v-container>
             <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>

@@ -23,12 +23,12 @@
                     </v-card-title>
         
                     <v-card-text>
-                        <v-container>
-                        <v-row>
+                        <v-row no-gutters>
                             <v-col
                                 cols="12"
                                 >
                                 <v-text-field
+                                density="compact"
                                     variant="outlined"
                                     v-model="editedItem.LivestockTagID"
                                     label="Livestock Tag ID"
@@ -39,6 +39,7 @@
                                 sm="5"
                                 >
                                 <v-select
+                                density="compact"
                                     variant="outlined"
                                     :items="livestocktypes"
                                     v-model="editedItem.livestockType"
@@ -51,6 +52,7 @@
                                 sm="5"
                                 >
                                 <v-select
+                                density="compact"
                                     variant="outlined"
                                     :items="breednames"
                                     v-model="editedItem.breedName"
@@ -62,6 +64,7 @@
                                 sm="2"
                                 >
                                 <v-select
+                                density="compact"
                                     variant="outlined"
                                     :items="['Male','Female']"
                                     v-model="editedItem.sex"
@@ -74,6 +77,7 @@
                                 md="4"
                                 >
                                 <v-select
+                                density="compact"
                                     variant="outlined"
                                     :items="ageClass"
                                     v-model="editedItem.ageClass"
@@ -86,6 +90,7 @@
                                 md="4"
                                 >
                                 <v-text-field
+                                density="compact"
                                     variant="outlined"
                                     v-model="editedItem.age"
                                     label="Age"
@@ -98,6 +103,7 @@
                                 md="4"
                                 >
                                 <v-select
+                                density="compact"
                                     :items="['Age-Suited','Not Age-Suited']"
                                     variant="outlined"
                                     v-model="editedItem.Breeding_Eligibility"
@@ -107,7 +113,6 @@
                             
                             
                         </v-row>
-                        </v-container>
                     </v-card-text>
         
                     <v-card-actions>

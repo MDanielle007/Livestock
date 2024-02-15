@@ -16,6 +16,7 @@
                         <v-col>
                             <v-checkbox v-model="isGeneral" label="General Advisory"></v-checkbox>
                             <InputMultipleChips 
+                            density="compact"
                             v-if="!isGeneral" 
                             :icon="'fa-solid fa-user'" 
                             @chips-updated="getTargetFarmer" 
@@ -24,7 +25,7 @@
                     </v-row>
                     <v-row no-gutters>
                         <v-col cols="12">
-                            <v-text-field label="Subject" required variant="outlined" v-model="advisorySubject">
+                            <v-text-field density="compact" label="Subject" required variant="outlined" v-model="advisorySubject">
                             </v-text-field>
                         </v-col>
                         <v-col cols="12">
