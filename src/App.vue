@@ -1,38 +1,36 @@
 <script setup>
 import { RouterView } from "vue-router";
-
+import store from "./store";
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyADzOkclsSx1KfgytmThIeLnmB6etrc_DY",
-    authDomain: "push-notifications-70d4b.firebaseapp.com",
-    projectId: "push-notifications-70d4b",
-    storageBucket: "push-notifications-70d4b.appspot.com",
-    messagingSenderId: "102839673618",
-    appId: "1:102839673618:web:b305b0b3a2f661f73c09cb",
-    measurementId: "G-JGWG25LJCZ",
+  apiKey: "AIzaSyCclvYkIyqFjd1clopFV__EuZBZSiHOvh4",
+  authDomain: "orminlivestock.firebaseapp.com",
+  projectId: "orminlivestock",
+  storageBucket: "orminlivestock.appspot.com",
+  messagingSenderId: "326973138309",
+  appId: "1:326973138309:web:670af5d1c9d7af0f1710ec",
+  measurementId: "G-WXM2BQ2PZD"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const messaging = getMessaging();
+const messaging = getMessaging(app);
 onMessage(messaging, (payload) => {
     console.log("Message received. ", payload);
-    // ...
 });
 
 getToken(messaging, {
     vapidKey:
-        "BJGt4icVmRwHKQnntn44gFVA3acmEJ8XP7URcwBsbSbqgw-0OSmgZ8ZyhLq0gTFxfmPZzUhlf6z9L5nAt7oUbXs",
-    //  BJGt4icVmRwHKQnntn44gFVA3acmEJ8XP7URcwBsbSbqgw-0OSmgZ8ZyhLq0gTFxfmPZzUhlf6z9L5nAt7oUbXs
-
+        "BCaUVDpggDOFOi-MaiakdS4F8y-uK1VYfw88yqGjhrpz97GhHngdZN06KCS3C3q5hWGVccMolhASK78n7srVYhI"
 })
     .then((currentToken) => {
         if (currentToken) {
             // Send the token to your server and update the UI if necessary
             // ...
-            console.log("Token is:" + currentToken);
+            store.dispatch('updatePushToken', currentToken);
         } else {
             // Show permission request UI
             console.log(

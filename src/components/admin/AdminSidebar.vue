@@ -1,7 +1,7 @@
 <template>
     <div :class="{ hidden: !visible }">
-        <div class="flex flex-column max-h-screen w-19rem p-1">
-            <div class="border-round-lg shadow-1">
+        <div class="flex flex-column max-h-screen w-19rem p-1 bg-white">
+            <div>
                 <div
                     class="flex align-items-center justify-content-between px-4 h-5rem flex-shrink-0 mt-2"
                 >
@@ -160,7 +160,7 @@
                                 v-ripple
                                 class="no-underline flex align-items-center cursor-pointer px-3 py-2 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                             >
-                                <i class="pi pi-user mr-2"></i>
+                                <i class="pi pi-user mr-2 ml-1"></i>
                                 <span class="font-bold">Profile</span>
                             </router-link>
                         </li>
@@ -170,19 +170,20 @@
                                 v-ripple
                                 class="no-underline flex align-items-center cursor-pointer px-3 py-2 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                             >
-                                <i class="pi pi-cog mr-2"></i>
+                                <i class="pi pi-cog mr-2 ml-1"></i>
                                 <span class="font-medium">Settings</span>
                             </router-link>
                         </li>
                         <li>
-                            <router-link
-                                :to="{ name: 'LoginPage' }"
-                                v-ripple
-                                class="no-underline flex align-items-center cursor-pointer px-3 py-2 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                            >
-                                <i class="pi pi-sign-out mr-2"></i>
-                                <span class="font-medium">Log Out</span>
-                            </router-link>
+                            <div>
+                                <Button
+                                    label="Log Out"
+                                    text
+                                    icon="pi pi-sign-out"
+                                    class="text-700 mr-2"
+                                    @click="userLogout"
+                                />
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -191,9 +192,33 @@
     </div>
 </template>
 <script>
+import { getCookie, clearToken } from "@/utils/CookieUtils";
+import { jwtDecode as jwt_decode } from 'jwt-decode';
+import axios from "axios";
+
 export default {
     props: {
         visible: Boolean,
+    },
+    methods: {
+        async userLogout() {
+            const token = getCookie("token");
+
+            const decodedToken = jwt_decode(token);
+
+            const userid = decodedToken.sub;
+
+            console.log(userid);
+
+            const response = await axios.post("logout", { userId: userid });
+
+            console.log(response);
+
+            clearToken();
+
+            // Redirect to the login page or any desired destination
+            this.$router.push("/login");
+        },
     },
 };
 </script>

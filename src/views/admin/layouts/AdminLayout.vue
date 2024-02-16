@@ -1,5 +1,5 @@
 <template>
-    <div class="flex min-w-full min-h-screen">
+    <div class="flex min-w-full min-h-screen surface-100">
         <div class="layout-sidebar">
             <AdminSidebar :visible="sideBarVisible" />
         </div>
@@ -194,14 +194,15 @@
                                     </router-link>
                                 </li>
                                 <li>
-                                    <router-link
-                                        :to="{ name: 'LoginPage' }"
-                                        v-ripple
-                                        class="no-underline flex align-items-center cursor-pointer px-3 py-2 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                                    >
-                                        <i class="pi pi-sign-out mr-2"></i>
-                                        <span class="font-medium">Log Out</span>
-                                    </router-link>
+                                    <div>
+                                        <Button
+                                            label="Log Out"
+                                            text
+                                            icon="pi pi-sign-out"
+                                            class="text-700 mr-2 w-full text-left"
+                                            @click="userLogout"
+                                        ></Button>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -222,6 +223,9 @@
 import { RouterView } from "vue-router";
 import AdminAppbar from "@/components/admin/AdminAppbar.vue";
 import AdminSidebar from "@/components/admin/AdminSidebar.vue";
+import { getCookie, clearToken } from "@/utils/CookieUtils";
+import { jwtDecode as jwt_decode } from 'jwt-decode';
+import axios from "axios";
 
 export default {
     data() {
@@ -250,6 +254,10 @@ export default {
     methods: {
         hideAdminSideBar() {
             this.sideBarVisible = !this.sideBarVisible;
+
+            if (this.screenWidth <= 1024) {
+                this.overlaySidebar = true;
+            }
         },
         checkScreenWidth() {
             // Update screenWidth data property
@@ -258,13 +266,26 @@ export default {
             // Update foo based on screen width
             this.overlaySidebar = this.screenWidth <= 1024;
         },
-    },
-    watch: {
-        screenWidth(newWidth) {
-            // When screenWidth changes, update foo accordingly
-            this.overlaySidebar = newWidth <= 1024;
+        async userLogout() {
+            const token = getCookie("token");
+
+            const decodedToken = jwt_decode(token);
+
+            const userid = decodedToken.sub;
+
+            console.log(userid);
+
+            const response = await axios.post("logout", { userId: userid });
+
+            console.log(response);
+
+            clearToken();
+
+            // Redirect to the login page or any desired destination
+            this.$router.push("/login");
         },
     },
+    watch: {},
 };
 </script>
 

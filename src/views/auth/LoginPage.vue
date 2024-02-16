@@ -8,9 +8,9 @@
             <div class="px-7 py-6">
                 <div class="flex w-full justify-content-between">
                     <Image src="/images/logo/3HEADS OUTLINE.png" width="100" />
-                    <div class="text-left mb-5">
+                    <div class="text-left mb-5 ml-3">
                         <div
-                            class="text-900 font-bold mb-3"
+                            class="text-900 font-bold"
                             style="font-size: 48px"
                         >
                             Welcome Back!
@@ -50,7 +50,12 @@
                         :inputStyle="{ padding: '1rem' }"
                         :feedback="false"
                     ></Password>
-                    <InlineMessage v-if="invalidMessage " class="mb-3 w-full" severity="error">{{ errorMessage }}</InlineMessage>
+                    <InlineMessage
+                        v-if="invalidMessage"
+                        class="mb-3 w-full"
+                        severity="error"
+                        >{{ errorMessage }}</InlineMessage
+                    >
 
                     <div
                         class="flex align-items-center justify-content-between mb-5 gap-5"
@@ -82,8 +87,8 @@
 </template>
 <script>
 import axios from "axios";
-import { jwtDecode as jwt_decode } from 'jwt-decode';
-import { setCookie } from '@/utils/CookieUtils'
+import { jwtDecode as jwt_decode } from "jwt-decode";
+import { setCookie } from "@/utils/CookieUtils";
 
 export default {
     data() {
@@ -92,15 +97,52 @@ export default {
             password: "",
             checked: false,
             errorMessage: "",
-            invalidMessage: false
+            invalidMessage: false,
         };
+    },
+    computed: {
+        loginDate() {
+            // Get the individual components of the date
+            const date = new Date()
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(
+                2,
+                "0"
+            ); // Adding 1 because getMonth returns zero-based month
+            const day = String(date.getDate()).padStart(2, "0");
+            const hours = String(date.getHours()).padStart(2, "0");
+            const minutes = String(date.getMinutes()).padStart(
+                2,
+                "0"
+            );
+            const seconds = String(date.getSeconds()).padStart(
+                2,
+                "0"
+            );
+
+            // Construct the formatted date string
+            const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+            return formattedDate;
+        },
+        token() {
+            return this.$store.state.pushNotifToken;
+        },
     },
     methods: {
         async loginAuth() {
+            console.log({
+                username: this.username,
+                password: this.password,
+                loginDate: this.loginDate,
+                token: this.token,
+            });
             try {
                 const response = await axios.post("/login", {
                     username: this.username,
                     password: this.password,
+                    loginDate: this.loginDate,
+                    token: this.token,
                 });
                 console.log(response);
                 if (!response.data.login) {
@@ -108,7 +150,6 @@ export default {
                     this.errorMessage = response.data.error;
                     this.password = "";
                     this.invalidMessage = true;
-
                 } else {
                     const decodedToken = jwt_decode(response.data.token);
                     const userRole = decodedToken.aud;
