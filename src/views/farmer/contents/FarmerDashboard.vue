@@ -1,31 +1,36 @@
 <template>
     <div class="max-w-screen">
         <div class="flex flex-column gap-3">
-            <div class="m-0 flex flex-wrap gap-3 justify-content-between">
-                <div class="w-6rem" v-for="livestock in livestocks">
+            <div class="grid no-gridgutters">
+                <div class="col-4 lg:col-3" v-for="livestock in livestocks">
                     <LivestockCard
                         :cardSubtitle="livestock.livestockType"
                         :cardTitle="livestock.livestockAgeClass"
                         :cardContent="livestock.livestockCount"
                     />
                 </div>
-                <div class="flex-grow-1">
+                <div class="col">
                     <LivestockCard
                         :cardTitle="'Total Livestocks'"
                         :cardContent="`${16} Livestocks`"
                         :contentHeight="'6.4rem'"
                     />
                 </div>
+                <div class="col-12 lg:col-6">
+                    <LivestockPopulationBarChart />
+                </div>
+                <div class="col-12 lg:col-6">
+                    <LivestockTypePopulationDoughnutChart/>
+                </div>
             </div>
-            <LivestockPopulationBarChart />
-			<LivestockTypePopulationDoughnutChart/>
+            
         </div>
     </div>
 </template>
 <script>
 import LivestockCard from "@/components/farmer/LivestockCard.vue";
-import LivestockPopulationBarChart from "@/components/general/LivestockPopulationBarChart.vue";
-import LivestockTypePopulationDoughnutChart from "@/components/general/LivestockTypePopulationDoughnutChart.vue";
+import LivestockPopulationBarChart from "@/components/general/charts/LivestockPopulationBarChart.vue";
+import LivestockTypePopulationDoughnutChart from "@/components/general/charts/LivestockTypePopulationDoughnutChart.vue";
 
 export default {
     data() {

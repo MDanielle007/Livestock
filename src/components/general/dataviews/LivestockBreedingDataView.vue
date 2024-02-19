@@ -61,7 +61,7 @@
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Textarea
-                        v-model="livestockBreeding.breedAdditionNotes"
+                        v-model="livestockBreeding.breedAdditionalNotes"
                         placeholder="Breeding Additional Notes"
                         rows="5"
                         class="w-full"
@@ -153,7 +153,7 @@
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Textarea
-                        v-model="viewLivestockBreeding.breedAdditionNotes"
+                        v-model="viewLivestockBreeding.breedAdditionalNotes"
                         placeholder="Breeding Additional Notes"
                         rows="5"
                         class="w-full"
@@ -272,7 +272,7 @@ export default {
                 maleLivestockTagId: "",
                 femaleLivestockTagId: "",
                 breedResult: "",
-                breedAdditionNotes: "",
+                breedAdditionalNotes: "",
                 breedDate: "",
             },
             viewLivestockBreeding: {
@@ -281,7 +281,7 @@ export default {
                 maleLivestockTagId: "",
                 femaleLivestockTagId: "",
                 breedResult: "",
-                breedAdditionNotes: "",
+                breedAdditionalNotes: "",
                 breedDate: "",
             },
             livestockTypesOptions: [
@@ -305,7 +305,7 @@ export default {
                     maleLivestockTagId: "PG-101",
                     femaleLivestockTagId: "PG-102",
                     breedResult: "Successful Pregnancy",
-                    breedAdditionNotes:
+                    breedAdditionalNotes:
                         "Overall, breeding event deemed successful, with high hopes for a healthy and productive outcome",
                     breedDate: "2024-2-6",
                 },

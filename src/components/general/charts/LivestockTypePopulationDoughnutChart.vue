@@ -1,6 +1,6 @@
 
 <template>
-    <div class="bg-white border-round-lg p-3 shadow-3">
+    <div class="bg-white border-round-lg p-3 shadow-3 flex justify-content-center">
         <Chart type="doughnut" :data="chartData" :options="chartOptions" class="w-full md:w-30rem" />
     </div>
 </template>
