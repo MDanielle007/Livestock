@@ -33,6 +33,7 @@ import FarmerProfile from "@/views/farmer/contents/FarmerProfile.vue";
 import FarmerLivestockManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockManagement.vue";
 import FarmerLivestockVaccinationManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockVaccinationManagement.vue";
 import FarmerLivestockBreedingManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockBreedingManagement.vue";
+import FarmerEggProductionManagementVue from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerEggProductionManagement.vue";
 import FarmerLivestockMortalityManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockMortalityManagement.vue";
 
 const router = createRouter({
@@ -166,6 +167,11 @@ const router = createRouter({
                             path: 'breedings',
                             name: "FarmerLivestockBreedings",
                             component: FarmerLivestockBreedingManagement,
+                        },
+                        {
+                            path: 'egg-production',
+                            name: "FarmerEggProduction",
+                            component: FarmerEggProductionManagementVue,
                         },
                         {
                             path: 'mortalities',

@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <TabMenu :model="items">
+        <TabMenu :model="filteredItems">
             <template #item="{ item, props }">
                 <router-link
                     v-if="item.route"
@@ -36,29 +36,40 @@
 export default {
     data() {
         return {
+            withChickens: true,
             items: [
                 {
                     label: "Livestocks",
-                    icon: "pi pi-home",
                     route: { name: "FarmerLivestock" },
                 },
                 {
                     label: "Vaccinations",
-                    icon: "pi pi-home",
                     route: { name: "FarmerLivestockVaccinations" },
                 },
                 {
                     label: "Breedings",
-                    icon: "pi pi-home",
                     route: { name: "FarmerLivestockBreedings" },
                 },
                 {
+                    label: "Egg Production",
+                    route: { name: "FarmerEggProduction" },
+                },
+                {
                     label: "Mortalities",
-                    icon: "pi pi-home",
                     route: { name: "FarmerLivestockMortalities" },
                 },
             ],
         };
     },
+    computed: {
+        filteredItems() {
+            if (this.withChickens) {
+                return this.items;
+            } else {
+                // Filter out the "Egg Production" item when withChickens is false
+                return this.items.filter(item => item.label !== "Egg Production");
+            }
+        }
+    }
 };
 </script>

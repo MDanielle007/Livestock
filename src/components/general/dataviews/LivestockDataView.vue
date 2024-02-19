@@ -220,8 +220,6 @@
         </Dialog>
         <DataView
             :value="livestocks"
-            :sortOrder="sortOrder"
-            :sortField="sortField"
         >
             <template #header>
                 <div class="flex justify-content-between">

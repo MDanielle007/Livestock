@@ -1,18 +1,18 @@
 <template>
     <div class="card">
         <Dialog
-            v-model:visible="newLivestockMortalityDialog"
+            v-model:visible="newEggProductionDialog"
             modal
-            header="Report Livestock Mortality"
+            header="New Egg Production"
             :style="{ width: '22rem' }"
         >
             <div class="mt-3 formgrid grid-nogutter h-25rem overflow-y-auto">
                 <div class="field col-12 flex align-items-center gap-2">
                     <Calendar
-                        inputId="dateOfDeath"
-                        v-model="livestockMortality.dateOfDeath"
+                        inputId="dateOfProduction"
+                        v-model="eggProduction.dateOfProduction"
                         class="w-full"
-                        placeholder="Select Date Of Death"
+                        placeholder="Select Production Date"
                         dateFormat="yy-mm-dd"
                         showIcon
                     />
@@ -20,8 +20,8 @@
                 <div class="field col-12 flex align-items-center gap-2">
                     <Dropdown
                         inputId="livestockId"
-                        v-model="livestockMortality.livestockId"
-                        :options="livestockMortalityOptions"
+                        v-model="eggProduction.livestockId"
+                        :options="livestockChickenOptions"
                         optionValue="code"
                         optionLabel="name"
                         class="w-full"
@@ -29,16 +29,16 @@
                     ></Dropdown>
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
-                    <InputText
-                        v-model="livestockMortality.causeOfDeath"
-                        placeholder="Vaccine name"
+                    <InputNumber
+                        v-model="eggProduction.eggProduced"
+                        placeholder="Eggs Produced"
                         class="w-full"
                     />
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Textarea
-                        v-model="livestockMortality.additionalDeathNotes"
-                        placeholder="Vaccination description"
+                        v-model="eggProduction.additionalEggProdNotes"
+                        placeholder="Additional Egg Production Notes"
                         rows="5"
                         class="w-full"
                         cols="30"
@@ -50,58 +50,61 @@
                     type="button"
                     label="Cancel"
                     severity="secondary"
-                    @click="newLivestockMortalityDialog = false"
+                    @click="newEggProductionDialog = false"
                 ></Button>
                 <Button
                     type="button"
-                    label="Add Livestock"
-                    @click="addNewLivestockMortalityRecord(livestockMortality)"
+                    label="Save"
+                    @click="addNewEggProduction(eggProduction)"
                 ></Button>
             </div>
         </Dialog>
         <Dialog
-            v-model:visible="viewLivestockMortalityDialog"
+            v-model:visible="viewEggProductionDialog"
             modal
-            :header="`Mortality Details for ${viewLivestockMortality.livestockTagId}`"
+            header="Egg Production Details"
             :style="{ width: '22rem' }"
         >
             <div>
                 <img
                     class="block xl:block mx-auto border-round h-5rem"
-                    :src="
-                        getImagePath(viewLivestockMortality.livestockTypeId)
-                    "
-                    :alt="
-                        getLivestockType(
-                            viewLivestockMortality.livestockTypeId
-                        )
-                    "
+                    :src="getImagePath(viewEggProduction.livestockTypeId)"
+                    :alt="getLivestockType(viewEggProduction.livestockTypeId)"
                 />
             </div>
-            <div class="mt-3 formgrid grid-nogutter h-20rem overflow-y-auto">
+            <div class="mt-3 formgrid grid-nogutter h-25rem overflow-y-auto">
                 <div class="field col-12 flex align-items-center gap-2">
                     <Calendar
-                        inputId="dateOfDeath"
-                        v-model="viewLivestockMortality.dateOfDeath"
+                        inputId="dateOfProduction"
+                        v-model="viewEggProduction.dateOfProduction"
                         class="w-full"
-                        placeholder="Select Date Of Death"
+                        placeholder="Select Production Date"
                         dateFormat="yy-mm-dd"
                         showIcon
                     />
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
-                    <InputText
-                        v-model="viewLivestockMortality.causeOfDeath"
-                        placeholder="Livestock Cause of Death"
+                    <Dropdown
+                        inputId="livestockId"
+                        v-model="viewEggProduction.livestockId"
+                        :options="livestockChickenOptions"
+                        optionValue="code"
+                        optionLabel="name"
+                        class="w-full"
+                        placeholder="Select Livestock"
+                    ></Dropdown>
+                </div>
+                <div class="field col-12 flex align-items-center gap-2">
+                    <InputNumber
+                        v-model="viewEggProduction.eggProduced"
+                        placeholder="Eggs Produced"
                         class="w-full"
                     />
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Textarea
-                        v-model="
-                            viewLivestockMortality.additionalDeathNotes
-                        "
-                        placeholder="Livestock Mortality Additional Notes"
+                        v-model="viewEggProduction.additionalEggProdNotes"
+                        placeholder="Additional Egg Production Notes"
                         rows="5"
                         class="w-full"
                         cols="30"
@@ -113,25 +116,22 @@
                     type="button"
                     label="Cancel"
                     severity="secondary"
-                    @click="viewLivestockMortalityDialog = false"
+                    @click="viewEggProductionDialog = false"
                 ></Button>
                 <Button
                     type="button"
                     label="Save"
-                    @click="
-                        saveEditLivestockMortality(viewLivestockMortality)
-                    "
+                    @click="saveEditLivestock(viewLivestock)"
                 ></Button>
             </div>
         </Dialog>
-        <DataView :value="livestockMortalities">
+        <DataView
+            :value="livestockEggProductions"
+        >
             <template #header>
                 <div class="flex justify-content-between">
-                    <div class="text-3xl font-semibold">Vaccinations</div>
-                    <Button
-                        label="New"
-                        @click="newLivestockMortalityDialog = true"
-                    />
+                    <div class="text-3xl font-semibold">Egg Productions</div>
+                    <Button label="New" @click="newEggProductionDialog = true" />
                 </div>
             </template>
             <template #list="slotProps">
@@ -151,9 +151,7 @@
                                 <img
                                     class="block xl:block mx-auto border-round w-full"
                                     :src="getImagePath(item.livestockTypeId)"
-                                    :alt="
-                                        getLivestockType(item.livestockTypeId)
-                                    "
+                                    :alt="item.livestockTypeId"
                                 />
                             </div>
                             <div
@@ -178,16 +176,16 @@
                                             <div
                                                 class="font-medium text-secondary text-sm"
                                             >
-                                                {{ item.dateOfDeath }}
+                                                {{
+                                                    getLivestockAgeClass(
+                                                        item.livestockTypeId,
+                                                        item.livestockAgeClassId
+                                                    )
+                                                }}
                                             </div>
                                         </div>
                                         <div
                                             class="text-lg font-bold text-900 mt-2"
-                                        >
-                                            {{ item.causeOfDeath }}
-                                        </div>
-                                        <div
-                                            class="text-md font-semibold text-700"
                                         >
                                             {{ item.livestockTagId }}
                                         </div>
@@ -198,11 +196,7 @@
                                         severity="secondary"
                                         outlined
                                         class="w-full"
-                                        @click="
-                                            viewLivestockMortalityDetails(
-                                                item.id
-                                            )
-                                        "
+                                        @click="viewEggProductionDetails(item.id)"
                                     />
                                 </div>
                             </div>
@@ -215,25 +209,26 @@
 </template>
 
 <script>
+
 export default {
     data() {
         return {
-            viewLivestockMortalityDialog: false,
-            newLivestockMortalityDialog: false,
-            livestockMortality: {
+            viewEggProductionDialog: false,
+            newEggProductionDialog: false,
+            eggProduction: {
                 livestockId: "",
-                causeOfDeath: "",
-                additionalDeathNotes:"",
-                dateOfDeath: "",
+                eggProduced: null,
+                additionalEggProdNotes: "",
+                dateOfProduction: "",
             },
-            viewLivestockMortality: {
+            viewEggProduction: {
                 id: "",
                 livestockId: "",
-                livestockTagId: "",
                 livestockTypeId: "",
-                causeOfDeath: "",
-                additionalDeathNotes:"",
-                dateOfDeath: "",
+                livestockAgeClassId: "",
+                eggProduced: null,
+                additionalEggProdNotes: "",
+                dateOfProduction: "",
             },
             livestockTypesOptions: [
                 {
@@ -249,89 +244,125 @@ export default {
                     code: "3",
                 },
             ],
-            livestockMortalities: [
+            livestocks: [
+                {
+                    id: "4",
+                    livestockTagId: "CHK-101",
+                    livestockTypeId: "1",
+                    livestockAgeClassId: "5",
+                },
+                {
+                    id: "5",
+                    livestockTagId: "CHK-102",
+                    livestockTypeId: "1",
+                    livestockAgeClassId: "5",
+                },
+                {
+                    id: "6",
+                    livestockTagId: "CHK-103",
+                    livestockTypeId: "1",
+                    livestockAgeClassId: "5",
+                },
+            ],
+            livestockEggProductions: [
                 {
                     id: "1",
                     livestockId: "4",
-                    livestockTagId: "CTL-102",
-                    livestockTypeId: "3",
-                    causeOfDeath: "Pneumonia",
-                    additionalDeathNotes:"",
-                    dateOfDeath: "2024-02-7",
+                    livestockTagId: "CHK-101",
+                    livestockTypeId: "1",
+                    livestockAgeClassId: "5",
+                    eggProduced: 20,
+                    additionalEggProdNotes: "",
+                    dateOfProduction: "2024-02-01",
                 },
                 {
                     id: "2",
                     livestockId: "5",
-                    livestockTagId: "CHK-101",
+                    livestockTagId: "CHK-102",
                     livestockTypeId: "1",
-                    causeOfDeath: "Heatstroke",
-                    additionalDeathNotes:"",
-                    dateOfDeath: "2024-02-8",
+                    livestockAgeClassId: "5",
+                    eggProduced: 25,
+                    additionalEggProdNotes: "",
+                    dateOfProduction: "2024-02-08",
                 },
             ],
-            livestocks: [
-                {
-                    id: "1",
-                    livestockTagId: "CTL-101",
-                    livestockTypeId: "3",
-                    livestockBreedId: "7",
-                    livestockAgeClassId: "12",
-                    ageDays: "4 Days",
-                    sex: "Male",
-                    breedingEligibility: "Not Age-Suited",
-                    dateOfBirth: "2024-2-6",
-                    livestockHealthStatus: "Alive",
-                },
-                {
-                    id: "2",
-                    livestockTagId: "PG-101",
-                    livestockTypeId: "2",
-                    livestockBreedId: "5",
-                    livestockAgeClassId: "6",
-                    ageDays: "10 Days",
-                    sex: "Male",
-                    breedingEligibility: "Not Age-Suited",
-                    dateOfBirth: "2024-1-31",
-                    livestockHealthStatus: "Alive",
-                },
-                {
-                    id: "3",
-                    livestockTagId: "PG-102",
-                    livestockTypeId: "2",
-                    livestockBreedId: "5",
-                    livestockAgeClassId: "6",
-                    ageDays: "10 Days",
-                    sex: "Female",
-                    breedingEligibility: "Not Age-Suited",
-                    dateOfBirth: "2024-1-31",
-                    livestockHealthStatus: "Alive",
-                },
-                {
-                    id: "4",
-                    livestockTagId: "CTL-102",
-                    livestockTypeId: "3",
-                    livestockBreedId: "7",
-                    livestockAgeClassId: "12",
-                    ageDays: "4 Days",
-                    sex: "Male",
-                    breedingEligibility: "Not Age-Suited",
-                    dateOfBirth: "2024-2-3",
-                    livestockHealthStatus: "Dead",
-                },
-                {
-                    id: "5",
-                    livestockTagId: "CHK-101",
-                    livestockTypeId: "1",
-                    livestockBreedId: "1",
-                    livestockAgeClassId: "1",
-                    ageDays: "5 Days",
-                    sex: "Male",
-                    breedingEligibility: "Not Age-Suited",
-                    dateOfBirth: "2024-2-3",
-                    livestockHealthStatus: "Dead",
-                },
-            ],
-            livestockMortalityOptions: [],
+            livestockAgeClasses: {
+                1: [
+                    {
+                        name: "Chick",
+                        code: "1",
+                    },
+                    {
+                        name: "Pullet",
+                        code: "2",
+                    },
+                    {
+                        name: "Cockerel",
+                        code: "3",
+                    },
+                    {
+                        name: "Rooster",
+                        code: "4",
+                    },
+                    {
+                        name: "Hen",
+                        code: "5",
+                    },
+                ],
+                2: [
+                    {
+                        name: "Piglet",
+                        code: "6",
+                    },
+                    {
+                        name: "Weaner",
+                        code: "7",
+                    },
+                    {
+                        name: "Grower",
+                        code: "8",
+                    },
+                    {
+                        name: "Finisher",
+                        code: "9",
+                    },
+                    {
+                        name: "Sow",
+                        code: "10",
+                    },
+                    {
+                        name: "Boar",
+                        code: "11",
+                    },
+                ],
+                3: [
+                    {
+                        name: "Calf",
+                        code: "12",
+                    },
+                    {
+                        name: "Yearling",
+                        code: "13",
+                    },
+                    {
+                        name: "Heifer",
+                        code: "14",
+                    },
+                    {
+                        name: "Steer",
+                        code: "15",
+                    },
+                    {
+                        name: "Cow",
+                        code: "16",
+                    },
+                    {
+                        name: "Bull",
+                        code: "17",
+                    },
+                ],
+            },
+            livestockChickenOptions: [],
         };
     },
     methods: {
@@ -369,21 +400,37 @@ export default {
                 return "Unknown"; // Return a default value or handle the error accordingly
             }
         },
-        viewLivestockMortalityDetails(id) {
-            this.viewLivestockMortality = this.livestockMortalities.find(
-                (vaccination) => vaccination.id === id
+        getLivestockAgeClass(livestockTypeId, livestockAgeClassId) {
+            const livestockAgeClass = this.livestockAgeClasses[
+                livestockTypeId
+            ].find((option) => option.code === livestockAgeClassId);
+            if (livestockAgeClass) {
+                console.log(
+                    "Selected livestock age class:",
+                    livestockAgeClass.name
+                );
+                // You can use livestockAgeClass.name for further processing
+            } else {
+                console.warn("Livestock age class not found for code:", newVal);
+            }
+            return livestockAgeClass.name;
+        },
+        viewEggProductionDetails(id) {
+            console.log(id);
+            this.viewEggProduction = this.livestockEggProductions.find(
+                (livestock) => livestock.id === id
             );
-            this.viewLivestockMortalityDialog = true;
+            this.viewEggProductionDialog = true;
         },
-        async saveEditLivestockMortality(livestockVaccination) {
-            console.log(JSON.stringify(livestockVaccination));
+        async saveEditEggProduction(eggProduction) {
+            console.log(JSON.stringify(eggProduction));
         },
-        async addNewLivestockMortalityRecord(livestockVaccination) {
-            console.log(JSON.stringify(livestockVaccination));
+        async addNewEggProduction(eggProduction) {
+            console.log(JSON.stringify(eggProduction));
         },
-        generatelivestockMortalityOptions() {
+        generatelivestockOptions() {
             if (this.livestocks) {
-                this.livestockMortalityOptions = this.livestocks.map(
+                this.livestockChickenOptions = this.livestocks.map(
                     (livestock) => ({
                         name: livestock.livestockTagId,
                         code: livestock.id,
@@ -393,7 +440,7 @@ export default {
         },
     },
     created() {
-        this.generatelivestockMortalityOptions();
+        this.generatelivestockOptions();
     },
 };
 </script>

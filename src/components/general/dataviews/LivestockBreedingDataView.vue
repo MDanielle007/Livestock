@@ -30,7 +30,7 @@
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Dropdown
-                        inputId="livestockType"
+                        inputId="maleLivestockTagId"
                         v-model="livestockBreeding.maleLivestockTagId"
                         :options="maleLivestocksOptions"
                         optionValue="code"
@@ -39,7 +39,7 @@
                         placeholder="Male"
                     ></Dropdown>
                     <Dropdown
-                        inputId="livestockType"
+                        inputId="femaleLivestockTagId"
                         v-model="livestockBreeding.femaleLivestockTagId"
                         :options="femaleLivestockOptions"
                         optionValue="code"
@@ -50,7 +50,7 @@
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Dropdown
-                        inputId="livestockType"
+                        inputId="breedResult"
                         v-model="livestockBreeding.breedResult"
                         :options="breedingResultsOptions"
                         optionValue="code"
@@ -101,7 +101,7 @@
             <div class="mt-3 formgrid grid-nogutter h-20rem overflow-y-auto">
                 <div class="field col-12 flex align-items-center gap-2">
                     <Calendar
-                        inputId="vaccinationDate"
+                        inputId="breedDate"
                         v-model="viewLivestockBreeding.breedDate"
                         class="w-full"
                         placeholder="Select Vaccination Date"
@@ -122,7 +122,7 @@
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Dropdown
-                        inputId="livestockType"
+                        inputId="maleLivestockTagId"
                         v-model="viewLivestockBreeding.maleLivestockTagId"
                         :options="generateLivestockOptions(viewLivestockBreeding.livestockTypeId, 'Male')"
                         optionValue="code"
@@ -131,7 +131,7 @@
                         placeholder="Male"
                     ></Dropdown>
                     <Dropdown
-                        inputId="livestockType"
+                        inputId="femaleLivestockTagId"
                         v-model="viewLivestockBreeding.femaleLivestockTagId"
                         :options="generateLivestockOptions(viewLivestockBreeding.livestockTypeId, 'Female')"
                         optionValue="code"
@@ -142,7 +142,7 @@
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Dropdown
-                        inputId="livestockType"
+                        inputId="breedResult"
                         v-model="viewLivestockBreeding.breedResult"
                         :options="breedingResultsOptions"
                         optionValue="code"

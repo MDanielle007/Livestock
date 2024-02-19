@@ -19,7 +19,7 @@
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <Dropdown
-                        inputId="livestockSex"
+                        inputId="livestockId"
                         v-model="livestockVaccination.livestockId"
                         :options="livestockToVaccinate"
                         optionValue="code"
