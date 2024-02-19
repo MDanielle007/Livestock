@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-import LivestockMortalityDataView from '@/components/general/LivestockMortalityDataView.vue';
+import LivestockMortalityDataView from '@/components/general/dataviews/LivestockMortalityDataView.vue';
 
 export default {
     components:{

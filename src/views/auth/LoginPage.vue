@@ -79,6 +79,7 @@
                         label="Sign In"
                         class="w-full p-3 text-xl"
                         @click="loginAuth"
+                        :loading="loading"
                     ></Button>
                 </div>
             </div>
@@ -98,6 +99,7 @@ export default {
             checked: false,
             errorMessage: "",
             invalidMessage: false,
+            loading: false,
         };
     },
     computed: {
@@ -131,12 +133,7 @@ export default {
     },
     methods: {
         async loginAuth() {
-            console.log({
-                username: this.username,
-                password: this.password,
-                loginDate: this.loginDate,
-                token: this.token,
-            });
+            this.loading = true;
             try {
                 const response = await axios.post("/login", {
                     username: this.username,
@@ -158,6 +155,8 @@ export default {
 
                     // Set the token as an HTTP-only cookie with an expiration time
                     setCookie("token", response.data.token, 1); // 1 day expiration
+
+                    this.loading = false;
 
                     switch (userRole) {
                         case "Farmer":

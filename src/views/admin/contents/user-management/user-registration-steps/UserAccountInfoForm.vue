@@ -179,7 +179,7 @@ export default {
             const formData = new FormData();
             formData.append("file", file, file.name);
 
-            const response = await axios.post("upload", formData, {
+            const response = await axios.post("admin/upload", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
