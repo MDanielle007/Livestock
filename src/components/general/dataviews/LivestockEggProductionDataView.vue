@@ -30,7 +30,7 @@
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <InputNumber
-                        v-model="eggProduction.eggProduced"
+                        v-model="eggProduction.eggProduceds"
                         placeholder="Eggs Produced"
                         class="w-full"
                     />
@@ -96,7 +96,7 @@
                 </div>
                 <div class="field col-12 flex align-items-center gap-2">
                     <InputNumber
-                        v-model="viewEggProduction.eggProduced"
+                        v-model="viewEggProduction.eggProduceds"
                         placeholder="Eggs Produced"
                         class="w-full"
                     />
@@ -217,7 +217,7 @@ export default {
             newEggProductionDialog: false,
             eggProduction: {
                 livestockId: "",
-                eggProduced: null,
+                eggsProduced: null,
                 additionalEggProdNotes: "",
                 dateOfProduction: "",
             },
@@ -226,7 +226,7 @@ export default {
                 livestockId: "",
                 livestockTypeId: "",
                 livestockAgeClassId: "",
-                eggProduced: null,
+                eggsProduced: null,
                 additionalEggProdNotes: "",
                 dateOfProduction: "",
             },
@@ -271,7 +271,7 @@ export default {
                     livestockTagId: "CHK-101",
                     livestockTypeId: "1",
                     livestockAgeClassId: "5",
-                    eggProduced: 20,
+                    eggProduceds: 20,
                     additionalEggProdNotes: "",
                     dateOfProduction: "2024-02-01",
                 },
@@ -281,7 +281,7 @@ export default {
                     livestockTagId: "CHK-102",
                     livestockTypeId: "1",
                     livestockAgeClassId: "5",
-                    eggProduced: 25,
+                    eggProduceds: 25,
                     additionalEggProdNotes: "",
                     dateOfProduction: "2024-02-08",
                 },

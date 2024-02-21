@@ -141,7 +141,6 @@ export default {
                     loginDate: this.loginDate,
                     token: this.token,
                 });
-                console.log(response);
                 if (!response.data.login) {
                     // response.data.error // this contains an error message that says "Invalid username or password"
                     this.errorMessage = response.data.error;

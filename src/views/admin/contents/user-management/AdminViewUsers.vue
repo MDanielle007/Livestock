@@ -20,7 +20,7 @@
     </Toolbar>
     <div
         v-if="users"
-        class="flex gap-3 flex-wrap px-5 py-3 border-1 border-200 border-round-md"
+        class="flex gap-3 flex-wrap px-5 py-3 border-1 border-200 border-round-md bg-white"
     >
         <UserCard v-for="user in users" :key="user.id" :user="user" />
     </div>

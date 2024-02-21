@@ -128,6 +128,8 @@
 </template>
 
 <script>
+import {formatDateTime} from '@/utils/StringFormatters'
+
 export default {
     data() {
         return {
@@ -232,33 +234,7 @@ export default {
             );
             this.viewNotificationDetailsDialog = true;
         },
-        formatDateTime(datetimeStr) {
-            const dateTime = new Date(datetimeStr);
-            const now = new Date();
-            const diffInMs = now - dateTime;
-            const diffInSec = Math.floor(diffInMs / 1000);
-            const diffInMin = Math.floor(diffInSec / 60);
-            const diffInHour = Math.floor(diffInMin / 60);
-            const diffInDay = Math.floor(diffInHour / 24);
-
-            if (diffInSec < 60) {
-                return "just now";
-            } else if (diffInMin < 60) {
-                return `${diffInSec} sec ago`;
-            } else if (diffInHour < 24) {
-                return `${diffInMin} mins ago`;
-            } else if (diffInDay === 1) {
-                return "Yesterday";
-            } else if (diffInDay < 7) {
-                return `${diffInDay} days ago`;
-            } else {
-                // If the time exceeds one week, return the datetime in the format 'yy-mm-dd'
-                const year = dateTime.getFullYear().toString().slice(-2);
-                const month = ("0" + (dateTime.getMonth() + 1)).slice(-2);
-                const day = ("0" + dateTime.getDate()).slice(-2);
-                return `${year}-${month}-${day}`;
-            }
-        },
+        formatDateTime,
         sortNotificationsByDate() {
             this.farmerNotifications.sort((a, b) => {
                 return new Date(b.datePublished) - new Date(a.datePublished);

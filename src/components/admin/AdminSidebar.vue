@@ -206,11 +206,9 @@ export default {
 
             const decodedToken = jwt_decode(token);
 
-            const userid = decodedToken.sub;
+            const id = decodedToken.sub.id;
 
-            console.log(userid);
-
-            const response = await axios.post("logout", { userId: userid });
+            const response = await axios.post("logout", { id: id });
 
             console.log(response);
 

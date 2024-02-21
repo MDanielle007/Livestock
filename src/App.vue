@@ -3,6 +3,8 @@ import { RouterView } from "vue-router";
 import store from "./store";
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { useToast } from "primevue/usetoast";
+const toast = useToast();
 
 const firebaseConfig = {
   apiKey: "AIzaSyCclvYkIyqFjd1clopFV__EuZBZSiHOvh4",
@@ -20,6 +22,7 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 onMessage(messaging, (payload) => {
     console.log("Message received. ", payload);
+    toast.add({ severity: 'info', summary:  payload.data.title, detail:  payload.data.body, life: 3000 });
 });
 
 getToken(messaging, {
@@ -47,6 +50,7 @@ getToken(messaging, {
 
 <template>
     <div>
+        <Toast/>
         <RouterView />
     </div>
 </template>

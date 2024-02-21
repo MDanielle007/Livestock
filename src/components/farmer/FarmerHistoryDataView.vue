@@ -110,6 +110,8 @@
 </template>
 
 <script>
+import {formatDateTime} from '@/utils/StringFormatters';
+
 export default {
     data() {
         return {
@@ -149,12 +151,13 @@ export default {
                     title: "Add New Livestock",
                     description: "Add New Livestock Pig, PG-102",
                     entityAffected: "Livestock",
-                    timestamp: "2024-02-10 17:33:11",
+                    timestamp: "2024-02-21 17:33:11",
                 },
             ],
         };
     },
     methods: {
+        formatDateTime,
         getImagePath(entity) {
             switch (entity) {
                 case "Livestock":
@@ -172,33 +175,6 @@ export default {
                 (livestock) => livestock.id === id
             );
             this.viewfarmerHistoryDetailsDialog = true;
-        },
-        formatDateTime(datetimeStr) {
-            const dateTime = new Date(datetimeStr);
-            const now = new Date();
-            const diffInMs = now - dateTime;
-            const diffInSec = Math.floor(diffInMs / 1000);
-            const diffInMin = Math.floor(diffInSec / 60);
-            const diffInHour = Math.floor(diffInMin / 60);
-            const diffInDay = Math.floor(diffInHour / 24);
-
-            if (diffInSec < 60) {
-                return "just now";
-            } else if (diffInMin < 60) {
-                return `${diffInSec} sec ago`;
-            } else if (diffInHour < 24) {
-                return `${diffInMin} mins ago`;
-            } else if (diffInDay === 1) {
-                return "Yesterday";
-            } else if (diffInDay < 7) {
-                return `${diffInDay} days ago`;
-            } else {
-                // If the time exceeds one week, return the datetime in the format 'yy-mm-dd'
-                const year = dateTime.getFullYear().toString().slice(-2);
-                const month = ("0" + (dateTime.getMonth() + 1)).slice(-2);
-                const day = ("0" + dateTime.getDate()).slice(-2);
-                return `${year}-${month}-${day}`;
-            }
         },
         sortHistoryByDate() {
             this.farmerHistory.sort((a, b) => {

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="h-28rem mt-2 flex flex-column gap-2 p-6 justify-content-center border-1 border-200 border-round-top-md"
+        class="h-28rem mt-2 flex flex-column gap-2 p-6 justify-content-center border-1 border-200 border-round-top-md bg-white"
     >
         <div class="font-bold text-3xl">
             Terms of Service and Privacy Policy
@@ -108,7 +108,7 @@
         </div>
     </div>
     <div
-        class="flex justify-content-between p-3 border-1 border-200 border-round-bottom-md"
+        class="flex justify-content-between p-3 border-1 border-200 border-round-bottom-md bg-white"
     >
         <router-link :to="{ name: 'UserAccountInfoForm' }">
             <Button severity="secondary" outlined label="Prev" />

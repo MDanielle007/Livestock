@@ -1,6 +1,6 @@
 <template>
     <div
-        class="h-28rem mt-2 flex flex-column p-6 justify-content-center border-1 border-200 border-round-top-md"
+        class="h-28rem mt-2 flex flex-column p-6 justify-content-center border-1 border-200 border-round-top-md bg-white"
     >
         <Toast />
         <div class="account-info-form">
@@ -97,7 +97,7 @@
         </div>
     </div>
     <div
-        class="flex justify-content-between p-3 border-1 border-200 border-round-bottom-md"
+        class="flex justify-content-between p-3 border-1 border-200 border-round-bottom-md bg-white"
     >
         <router-link :to="{ name: 'AdminRegisterUser' }">
             <Button severity="secondary" outlined label="Prev" />

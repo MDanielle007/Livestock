@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 
 // Auth routes
 import LoginPage from "@/views/auth/LoginPage.vue";
@@ -22,6 +21,9 @@ import AdminRegisterUser from "@/views/admin/contents/user-management/AdminRegis
 import UserPersonalInfoForm from "@/views/admin/contents/user-management/user-registration-steps/UserPersonalInfoForm.vue";
 import UserAccountInfoForm from "@/views/admin/contents/user-management/user-registration-steps/UserAccountInfoForm.vue";
 import UserConfirmRegistration from "@/views/admin/contents/user-management/user-registration-steps/UserConfirmRegistration.vue";
+import AdminViewLivestockAdvisories from "@/views/admin/contents/livestock-advisories/AdminViewLivestockAdvisories.vue";
+import AdminViewAdvisory from "@/views/admin/contents/livestock-advisories/AdminViewAdvisory.vue"
+import AdminComposeLivestockAdvisories from "@/views/admin/contents/livestock-advisories/AdminComposeLivestockAdvisories.vue";
 
 // Farmer routes
 import FarmerLayout from "@/views/farmer/layouts/FarmerLayout.vue";
@@ -39,11 +41,6 @@ import FarmerLivestockMortalityManagement from "@/views/farmer/contents/farmer-l
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
-        {
-            path: "/",
-            name: "home",
-            component: HomeView,
-        },
         {
             path: "/login",
             name: "LoginPage",
@@ -91,8 +88,24 @@ const router = createRouter({
                 },
                 {
                     path: "livestock-advisories",
-                    name: "AdminLivestockAdvisories",
                     component: AdminLivestockAdvisories,
+                    children: [
+                        {
+                            path: "",
+                            name: "AdminLivestockAdvisories",
+                            component: AdminViewLivestockAdvisories,
+                        },
+                        {
+                            path: "",
+                            name: "AdminComposeLivestockAdvisories",
+                            component: AdminComposeLivestockAdvisories,
+                        },
+                        {
+                            path: "advisory/:id",
+                            name: "AdminAdvisory",
+                            component: AdminViewAdvisory,
+                        },
+                    ],
                 },
                 {
                     path: "user-mgmt",
@@ -111,7 +124,6 @@ const router = createRouter({
                                     path: "personal-info",
                                     name: "AdminRegisterUser",
                                     component: UserPersonalInfoForm,
-                                    
                                 },
                                 {
                                     path: "account-info",
@@ -152,33 +164,33 @@ const router = createRouter({
                 {
                     path: "livestock",
                     component: FarmerLivestock,
-                    children:[
+                    children: [
                         {
-                            path: '',
+                            path: "",
                             name: "FarmerLivestock",
                             component: FarmerLivestockManagement,
                         },
                         {
-                            path: 'vaccinations',
+                            path: "vaccinations",
                             name: "FarmerLivestockVaccinations",
                             component: FarmerLivestockVaccinationManagement,
                         },
                         {
-                            path: 'breedings',
+                            path: "breedings",
                             name: "FarmerLivestockBreedings",
                             component: FarmerLivestockBreedingManagement,
                         },
                         {
-                            path: 'egg-production',
+                            path: "egg-production",
                             name: "FarmerEggProduction",
                             component: FarmerEggProductionManagementVue,
                         },
                         {
-                            path: 'mortalities',
+                            path: "mortalities",
                             name: "FarmerLivestockMortalities",
                             component: FarmerLivestockMortalityManagement,
                         },
-                    ]
+                    ],
                 },
                 {
                     path: "history",

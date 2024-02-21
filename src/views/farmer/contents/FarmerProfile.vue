@@ -205,6 +205,7 @@
                     class="flex-1"
                     icon="pi pi-sign-out"
                     outlined
+                    @click="userLogout"
                     severity="danger"
                     label="Sign Out"
                 />
@@ -214,6 +215,10 @@
 </template>
 <script>
 import FarmerEditProfileDialog from "@/components/farmer/FarmerEditProfileDialog.vue";
+import { getCookie, clearToken } from "@/utils/CookieUtils";
+import { jwtDecode as jwt_decode } from 'jwt-decode';
+import axios from "axios";
+
 export default {
     data() {
         return {
@@ -350,6 +355,22 @@ export default {
         async openEditProfile() {
             this.editUserProfile = await this.user;
             this.editFarmerProfileDialog = true;
+        },
+        async userLogout() {
+            const token = getCookie("token");
+
+            const decodedToken = jwt_decode(token);
+
+            const id = decodedToken.sub.id;
+
+            const response = await axios.post("logout", { id: id });
+
+            console.log(response);
+
+            clearToken();
+
+            // Redirect to the login page or any desired destination
+            this.$router.push("/login");
         },
     },
     created() {
