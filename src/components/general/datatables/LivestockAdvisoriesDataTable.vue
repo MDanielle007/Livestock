@@ -1,8 +1,9 @@
 <template>
-    <div class="card">
+    <div>
         <DataTable
             v-model:filters="filters"
             :value="livestockAdvisories"
+            class=""
             paginator
             :rows="10"
             :rowsPerPageOptions="[5, 10, 20, 50]"
@@ -13,8 +14,11 @@
                 'content',
                 'datePublished',
             ]"
-             selectionMode="single" dataKey="id" :metaKeySelection="false"
-            @rowSelect="onRowSelect" @rowUnselect="onRowUnselect"
+            filterDisplay="menu"
+            selectionMode="single"
+            dataKey="id"
+            :metaKeySelection="false"
+            @rowSelect="onRowSelect"
         >
             <template #header>
                 <div class="flex justify-content-between">
@@ -33,8 +37,14 @@
             <Column header="Type">
                 <template #body="{ data }">
                     <div class="flex align-items-center">
-                        <Avatar :image="getImagePath(data.advisoryType)" class="mr-2" shape="circle" />
-                        <div class="text-700 font-semibold">{{ data.advisoryType }}</div>
+                        <Avatar
+                            :image="getImagePath(data.advisoryType)"
+                            class="mr-2"
+                            shape="circle"
+                        />
+                        <div class="text-700 font-semibold">
+                            {{ data.advisoryType }}
+                        </div>
                     </div>
                 </template>
             </Column>
@@ -51,11 +61,21 @@
                     </div>
                 </template>
             </Column>
-            <Column field="datePublished" header="Date">
+            <Column
+                header="Date"
+                filterField="datePublished"
+                dataType="date"
+                style="min-width: 10rem"
+            >
                 <template #body="{ data }">
-                    <div>
-                        {{ formatDateTime(data.datePublished) }}
-                    </div>
+                    {{ formatDateTime(data.datePublished) }}
+                </template>
+                <template #filter="{ filterModel }">
+                    <Calendar
+                        v-model="filterModel.value"
+                        placeholder="mm/dd/yyyy"
+                        mask="99/99/9999"
+                    />
                 </template>
             </Column>
         </DataTable>
@@ -63,8 +83,8 @@
 </template>
 
 <script>
-import { FilterMatchMode } from "primevue/api";
-import { formatDateTime } from '@/utils/StringFormatters';
+import { FilterMatchMode, FilterOperator } from "primevue/api";
+import { formatDateTime } from "@/utils/StringFormatters";
 
 export default {
     data() {
@@ -120,10 +140,17 @@ export default {
         initFilters() {
             this.filters = {
                 global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+                datePublished: {
+                    operator: FilterOperator.AND,
+                    constraints: [
+                        { value: null, matchMode: FilterMatchMode.DATE_IS },
+                    ],
+                },
             };
         },
         formatAdvisoryDetails(content) {
-            const maxWidth = (window.innerWidth * this.maxWidthPercentage) / 200;
+            const maxWidth =
+                (window.innerWidth * this.maxWidthPercentage) / 200;
             const maxLength = Math.floor(maxWidth / 8); // Maximum length for the combined subject and content
             let details = content;
             if (details.length > maxLength) {
@@ -136,14 +163,11 @@ export default {
             // Update maxWidthPercentage based on current viewport width
             this.maxWidthPercentage = window.innerWidth >= 768 ? 100 : 50; // Change 768 to your desired breakpoint
         },
-        onRowSelect(event) {    
+        onRowSelect(event) {
             this.$router.push({
                 name: "AdminAdvisory",
                 params: { id: event.data.id },
             });
-        },
-        onRowUnselect(event) {
-            this.$toast.add({ severity: 'warn', summary: 'Product Unselected', detail: 'Name: ' + event.data.subject, life: 3000 });
         },
         getImagePath(type) {
             switch (type) {
@@ -153,6 +177,9 @@ export default {
                     return "/icons/user-icons/farmer-96.png";
             }
         },
+        hehe(event){
+            console.log(event);
+        }
     },
 };
 </script>

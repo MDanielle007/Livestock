@@ -1,12 +1,21 @@
 
 <template>
-    <div class="bg-white border-round-lg p-3 shadow-3">
-        <Chart type="bar" :data="chartData" :options="chartOptions" />
+    <div class="bg-white border-round-lg border-1 border-300 p-3 flex flex-column gap-1 justify-content-center">
+        <div class="text-700 text-2xl font-bold">{{title}}</div>
+        <div>
+            <Chart type="bar" :data="chartData" :options="chartOptions" class="w-full h-20rem" />
+        </div>
     </div>
 </template>
 
 <script>
 export default {
+    props:{
+        title:{
+            type:String,
+            required:true
+        }
+    },
     data() {
         return {
             chartData: null,

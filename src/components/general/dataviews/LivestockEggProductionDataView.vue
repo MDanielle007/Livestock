@@ -130,7 +130,7 @@
         >
             <template #header>
                 <div class="flex justify-content-between">
-                    <div class="text-3xl font-semibold">Egg Productions</div>
+                    <div class="text-3xl font-semibold">Productions</div>
                     <Button label="New" @click="newEggProductionDialog = true" />
                 </div>
             </template>
@@ -165,29 +165,24 @@
                                             class="flex justify-content-between"
                                         >
                                             <div
-                                                class="font-medium text-secondary text-sm"
+                                                class="font-semibold text-secondary text-sm"
                                             >
                                                 {{
-                                                    getLivestockType(
-                                                        item.livestockTypeId
-                                                    )
+                                                    item.livestockTagId
                                                 }}
                                             </div>
                                             <div
                                                 class="font-medium text-secondary text-sm"
                                             >
                                                 {{
-                                                    getLivestockAgeClass(
-                                                        item.livestockTypeId,
-                                                        item.livestockAgeClassId
-                                                    )
+                                                    item.dateOfProduction
                                                 }}
                                             </div>
                                         </div>
                                         <div
                                             class="text-lg font-bold text-900 mt-2"
                                         >
-                                            {{ item.livestockTagId }}
+                                            {{ item.eggsProduced }} eggs
                                         </div>
                                     </div>
                                     <Button
@@ -271,7 +266,7 @@ export default {
                     livestockTagId: "CHK-101",
                     livestockTypeId: "1",
                     livestockAgeClassId: "5",
-                    eggProduceds: 20,
+                    eggsProduced: 20,
                     additionalEggProdNotes: "",
                     dateOfProduction: "2024-02-01",
                 },
@@ -281,7 +276,7 @@ export default {
                     livestockTagId: "CHK-102",
                     livestockTypeId: "1",
                     livestockAgeClassId: "5",
-                    eggProduceds: 25,
+                    eggsProduced: 25,
                     additionalEggProdNotes: "",
                     dateOfProduction: "2024-02-08",
                 },

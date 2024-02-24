@@ -2,7 +2,6 @@
     <div
         class="h-28rem mt-2 flex flex-column p-6 justify-content-center border-1 border-200 border-round-top-md bg-white"
     >
-        <Toast />
         <div class="account-info-form">
             <div class="flex justify-content-center align-content-center">
                 <div class="grid">

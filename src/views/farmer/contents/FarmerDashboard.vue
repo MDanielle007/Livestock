@@ -17,10 +17,10 @@
                     />
                 </div>
                 <div class="col-12 lg:col-6">
-                    <LivestockPopulationBarChart />
+                    <LivestockBarChart :title="'Livestock Distribution'" />
                 </div>
                 <div class="col-12 lg:col-6">
-                    <LivestockTypePopulationDoughnutChart/>
+                    <LivestockDoughnutChart :title="'Livestock Types'"/>
                 </div>
             </div>
             
@@ -29,8 +29,8 @@
 </template>
 <script>
 import LivestockCard from "@/components/farmer/LivestockCard.vue";
-import LivestockPopulationBarChart from "@/components/general/charts/LivestockPopulationBarChart.vue";
-import LivestockTypePopulationDoughnutChart from "@/components/general/charts/LivestockTypePopulationDoughnutChart.vue";
+import LivestockBarChart from "@/components/general/charts/LivestockBarChart.vue";
+import LivestockDoughnutChart from "@/components/general/charts/LivestockDoughnutChart.vue";
 
 export default {
     data() {
@@ -61,8 +61,8 @@ export default {
     },
     components: {
         LivestockCard,
-        LivestockPopulationBarChart,
-		LivestockTypePopulationDoughnutChart
+        LivestockBarChart,
+		LivestockDoughnutChart
     },
 };
 </script>

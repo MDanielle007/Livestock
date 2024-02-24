@@ -1,9 +1,23 @@
 <template>
-    <div class="bg-white border-1 border-300 border-round-lg p-3 mb-0">
-        <div class="flex justify-content-between mb-3">
+    <div class="bg-white border-1 border-300 border-round-lg p-3">
+        <div class="flex justify-content-between" :class="[{'mb-3':!Array.isArray(value)},{'mb-1':Array.isArray(value)}]">
             <div>
-                <span class="block text-500 font-bold mb-3">{{ title }}</span>
-                <div class="text-900 font-medium text-xl">{{ value }}</div>
+                <span class="block text-500 font-bold" :class="[{'mb-3':!Array.isArray(value)},{'mb-1':Array.isArray(value)}]">{{ title }}</span>
+                <div
+                    v-if="typeof this.value === 'string'"
+                    class="text-900 font-medium h-2rem"
+                    :class="valueSize"
+                >
+                    {{ value }}
+                </div>
+                <div v-if="Array.isArray(value)" class="w-full">
+                    <div
+                        class="flex flex-row flex-wrap gap-2"
+                    >
+                        <Chip class="text-sm" v-for="(item, index) in value"
+                        :key="index" :label="`${item.name} : ${item.value}`" />
+                    </div>
+                </div>
             </div>
             <div
                 class="flex align-items-center justify-content-center bg-{{ backgroundColor }}-100 border-round"
@@ -13,11 +27,14 @@
             </div>
         </div>
         <span
+            v-if="additionalInfo"
             class="font-medium"
             :class="additionalInfoColor || 'text-green-500'"
             >{{ additionalInfo }}&nbsp;</span
         >
-        <small class="text-500">{{ additionalText }}</small>
+        <small v-if="additionalText" class="text-500">{{
+            additionalText
+        }}</small>
     </div>
 </template>
 
@@ -25,13 +42,32 @@
 export default {
     props: {
         title: String,
-        value: String,  
+        value: [String, Array],
         additionalInfoColor: String,
         additionalInfo: String,
         additionalText: String,
         icon: String,
         iconColor: String,
         backgroundColor: String,
+        valueSize: String,
+    },
+    computed: {
+        formattedValue() {
+            if (typeof this.value === "string") {
+                return this.value; // Return the value as is if it's a string
+            } else if (Array.isArray(this.value)) {
+                // If it's an array, generate a list of items
+                return `<ul>
+                        ${this.value
+                            .map(
+                                (item) => `<li>${item.name}: ${item.value}</li>`
+                            )
+                            .join("")}
+                    </ul>`;
+            } else {
+                return ""; // Return an empty string for unsupported types
+            }
+        },
     },
 };
 </script>

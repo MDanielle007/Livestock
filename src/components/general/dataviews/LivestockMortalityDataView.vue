@@ -127,7 +127,7 @@
         <DataView :value="livestockMortalities">
             <template #header>
                 <div class="flex justify-content-between">
-                    <div class="text-3xl font-semibold">Vaccinations</div>
+                    <div class="text-3xl font-semibold">Mortality</div>
                     <Button
                         label="New"
                         @click="newLivestockMortalityDialog = true"

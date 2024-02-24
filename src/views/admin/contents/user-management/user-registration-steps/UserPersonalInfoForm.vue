@@ -2,7 +2,6 @@
     <div
         class="h-28rem mt-2 flex flex-column p-6 justify-content-center border-1 border-200 border-round-top-md bg-white"
     >
-        <Toast />
         <div class="personal-info-form">
             <div class="formgrid grid row-gap-5">
                 <div class="field col-12 md:col-4">

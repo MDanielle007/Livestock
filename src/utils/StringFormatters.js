@@ -1,3 +1,4 @@
+import moment from "moment";
 export function splitPascalCase(str) {
     // Use a regular expression to match the boundary between uppercase and lowercase letters
     const regex = /(?<=[a-z])(?=[A-Z])/g;
@@ -13,6 +14,11 @@ export function splitPascalCase(str) {
 
     // Return the original string if no splitting occurred
     return str;
+}
+
+export function formatDate(value) {
+    const dateTime = new Date(value);
+    return moment(dateTime).format("YYYY-MM-DD HH:mm:ss");
 }
 
 export function formatDateTime(datetimeStr) {
