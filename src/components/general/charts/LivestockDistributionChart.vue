@@ -9,7 +9,7 @@
                 type="bar"
                 :data="chartData"
                 :options="chartOptions"
-                class="h-20rem"
+                :class="[chartHeight || 'h-20rem']"
             />
         </div>
     </div>
@@ -21,7 +21,8 @@ export default {
         title:{
             type:String,
             required:true
-        }
+        },
+        chartHeight:String
     },
     data() {
         return {

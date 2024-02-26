@@ -9,7 +9,7 @@
                 type="doughnut"
                 :data="chartData"
                 :options="chartOptions"
-                class="h-20rem"
+                :class="[chartHeight || 'h-20rem']"
             />
         </div>
     </div>
@@ -22,6 +22,7 @@ export default {
             type: String,
             required: true,
         },
+        chartHeight:String
     },
     data() {
         return {

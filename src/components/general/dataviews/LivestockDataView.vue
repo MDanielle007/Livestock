@@ -567,7 +567,6 @@ export default {
             return livestockAgeClass.name;
         },
         viewLivestockDetails(id) {
-            console.log(id);
             this.viewLivestock = this.livestocks.find(
                 (livestock) => livestock.id === id
             );

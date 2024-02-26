@@ -2,7 +2,7 @@
 <template>
     <div class="bg-white border-round-lg border-1 border-300 p-3 flex flex-column gap-1  justify-content-center ">
         <div class="text-700 text-2xl font-bold">{{title}}</div>
-        <Chart type="line" :data="chartData" :options="chartOptions" class="w-full h-20rem" />
+        <Chart type="line" :data="chartData" :options="chartOptions" class="w-full" :class="[chartHeight || 'h-20rem']" />
     </div>
 </template>
 
@@ -12,7 +12,8 @@ export default {
         title:{
             type:String,
             required:true
-        }
+        },
+        chartHeight:String
     },
     data() {
         return {

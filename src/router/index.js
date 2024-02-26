@@ -22,8 +22,12 @@ import UserPersonalInfoForm from "@/views/admin/contents/user-management/user-re
 import UserAccountInfoForm from "@/views/admin/contents/user-management/user-registration-steps/UserAccountInfoForm.vue";
 import UserConfirmRegistration from "@/views/admin/contents/user-management/user-registration-steps/UserConfirmRegistration.vue";
 import AdminViewLivestockAdvisories from "@/views/admin/contents/livestock-advisories/AdminViewLivestockAdvisories.vue";
-import AdminViewAdvisory from "@/views/admin/contents/livestock-advisories/AdminViewAdvisory.vue"
+import AdminViewAdvisory from "@/views/admin/contents/livestock-advisories/AdminViewAdvisory.vue";
 import AdminComposeLivestockAdvisories from "@/views/admin/contents/livestock-advisories/AdminComposeLivestockAdvisories.vue";
+import AdminLivestockManagement from "@/views/admin/contents/livestock-management/AdminLivestockManagement.vue";
+import AdminLivestockTypeManagement from "@/views/admin/contents/livestock-management/AdminLivestockTypeManagement.vue";
+import AdminLivestockBreedManagement from "@/views/admin/contents/livestock-management/AdminLivestockBreedManagement.vue";
+import AdminLivestockAgeClassManagement from "@/views/admin/contents/livestock-management/AdminLivestockAgeClassManagement.vue";
 
 // Farmer routes
 import FarmerLayout from "@/views/farmer/layouts/FarmerLayout.vue";
@@ -58,8 +62,29 @@ const router = createRouter({
                 },
                 {
                     path: "livestock",
-                    name: "AdminLivestockMonitoring",
                     component: AdminLivestockMonitoring,
+                    children: [
+                        {
+                            path: "",
+                            name: "AdminLivestockMonitoring",
+                            component: AdminLivestockManagement,
+                        },
+                        {
+                            path: "livestock-types",
+                            name: "AdminLivestockTypeMonitoring",
+                            component: AdminLivestockTypeManagement,
+                        },
+                        {
+                            path: "livestock-breeds",
+                            name: "AdminLivestockBreedMonitoring",
+                            component: AdminLivestockBreedManagement,
+                        },
+                        {
+                            path: "livestock-age-classes",
+                            name: "AdminLivestockAgeClassification",
+                            component: AdminLivestockAgeClassManagement,
+                        },
+                    ],
                 },
                 {
                     path: "livestock-vaccinations",

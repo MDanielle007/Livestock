@@ -1,50 +1,56 @@
 <template>
     <div>
         <div class="grid">
-            <div class="col-12 md:col-3">
-                <AdminMetricCard
-                    :title="totalLivestockCount.title"
-                    :value="totalLivestockCount.value"
-                    :backgroundColor="'white'"
-                    :additionalInfo="totalLivestockCount.additionalInfo"
-                    :additionalText="totalLivestockCount.additionalText"
-                    :valueSize="'text-2xl'"
-                />
+            <div class="grid col-12 md:col-6">
+                <div class="col-12 md:col-6">
+                    <AdminMetricCard
+                        :title="totalLivestockCount.title"
+                        :value="totalLivestockCount.value"
+                        :backgroundColor="'white'"
+                        :additionalInfo="totalLivestockCount.additionalInfo"
+                        :additionalText="totalLivestockCount.additionalText"
+                        :valueSize="'text-2xl'"
+                    />
+                </div>
+                <div class="col-12 md:col-6">
+                    <AdminMetricCard
+                        :title="'Livestock Distribution'"
+                        :value="livestockTypeDistribution"
+                        :backgroundColor="'white'"
+                    />
+                </div>
+                <div class="col-12 md:col-6">
+                    <AdminMetricCard
+                        :title="'Livestock Age Distribution'"
+                        :value="livestockAgeDistribution"
+                        :backgroundColor="'white'"
+                    />
+                </div>
+                <div class="col-12 md:col-6">
+                    <AdminMetricCard
+                        :title="'Health Status Overview'"
+                        :value="livestockHealthStatusOverview"
+                        :backgroundColor="'white'"
+                    />
+                </div>
             </div>
-            <div class="col-12 md:col-3">
-                <AdminMetricCard
-                    :title="'Livestock Distribution'"
-                    :value="livestockTypeDistribution"
-                    :backgroundColor="'white'"
-                />
-            </div>
-            <div class="col-12 md:col-3">
-                <AdminMetricCard
-                    :title="'Livestock Age Distribution'"
-                    :value="livestockAgeDistribution"
-                    :backgroundColor="'white'"
-                />
-            </div>
-            <div class="col-12 md:col-3">
-                <AdminMetricCard
-                    :title="'Health Status Overview'"
-                    :value="livestockHealthStatusOverview"
-                    :backgroundColor="'white'"
-                />
+            <div class="col-12 lg:col-6">
+                <!-- livestock distribution chart by livestock type -->
+                <LivestockDistributionChart :title="'Livestock Distribution'" :chartHeight="'h-14rem'"/>
             </div>
             <div class="col-12">
-                <LivestockManagementDataTable/>
+                <router-view></router-view>
             </div>
             <!-- <div class="col-12">
                 <LivestockGeospatialMapping/>
-            </div> -->
+            </div> -->  
         </div>
     </div>
 </template>
 <script>
+import LivestockDistributionChart from "@/components/general/charts/LivestockDistributionChart.vue";
 import LivestockGeospatialMapping from "@/components/admin/LivestockGeospatialMapping.vue";
 import AdminMetricCard from "@/components/admin/AdminMetricCard.vue";
-import LivestockManagementDataTable from "@/components/general/datatables/LivestockManagementDataTable.vue"
 
 export default {
     data() {
@@ -92,7 +98,7 @@ export default {
                     value: "50",
                 },
             ],
-            livestockHealthStatusOverview:[
+            livestockHealthStatusOverview: [
                 {
                     name: "Healthy",
                     value: "50",
@@ -104,14 +110,14 @@ export default {
                 {
                     name: "Deceased",
                     value: "20",
-                }
-            ]
+                },
+            ],
         };
     },
     components: {
         LivestockGeospatialMapping,
         AdminMetricCard,
-        LivestockManagementDataTable
+        LivestockDistributionChart
     },
     methods: {
         formattedValue(value) {
