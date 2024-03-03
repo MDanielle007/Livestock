@@ -245,4 +245,156 @@ export const LivestockService = {
 
         return Promise.resolve(livestockBreeds);
     },
+
+    getLivestockMappingData() {
+        const livestockMappingData = [
+            {
+                lat: "13.3241",
+                long: "121.1407",
+                farmerUserId: "FRM-ABC1231",
+                livestocks: [
+                    { livestockType: "Cow", livestockCount: 2 },
+                    { livestockType: "Chicken", livestockCount: 5 },
+                ],
+            },
+            {
+                lat: "13.2056",
+                long: "121.0932",
+                farmerUserId: "FRM-DEF4562",
+                livestocks: [
+                    { livestockType: "Pig", livestockCount: 3 },
+                    { livestockType: "Goat", livestockCount: 1 },
+                ],
+            },
+            {
+                lat: "13.4024",
+                long: "121.2587",
+                farmerUserId: "FRM-GHI7893",
+                livestocks: [
+                    { livestockType: "Cow", livestockCount: 4 },
+                    { livestockType: "Chicken", livestockCount: 2 },
+                    { livestockType: "Pig", livestockCount: 7 },
+                ],
+            },
+            {
+                lat: "13.1223",
+                long: "121.3025",
+                farmerUserId: "FRM-JKL0124",
+                livestocks: [
+                    { livestockType: "Cow", livestockCount: 6 },
+                    { livestockType: "Pig", livestockCount: 4 },
+                ],
+            },
+            {
+                lat: "13.2875",
+                long: "121.1743",
+                farmerUserId: "FRM-MNO3455",
+                livestocks: [
+                    { livestockType: "Chicken", livestockCount: 3 },
+                    { livestockType: "Goat", livestockCount: 2 },
+                ],
+            },
+            {
+                lat: "13.1567",
+                long: "121.0379",
+                farmerUserId: "FRM-PQR6786",
+                livestocks: [
+                    { livestockType: "Cow", livestockCount: 5 },
+                    { livestockType: "Chicken", livestockCount: 6 },
+                    { livestockType: "Goat", livestockCount: 3 },
+                ],
+            },
+            {
+                lat: "13.4098",
+                long: "121.1846",
+                farmerUserId: "FRM-STU9017",
+                livestocks: [
+                    { livestockType: "Pig", livestockCount: 5 },
+                    { livestockType: "Goat", livestockCount: 4 },
+                ],
+            },
+            {
+                lat: "13.2753",
+                long: "121.0632",
+                farmerUserId: "FRM-VWX2348",
+                livestocks: [
+                    { livestockType: "Chicken", livestockCount: 7 },
+                    { livestockType: "Pig", livestockCount: 3 },
+                ],
+            },
+            {
+                lat: "13.3462",
+                long: "121.2269",
+                farmerUserId: "FRM-YZAB5679",
+                livestocks: [
+                    { livestockType: "Cow", livestockCount: 3 },
+                    { livestockType: "Pig", livestockCount: 6 },
+                ],
+            },
+            {
+                lat: "13.1739",
+                long: "121.2821",
+                farmerUserId: "FRM-CDEF8910",
+                livestocks: [
+                    { livestockType: "Cow", livestockCount: 2 },
+                    { livestockType: "Chicken", livestockCount: 4 },
+                    { livestockType: "Goat", livestockCount: 2 },
+                ],
+            },
+        ];
+
+        return Promise.resolve(livestockMappingData);
+    },
+
+    getLivestockForBreeding() {
+        const livestocks = [
+            {
+                id: "1",
+                livestockTagId: "CTL-101",
+                livestockTypeId: "3",
+                sex: "Male",
+                farmerId: "1",
+                farmerUserId: "FMR-AC12312",
+                farmerName: "Aba Cus",
+            },
+            {
+                id: "2",
+                livestockTagId: "CTL-102",
+                livestockTypeId: "3",
+                sex: "Female",
+                farmerId: "1",
+                farmerUserId: "FMR-AC12312",
+                farmerName: "Aba Cus",
+            },
+            {
+                id: "4",
+                livestockTagId: "PG-101",
+                livestockTypeId: "2",
+                sex: "Male",
+                farmerId: "2",
+                farmerUserId: "FMR-bd12312",
+                farmerName: "Ba Doy",
+            },
+            {
+                id: "5",
+                livestockTagId: "PG-102",
+                livestockTypeId: "2",
+                sex: "Female",
+                farmerId: "2",
+                farmerUserId: "FMR-bd12312",
+                farmerName: "Ba Doy",
+            },
+            {
+                id: "6",
+                livestockTagId: "PG-102",
+                livestockTypeId: "2",
+                sex: "Female",
+                farmerId: "3",
+                farmerUserId: "FMR-CE12312",
+                farmerName: "CaK E",
+            },
+        ];
+
+        return Promise.resolve(livestocks);
+    },
 };

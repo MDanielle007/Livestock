@@ -20,7 +20,7 @@ export const AuditTrailService = {
                 description:
                     "Report Livestock Carabao Mortality Record, CRB-102",
                 entityAffected: "Mortality",
-                timestamp: "2024-02-22 14:26:19",
+                timestamp: "2024-02-25 14:26:19",
             },
         ];
 

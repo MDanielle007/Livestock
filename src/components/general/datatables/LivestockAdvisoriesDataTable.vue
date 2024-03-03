@@ -3,7 +3,6 @@
         <DataTable
             v-model:filters="filters"
             :value="livestockAdvisories"
-            class=""
             paginator
             :rows="10"
             :rowsPerPageOptions="[5, 10, 20, 50]"
@@ -177,9 +176,6 @@ export default {
                     return "/icons/user-icons/farmer-96.png";
             }
         },
-        hehe(event){
-            console.log(event);
-        }
     },
 };
 </script>

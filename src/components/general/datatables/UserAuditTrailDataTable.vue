@@ -196,8 +196,7 @@ export default {
                 timestamp: {
                     operator: FilterOperator.AND,
                     constraints: [
-                        { value: null, matchMode: FilterMatchMode.DATE_AFTER },
-                        { value: null, matchMode: FilterMatchMode.DATE_BEFORE },
+                        { value: null, matchMode: FilterMatchMode.DATE_IS },
                     ],
                 },
             };

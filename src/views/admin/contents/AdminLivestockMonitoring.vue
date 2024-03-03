@@ -41,9 +41,9 @@
             <div class="col-12">
                 <router-view></router-view>
             </div>
-            <!-- <div class="col-12">
+            <div class="col-12">
                 <LivestockGeospatialMapping/>
-            </div> -->  
+            </div>
         </div>
     </div>
 </template>

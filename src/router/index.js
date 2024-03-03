@@ -28,6 +28,9 @@ import AdminLivestockManagement from "@/views/admin/contents/livestock-managemen
 import AdminLivestockTypeManagement from "@/views/admin/contents/livestock-management/AdminLivestockTypeManagement.vue";
 import AdminLivestockBreedManagement from "@/views/admin/contents/livestock-management/AdminLivestockBreedManagement.vue";
 import AdminLivestockAgeClassManagement from "@/views/admin/contents/livestock-management/AdminLivestockAgeClassManagement.vue";
+import AdminLivestockBreedingParentOffspring from "@/views/admin/contents/livestock-breeding-management/AdminLivestockBreedingParentOffspring.vue"
+import AdminLivestockBreedingRecordManagement from "@/views/admin/contents/livestock-breeding-management/AdminLivestockBreedingRecordManagement.vue"
+import AdminLivestockPregnancyManagement from "@/views/admin/contents/livestock-breeding-management/AdminLivestockPregnancyManagement.vue"
 
 // Farmer routes
 import FarmerLayout from "@/views/farmer/layouts/FarmerLayout.vue";
@@ -41,6 +44,7 @@ import FarmerLivestockVaccinationManagement from "@/views/farmer/contents/farmer
 import FarmerLivestockBreedingManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockBreedingManagement.vue";
 import FarmerEggProductionManagementVue from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerEggProductionManagement.vue";
 import FarmerLivestockMortalityManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockMortalityManagement.vue";
+import FarmerLivestockPregnancyManagement from "@/views/farmer/contents/farmer-livestock-mgmt/FarmerLivestockPregnancyManagement.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,8 +97,24 @@ const router = createRouter({
                 },
                 {
                     path: "livestock-breedings",
-                    name: "AdminLivestockBreedingMonitoring",
                     component: AdminLivestockBreedingMonitoring,
+                    children:[
+                        {
+                            path: "",
+                            name: "AdminLivestockBreedingMonitoring",
+                            component: AdminLivestockBreedingParentOffspring,
+                        },
+                        {
+                            path: "breeeding-records",
+                            name: "AdminLivestockBreedingRecordManagement",
+                            component: AdminLivestockBreedingRecordManagement,
+                        },
+                        {
+                            path: "pregnancy-records",
+                            name: "AdminLivestockPregnancyManagement",
+                            component: AdminLivestockPregnancyManagement,
+                        },
+                    ]
                 },
                 {
                     path: "livestock-mortality",
@@ -202,8 +222,18 @@ const router = createRouter({
                         },
                         {
                             path: "breedings",
-                            name: "FarmerLivestockBreedings",
-                            component: FarmerLivestockBreedingManagement,
+                            children:[
+                                {
+                                    path: "",
+                                    name: "FarmerLivestockBreedings",
+                                    component: FarmerLivestockBreedingManagement,
+                                },
+                                {
+                                    path: "pregnancy",
+                                    name: "FarmerLivestockPregnancy",
+                                    component: FarmerLivestockPregnancyManagement,
+                                },
+                            ]
                         },
                         {
                             path: "egg-production",
