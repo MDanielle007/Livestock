@@ -12,24 +12,20 @@
             <template v-slot:end>
                 <div class="my-1">
                     <router-link :to="{ name: 'AdminLivestockTypeMonitoring' }">
-                        <Button
-                            label="Livestock Types"
-                            class="mr-2"
-                            text
-                        />
+                        <Button label="Livestock Types" class="mr-2" text />
                     </router-link>
-                    <router-link :to="{ name: 'AdminLivestockBreedMonitoring' }">
-                        <Button
-                            label="Livestock Breeds"
-                            class="mr-2"
-                            text
-                        />
+                    <router-link
+                        :to="{ name: 'AdminLivestockBreedMonitoring' }"
+                    >
+                        <Button label="Livestock Breeds" class="mr-2" text />
                     </router-link>
-                    <router-link :to="{ name: 'AdminLivestockAgeClassification' }">
+                    <router-link
+                        :to="{ name: 'AdminLivestockAgeClassification' }"
+                    >
                         <Button
                             label="Livestock Age Classification"
                             class="mr-2"
-                            text    
+                            text
                         />
                     </router-link>
                 </div>
@@ -352,7 +348,16 @@
             </Column>
             <Column field="livestockType" header="Type" style="min-width: 6rem">
                 <template #body="{ data }">
-                    {{ data.livestockType }}
+                    <div class="flex gap-2 align-items-center">
+                        <Avatar
+                            :image="getImagePath(data.livestockTypeId)"
+                            class="mr-2"
+                            shape="circle"
+                        />
+                        <div class="text-700">
+                            {{ data.livestockType }}
+                        </div>
+                    </div>
                 </template>
                 <template #filter="{ filterModel }">
                     <InputText
@@ -606,18 +611,18 @@ export default {
                     code: "Dead",
                 },
             ],
-            farmers:[
+            farmers: [
                 {
                     name: "Aba Cus",
-                    code: "1"
+                    code: "1",
                 },
                 {
                     name: "Ba Doy",
-                    code: "2"
+                    code: "2",
                 },
                 {
                     name: "Cak E",
-                    code: "3"
+                    code: "3",
                 },
             ],
 
@@ -641,6 +646,10 @@ export default {
         initFilters() {
             this.filters = {
                 global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+                farmerName: {
+                    value: null,
+                    matchMode: FilterMatchMode.CONTAINS,
+                },
                 livestockTagId: {
                     value: null,
                     matchMode: FilterMatchMode.CONTAINS,

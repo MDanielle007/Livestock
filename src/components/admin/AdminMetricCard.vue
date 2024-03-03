@@ -1,8 +1,8 @@
 <template>
     <div class="bg-white border-1 border-300 border-round-lg p-3">
-        <div class="flex justify-content-between" :class="[{'mb-3':!Array.isArray(value)},{'mb-1':Array.isArray(value)}]">
+        <div class="flex justify-content-between" :class="[{'mb-2':!Array.isArray(value)},{'mb-1':Array.isArray(value)}]">
             <div>
-                <span class="block text-500 font-bold" :class="[{'mb-3':!Array.isArray(value)},{'mb-1':Array.isArray(value)}]">{{ title }}</span>
+                <span class="block text-500 font-bold" :class="[{'mb-2':!Array.isArray(value)},{'mb-1':Array.isArray(value)}]">{{ title }}</span>
                 <div
                     v-if="typeof this.value === 'string'"
                     class="text-900 font-medium h-2rem"
