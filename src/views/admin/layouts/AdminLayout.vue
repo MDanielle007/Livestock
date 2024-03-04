@@ -1,5 +1,5 @@
 <template>
-    <div class="flex min-w-full min-h-screen surface-100">
+    <div class="flex surface-100 max-w-screen h-screen overflow-hidden">
         <div class="layout-sidebar">
             <AdminSidebar :visible="sideBarVisible" />
         </div>
@@ -210,9 +210,9 @@
                 </div>
             </template>
         </Sidebar>
-        <div class="h-screen w-full">
-            <AdminAppbar @hideSideBar="hideAdminSideBar" />
-            <main class="p-2 overflow-y-auto h-30rem content-container">
+        <div class="max-w-full">
+            <AdminAppbar @hideSideBar="hideAdminSideBar"/>
+            <main class="p-2 overflow-y-auto h-full page-container pb-8">
                 <router-view></router-view>
             </main>
         </div>
@@ -254,7 +254,7 @@ export default {
     methods: {
         hideAdminSideBar() {
             this.sideBarVisible = !this.sideBarVisible;
-
+            this.checkScreenWidth()
             if (this.screenWidth <= 1024) {
                 this.overlaySidebar = true;
             }
@@ -262,9 +262,6 @@ export default {
         checkScreenWidth() {
             // Update screenWidth data property
             this.screenWidth = window.innerWidth;
-
-            // Update foo based on screen width
-            this.overlaySidebar = this.screenWidth <= 1024;
         },
         async userLogout() {
             const token = getCookie("token");
