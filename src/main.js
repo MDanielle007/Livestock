@@ -56,6 +56,7 @@ import Menu from "primevue/menu";
 import Menubar from "primevue/menubar";
 import MultiSelect from "primevue/multiselect";
 import OrderList from "primevue/orderlist";
+import OverlayPanel from "primevue/overlaypanel";
 import Paginator from "primevue/paginator";
 import Panel from "primevue/panel";
 import Password from "primevue/password";
@@ -156,6 +157,7 @@ app.component("Menu", Menu);
 app.component("Menubar", Menubar);
 app.component("MultiSelect", MultiSelect);
 app.component("OrderList", OrderList);
+app.component("OverlayPanel", OverlayPanel)
 app.component("Paginator", Paginator);
 app.component("Panel", Panel);
 app.component("Password", Password);

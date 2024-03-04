@@ -210,7 +210,7 @@
                 </div>
             </template>
         </Sidebar>
-        <div class="max-w-full">
+        <div class="w-full">
             <AdminAppbar @hideSideBar="hideAdminSideBar"/>
             <main class="p-2 overflow-y-auto h-full page-container pb-8">
                 <router-view></router-view>
