@@ -14,7 +14,7 @@
                     <div
                         class="flex flex-row flex-wrap gap-2"
                     >
-                        <Chip class="text-sm" v-for="(item, index) in value"
+                        <Chip class="text-xs" v-for="(item, index) in value"
                         :key="index" :label="`${item.name} : ${item.value}`" />
                     </div>
                 </div>

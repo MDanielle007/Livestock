@@ -397,4 +397,59 @@ export const LivestockService = {
 
         return Promise.resolve(livestocks);
     },
+
+    getAllLivestockOptions(){
+        const livestocks = [
+            {
+                id: "1",
+                livestockTagId: "CTL-101",
+                livestockTypeId: "3",
+                farmerId: "1",
+                farmerUserId: "FMR-AC12312",
+                farmerName: "Aba Cus",
+            },
+            {
+                id: "2",
+                livestockTagId: "CTL-102",
+                livestockTypeId: "3",
+                farmerId: "1",
+                farmerUserId: "FMR-AC12312",
+                farmerName: "Aba Cus",
+            },
+            {
+                id: "3",
+                livestockTagId: "CRB-102",
+                livestockTypeId: "4",
+                farmerId: "1",
+                farmerUserId: "FMR-AC12312",
+                farmerName: "Aba Cus",
+            },
+            {
+                id: "4",
+                livestockTagId: "PG-101",
+                livestockTypeId: "2",
+                farmerId: "2",
+                farmerUserId: "FMR-bd12312",
+                farmerName: "Ba Doy",
+            },
+            {
+                id: "5",
+                livestockTagId: "PG-102",
+                livestockTypeId: "2",
+                farmerId: "2",
+                farmerUserId: "FMR-bd12312",
+                farmerName: "Ba Doy",
+            },
+            {
+                id: "6",
+                livestockTagId: "PG-103",
+                livestockTypeId: "2",
+                farmerId: "3",
+                farmerUserId: "FMR-CE12312",
+                farmerName: "CaK E",
+            },
+        ];
+
+        return Promise.resolve(livestocks)
+    }
 };
