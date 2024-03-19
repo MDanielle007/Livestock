@@ -1,0 +1,1755 @@
+{
+    "Oriental Mindoro": {
+        "Naujan" : {
+            "Adrialuna" : {
+                "latitude" : 13.2092,
+                "longitude" : 121.2725
+            },  
+            "Andres Ilagan" : {
+                "latitude" : 13.3220,
+                "longitude" : 121.2977
+            },
+            "Antipolo" : {
+                "latitude" : 13.3078,
+                "longitude" : 121.3055
+            },
+            "Apitong" : {
+                "latitude" : 13.2868,
+                "longitude" : 121.3309
+            },
+            "Arangin" : {
+                "latitude" : 13.2299,
+                "longitude" : 121.1098
+            },
+            "Aurora" : {
+                "latitude" : 13.2678,
+                "longitude" : 121.1338 
+            },
+            "Bacungan" : {
+                "latitude" : 13.3220,
+                "longitude" : 121.1338 
+            },
+            "Bagong Buhay" : {
+                "latitude" : 13.3220,
+                "longitude" : 121.1338 
+            },
+            "Balite" : {
+                "latitude" : 13.2791,
+                "longitude" : 121.1023
+            },
+            "Bancuro" : {
+                "latitude" : 13.2791,
+                "longitude" : 121.3193 
+            },
+            "Banuton" : {
+                "latitude" : 13.2791,
+                "longitude" : 121.3193 
+            },
+            "Barcenaga" : {
+                "latitude" : 13.2744,
+                "longitude" : 121.2387 
+            },
+            "Bayani" : {
+                "latitude" : 13.2427,
+                "longitude" : 121.3498
+            },
+            "Buhangin" : {
+                "latitude" : 13.3007,
+                "longitude" : 121.2622
+            },
+            "Caburo" : {
+                "latitude" : 13.1443,
+                "longitude" : 121.1392
+            },
+            "Concepcion" : {
+                "latitude" : 13.2739,
+                "longitude" : 121.3312
+            },
+            "Dao" : {
+                "latitude" : 13.2567,
+                "longitude" : 121.3147
+            },
+            "Del Pilar" : {
+                "latitude" : 13.2797,
+                "longitude" : 121.1539
+            },
+            "Estrella" : {
+                "latitude" : 13.3301,
+                "longitude" : 121.1539
+            },
+            "Evangelista" : {
+                "latitude" : 13.2857,
+                "longitude" : 121.1069
+            },
+            "Gamao" : {
+                "latitude" : 13.3102,
+                "longitude" : 121.2457
+            },
+            "General Esco" : {
+                "latitude" : 13.2638,
+                "longitude" : 121.1686
+            },
+            "Herrera" : {
+                "latitude" : 13.2287,
+                "longitude" : 121.4151
+            },
+            "Inarawan" : {
+                "latitude" : 13.2111,
+                "longitude" : 121.1629
+            },
+            "Kalinisan" : {
+                "latitude" : 13.3082,
+                "longitude" : 121.3267
+            },
+            "Laguna" : {
+                "latitude" : 13.2435,
+                "longitude" : 121.3292
+            },
+            "Mabini" : {
+                "latitude" : 13.2903,
+                "longitude" : 121.3005
+            },
+            "Magtibay" : {
+                "latitude" : 13.2549,
+                "longitude" : 121.0822
+            },
+            "Mahabang Parang" : {
+                "latitude" : 13.2113,
+                "longitude" : 121.1502
+            },
+            "Malaya" : {
+                "latitude" : 13.2206,
+                "longitude" : 121.2816
+            },
+            "Malinao" : {
+                "latitude" : 13.2390,
+                "longitude" : 121.2697
+            },
+            "Malvar" : {
+                "latitude" : 13.1908,
+                "longitude" : 121.1326
+            },
+            "Masagana" : {
+                "latitude" : 13.2554,
+                "longitude" : 121.1062
+            },
+            "Masaguing" : {
+                "latitude" : 13.2287,
+                "longitude" : 121.3997
+            },
+            "Melgar A" : {
+                "latitude" : 13.2784,
+                "longitude" : 121.3581
+            },
+            "Melgar B" : {
+                "latitude" : 13.2607,
+                "longitude" : 121.3592
+            },
+            "Metolza" : {
+                "latitude" : 13.2715,
+                "longitude" : 121.0891
+            },
+            "Montelago" : {
+                "latitude" : 13.2145,
+                "longitude" : 121.3893
+            },
+            "Montemayor" : {
+                "latitude" : 13.2348,
+                "longitude" : 121.3866
+            },
+            "Motoderazo" : {
+                "latitude" : 13.2816,
+                "longitude" : 121.2774
+            },
+            "Mulawin" : {
+                "latitude" : 13.2463,
+                "longitude" : 121.1298
+            },
+            "Nag-iba I" : {
+                "latitude" : 13.3320,
+                "longitude" : 121.2789
+            },
+            "Nag-iba II" : {
+                "latitude" : 13.3237,
+                "longitude" : 121.2771
+            },
+            "Pagkakaisa" : {
+                "latitude" : 13.2240,
+                "longitude" : 121.2582
+            },
+            "Paitan" : {
+                "latitude" : 13.2677,
+                "longitude" : 121.0831
+            },
+            "Paniquian" : {
+                "latitude" : 13.2897,
+                "longitude" : 121.1480
+            },
+            "Pinagsabangan I" : {
+                "latitude" : 13.2542,
+                "longitude" : 121.2680
+            },
+            "Pinagsabangan II" : {
+                "latitude" : 13.2695,
+                "longitude" : 121.2614
+            },
+            "Piñahan" : {
+                "latitude" : 13.2896,
+                "longitude" : 121.2408
+            },
+            "Poblacion I" : {
+                "latitude" : 13.3251,
+                "longitude" : 121.3024
+            },
+            "Poblacion II" : {
+                "latitude" : 13.3234,
+                "longitude" : 121.3047
+            },
+            "Poblacion III" : {
+                "latitude" : 13.3205,
+                "longitude" : 121.3042
+            },
+            "Sampaguita" : {
+                "latitude" : 13.2881,
+                "longitude" : 121.2127
+            },
+            "San Agustin I" : {
+                "latitude" : 13.2759,
+                "longitude" : 121.3049
+            },
+            "San Agustin II" : {
+                "latitude" : 13.2624,
+                "longitude" : 121.2931
+            },
+            "San Andres" : {
+                "latitude" : 13.1408,
+                "longitude" : 121.1543
+            },
+            "San Antonio" : {
+                "latitude" : 13.1408,
+                "longitude" : 121.2974
+            },
+            "San Carlos" : {
+                "latitude" : 13.2368,
+                "longitude" : 121.2458
+            },
+            "San Jose" : {
+                "latitude" : 13.2937,
+                "longitude" : 121.3431
+            },
+            "San Luis" : {
+                "latitude" : 13.2395,
+                "longitude" : 121.1528
+            },
+            "San Nicolas" : {
+                "latitude" : 13.2498,
+                "longitude" : 121.1754
+            },
+            "San Pedro" : {
+                "latitude" : 13.2257,
+                "longitude" : 121.2962
+            },
+            "Santa Cruz" : {
+                "latitude" : 13.3161,
+                "longitude" : 121.3158
+            },
+            "Santa Isabel" : {
+                "latitude" : 13.2433,
+                "longitude" : 121.3031
+            },
+            "Santa Maria" : {
+                "latitude" : 13.2498,
+                "longitude" : 121.2274
+            },
+            "Santiago" : {
+                "latitude" : 13.3043,
+                "longitude" : 121.2895
+            },
+            "Santo Niño" : {
+                "latitude" : 13.2595,
+                "longitude" : 121.1997
+            },
+            "Tagumpay" : {
+                "latitude" : 13.1826,
+                "longitude" : 121.1697
+            },
+            "Tigkan" : {
+                "latitude" : 13.2826,
+                "longitude" : 121.1831
+            }
+        },
+
+        "Baco" : {
+            "Alag" : {
+                "latitude" : 13.3667,
+                "longitude" : 121.0839
+            },
+            "Bangkatan" : {
+                "latitude" : 13.3294,
+                "longitude" : 121.0609
+            },
+            "Baras" : {
+                "latitude" : 13.3695,
+                "longitude" : 120.9932
+            },
+            "Bayanan" : {
+                "latitude" : 13.3357,
+                "longitude" : 121.0444
+            },
+            "Burbuli" : {
+                "latitude" : 13.3771,
+                "longitude" : 121.0794
+            },
+            "Catwiran I" : {
+                "latitude" : 13.3811,
+                "longitude" : 121.1152
+            },
+            "Catwiran II" : {
+                "latitude" : 13.3708,
+                "longitude" : 121.1133
+            },
+            "Dulangan I" : {
+                "latitude" : 13.3319,
+                "longitude" : 121.1073
+            },
+            "Dulangan II" : {
+                "latitude" : 13.3142,
+                "longitude" : 121.0891
+            },
+            "Lantuyang" : {
+                "latitude" : 13.3068,
+                "longitude" : 121.0640
+            },
+            "Lumang Bayan" : {
+                "latitude" : 13.3972,
+                "longitude" : 121.0969
+            },
+            "Malapad" : {
+                "latitude" : 13.3941,
+                "longitude" : 121.1041
+            },
+            "Mangangan I" : {
+                "latitude" : 13.3577,
+                "longitude" : 121.0407
+            },
+            "Mangangan II" : {
+                "latitude" : 13.3682,
+                "longitude" : 121.0456
+            },
+            "Mayabig" : {
+                "latitude" : 13.3549,
+                "longitude" : 121.0640
+            },
+            "Pambisan" : {
+                "latitude" : 13.4097,
+                "longitude" : 121.1354
+            },
+            "Poblacion" : {
+                "latitude" : 13.3592,
+                "longitude" : 121.0974
+            },
+            "Pulang Tubig" : {
+                "latitude" : 13.4140,
+                "longitude" : 121.1028
+            },
+            "Putican-Cabulo" : {
+                "latitude" : 13.4064,
+                "longitude" : 121.1071
+            },
+            "San Andres" : {
+                "latitude" : 13.4084,
+                "longitude" : 121.1199
+            },
+            "San Ignacio" : {
+                "latitude" : 13.2988,
+                "longitude" : 121.0699
+            },
+            "Santa Cruz" : {
+                "latitude" : 13.3849,
+                "longitude" : 121.0969
+            },
+            "Santa Rosa I" : {
+                "latitude" : 13.3728,
+                "longitude" : 121.0649
+            },
+            "Santa Rosa II" : {
+                "latitude" : 13.3777,
+                "longitude" : 121.0400
+            },
+            "Tabon-tabon" : {
+                "latitude" : 13.3922,
+                "longitude" : 121.1217
+            },
+            "Tagumpay" : {
+                "latitude" : 13.3465,
+                "longitude" : 121.0987
+            },
+            "Water" : {
+                "latitude" : 13.4014,
+                "longitude" : 121.0830
+            }
+        },
+         
+        "Bongabong" : {
+            "Anilao" : {
+                "latitude" : 12.7081,
+                "longitude" : 121.5170
+            },
+            "Aplaya" : {
+                "latitude" : 12.7499,
+                "longitude" : 121.4878
+            },
+            "Bagumbayan I" : {
+                "latitude" : 12.7499,
+                "longitude" : 121.4820
+            },
+            "Bagumbayan II" : {
+                "latitude" : 12.7500,
+                "longitude" : 121.4831
+            },
+            "Batangan" : {
+                "latitude" : 12.6621,
+                "longitude" : 121.3639
+            },
+            "Bukal" : {
+                "latitude" : 12.7003,
+                "longitude" : 121.4310
+            },
+            "Camantigue" : {
+                "latitude" : 12.6370,
+                "longitude" : 121.5378
+            },
+            "Carmundo" : {
+                "latitude" : 12.7311,
+                "longitude" : 121.4156
+            },
+            "Cawayan" : {
+                "latitude" : 12.6481,
+                "longitude" : 121.5347
+            },
+            "Dayhagan" : {
+                "latitude" : 12.6251,
+                "longitude" : 121.5314
+            },
+            "Formon" : {
+                "latitude" : 12.6876,
+                "longitude" : 121.4119
+            },
+            "Hagan" : {
+                "latitude" : 12.7016,
+                "longitude" : 121.3730
+            },
+            "Hagupit" : {
+                "latitude" : 12.6743,
+                "longitude" : 121.4444
+            },
+            "Ipil" : {
+                "latitude" : 12.7439,
+                "longitude" : 121.4873
+            },
+            "Kaligtasan" : {
+                "latitude" : 12.6499,
+                "longitude" : 121.4959
+            },
+            "Labasan" : {
+                "latitude" : 12.7774,
+                "longitude" : 121.4696
+            },
+            "Labonan" : {
+                "latitude" : 12.6502,
+                "longitude" : 121.5151
+            },
+            "Libertad" : {
+                "latitude" : 12.7742,
+                "longitude" : 121.4420
+            },
+            "Lisap" : {
+                "latitude" : 12.6983,
+                "longitude" : 121.3274
+            },
+            "Luna" : {
+                "latitude" : 12.6833,
+                "longitude" : 121.4696
+            },
+            "Malitbog" : {
+                "latitude" : 12.7502,
+                "longitude" : 121.4632
+            },
+            "Mapang" : {
+                "latitude" : 12.6787,
+                "longitude" : 121.4009
+            },
+            "Masaguisi" : {
+                "latitude" : 12.6805,
+                "longitude" : 121.5400
+            },
+            "Mina de Oro" : {
+                "latitude" : 12.6696,
+                "longitude" : 121.5283
+            },
+            "Morente" : {
+                "latitude" : 12.6714,
+                "longitude" : 121.3914
+            },
+            "Ogbot" : {
+                "latitude" : 12.6348,
+                "longitude" : 121.5171
+            },
+            "Orconuma" : {
+                "latitude" : 12.6720,
+                "longitude" : 121.4917
+            },
+            "Poblacion" : {
+                "latitude" : 12.7470,
+                "longitude" : 121.4878
+            },
+            "Polusahi" : {
+                "latitude" : 12.6496,
+                "longitude" : 121.4946
+            },
+            "Sagana" : {
+                "latitude" : 12.7219,
+                "longitude" : 121.4878
+            },
+            "San Isidro" : {
+                "latitude" : 12.6973,
+                "longitude" : 121.4871
+            },
+            "San Jose" : {
+                "latitude" : 12.6511,
+                "longitude" : 121.4509
+            },
+            "San Juan" : {
+                "latitude" : 12.7087,
+                "longitude" : 121.4573
+            },
+            "Santa Cruz" : {
+                "latitude" : 12.7531,
+                "longitude" : 121.4383
+            },
+            "Sigange" : {
+                "latitude" : 12.7209,
+                "longitude" : 121.4270
+            },
+            "Tawas" : {
+                "latitude" : 12.7364,
+                "longitude" : 121.3841
+            }
+        },
+
+        "Bulalacao" : {
+            "Bagong Sikat" : {
+                "latitude" : 12.35333,
+                "longitude" : 121.2969
+            }, 
+            "Balatasan" : {
+                "latitude" : 12.2962,
+                "longitude" : 121.3831
+            },
+            "Benli" : {
+                "latitude" : 12.4283,
+                "longitude" : 121.2948
+            },
+            "Cabugao" : {
+                "latitude" : 12.3567,
+                "longitude" : 121.2572
+            },
+            "Cambunang" : {
+                "latitude" : 12.3614,
+                "longitude" : 121.3239
+            },
+            "Campaasan" : {
+                "latitude" : 12.3419,
+                "longitude" : 121.3368
+            },
+            "Maasin" : {
+                "latitude" : 12.2732,
+                "longitude" : 121.3800
+            },
+            "Maujao" : {
+                "latitude" : 12.2941,
+                "longitude" : 121.2945
+            },
+            "Milagrosa" : {
+                "latitude" : 12.2815,
+                "longitude" : 121.2736
+            },
+            "Nasukob" : {
+                "latitude" : 12.3633,
+                "longitude" : 121.3436
+            },
+            "Poblacion" : {
+                "latitude" : 12.3258,
+                "longitude" : 121.3431
+            },
+            "San Francisco" : {
+                "latitude" : 12.2902,
+                "longitude" : 121.2827
+            },
+            "San Isidro" : {
+                "latitude" : 12.3117,
+                "longitude" : 121.2561
+            },
+            "San Juan" : {
+                "latitude" : 12.3575,
+                "longitude" : 121.3672
+            },
+            "San Roque" : {
+                "latitude" : 12.3912,
+                "longitude" : 121.3983
+            }
+        },
+
+        "Calapan" : {
+            "Balingayan" : {
+                "latitude" : 12.3241,
+                "longitude" : 121.1407
+            },
+            "Balite" : {
+                "latitude" : 12.4131,
+                "longitude" : 121.1580
+            },
+            "Baruyan" : {
+                "latitude" : 12.3812,
+                "longitude" : 121.1345
+            },
+            "Batino" : {
+                "latitude" : 12.3494,
+                "longitude" : 121.2201
+            },
+            "Bayanan I" : {
+                "latitude" : 12.3679,
+                "longitude" : 121.1685
+            },
+            "Bayanan II" : {
+                "latitude" : 12.3560,
+                "longitude" : 121.1699
+            },
+            "Biga" : {
+                "latitude" : 12.3270,
+                "longitude" : 121.1733
+            },
+            "Bondoc" : {
+                "latitude" : 12.3867,
+                "longitude" : 121.2010
+            },
+            "Bucayao" : {
+                "latitude" : 12.3066,
+                "longitude" : 121.1915
+            },
+            "Buhuan" : {
+                "latitude" : 12.3106,
+                "longitude" : 121.2142
+            },
+            "Bulusan" : {
+                "latitude" : 12.4037,
+                "longitude" : 121.2012
+            },
+            "Calero" : {
+                "latitude" : 12.4159,
+                "longitude" : 121.1831
+            },
+            "Camansihan" : {
+                "latitude" : 12.3428,
+                "longitude" : 121.2290
+            },
+            "Camilmil" : {
+                "latitude" : 12.4061,
+                "longitude" : 121.1760
+            },
+            "Canubing I" : {
+                "latitude" : 12.3554,
+                "longitude" : 121.1423
+            },
+            "Canubing II" : {
+                "latitude" : 12.3261,
+                "longitude" : 121.1216
+            },
+            "Comunal" : {
+                "latitude" : 12.3075,
+                "longitude" : 121.1606
+            },
+            "Guinobatan" : {
+                "latitude" : 12.3829,
+                "longitude" : 121.1818
+            },
+            "Gulod" : {
+                "latitude" : 12.3433,
+                "longitude" : 121.2073
+            },
+            "Gutad" : {
+                "latitude" : 12.3597,
+                "longitude" : 121.2464
+            },
+            "Ibaba East" : {
+                "latitude" : 12.4149,
+                "longitude" : 121.1788
+            },
+            "Ibaba West" : {
+                "latitude" : 12.4146,
+                "longitude" : 121.1762
+            },
+            "Ilaya" : {
+                "latitude" : 12.4129,
+                "longitude" : 121.1840
+            },
+            "Lalud" : {
+                "latitude" : 12.3993,
+                "longitude" : 121.1739
+            },
+            "Lazareto" : {
+                "latitude" : 12.4286,
+                "longitude" : 121.1995
+            },
+            "Libis" : {
+                "latitude" : 12.4149,
+                "longitude" : 121.1847
+            },
+            "Lumang Bayan" : {
+                "latitude" : 12.4009,
+                "longitude" : 121.1816
+            },
+            "Mahal na Pangalan" : {
+                "latitude" : 12.4082,
+                "longitude" : 121.1502
+            },
+            "Maidlang" : {
+                "latitude" : 12.3883,
+                "longitude" : 121.2339
+            },
+            "Malad" : {
+                "latitude" : 12.3396,
+                "longitude" : 121.1588
+            },
+            "Malamig" : {
+                "latitude" : 12.3439,
+                "longitude" : 121.1456
+            },
+            "Managpi" : {
+                "latitude" : 12.3282,
+                "longitude" : 121.1997
+            },
+            "Masipit" : {
+                "latitude" : 12.3869,
+                "longitude" : 121.1603
+            },
+            "Nag-iba II" : {
+                "latitude" : 12.3470,
+                "longitude" : 121.2622
+            },
+            "Navotas" : {
+                "latitude" : 12.3739,
+                "longitude" : 121.2486
+            },
+            "Pachoca" : {
+                "latitude" : 12.4108,
+                "longitude" : 121.1677
+            },
+            "Palhi" : {
+                "latitude" : 12.3750,
+                "longitude" : 121.2070
+            },
+            "Panggalaan" : {
+                "latitude" : 12.3012,
+                "longitude" : 121.1990
+            },
+            "Parang" : {
+                "latitude" : 12.4035,
+                "longitude" : 121.2182
+            },
+            "Patas" : {
+                "latitude" : 12.3452,
+                "longitude" : 121.1222
+            },
+            "Personas" : {
+                "latitude" : 12.3083,
+                "longitude" : 121.1438
+            },
+            "Putingtubig" : {
+                "latitude" : 12.3470,
+                "longitude" : 121.1887
+            },
+            "Salong" : {
+                "latitude" : 12.4216,
+                "longitude" : 121.1911
+            },
+            "San Antonio" : {
+                "latitude" : 12.4259,
+                "longitude" : 121.1956
+            },
+            "San Vicente Central" : {
+                "latitude" : 12.4120,
+                "longitude" : 121.1787
+            },
+            "San Vicente East" : {
+                "latitude" : 12.4098,
+                "longitude" : 121.1798
+            },
+            "San Vicente North" : {
+                "latitude" : 12.4138,
+                "longitude" : 121.1785
+            },
+            "San Vicente South" : {
+                "latitude" : 12.4095,
+                "longitude" : 121.1779
+            },
+            "San Vicente West" : {
+                "latitude" : 12.4124,
+                "longitude" : 121.1765
+            },
+            "Santa Cruz" : {
+                "latitude" : 12.3169,
+                "longitude" : 121.2370
+            },
+            "Santa Isabel" : {
+                "latitude" : 12.3654,
+                "longitude" : 121.1577
+            },
+            "Santa Maria Village" : {
+                "latitude" : 12.4093,
+                "longitude" : 121.1748
+            },
+            "Santa Rita" : {
+                "latitude" : 12.3489,
+                "longitude" : 121.1303
+            },
+            "Santo Niño" : {
+                "latitude" : 12.4066,
+                "longitude" : 121.1848
+            },
+            "Sapul" : {
+                "latitude" : 12.3651,
+                "longitude" : 121.1885
+            },
+            "Silonay" : {
+                "latitude" : 12.3992,
+                "longitude" : 121.2248
+            },
+            "Suqui" : {
+                "latitude" : 12.4177,
+                "longitude" : 121.2040
+            },
+            "Tawagan" : {
+                "latitude" : 12.3712,
+                "longitude" : 121.1448
+            },
+            "Tawiran" : {
+                "latitude" : 12.3950,
+                "longitude" : 121.1680
+            },
+            "Tibag" : {
+                "latitude" : 12.4123,
+                "longitude" : 121.1730
+            },
+            "Wawa" : {
+                "latitude" : 12.4025,
+                "longitude" : 121.1453
+            }
+        },
+
+        "Gloria" : {
+            "Agos" : {
+                "latitude" : 12.9757,
+                "longitude" : 121.4456
+            },
+            "Agsalin" : {
+                "latitude" : 12.8832,
+                "longitude" : 121.4717
+            },
+            "Alma Villa" : {
+                "latitude" : 12.9616,
+                "longitude" : 121.4384
+            },
+            "Andres Bonifacio" : {
+                "latitude" : 12.9649,
+                "longitude" : 121.4552
+            },
+            "Balete" : {
+                "latitude" : 12.9361,
+                "longitude" : 121.4717
+            },
+            "Banus" : {
+                "latitude" : 12.8863,
+                "longitude" : 121.4491
+            },
+            "Banutan" : {
+                "latitude" : 12.9167,
+                "longitude" : 121.4395
+            },
+            "Bulaklakan" : {
+                "latitude" : 12.9808,
+                "longitude" : 121.4782
+            },
+            "Buong Lupa" : {
+                "latitude" : 12.9467,
+                "longitude" : 121.3416
+            },
+            "Gaudencio Antonino" : {
+                "latitude" : 12.9103,
+                "longitude" : 121.4622
+            },
+            "Guimbonan" : {
+                "latitude" : 12.9076,
+                "longitude" : 121.4756
+            },
+            "Kawit" : {
+                "latitude" : 12.9599,
+                "longitude" : 121.4775
+            },
+            "Lucio Laurel" : {
+                "latitude" : 12.9229,
+                "longitude" : 121.4673
+            },
+            "Macario Adriatico" : {
+                "latitude" : 12.9430,
+                "longitude" : 121.4259
+            },
+            "Malamig" : {
+                "latitude" : 12.9575,
+                "longitude" : 121.4196
+            },
+            "Malayong" : {
+                "latitude" : 12.9278,
+                "longitude" : 121.4342
+            },
+            "Maligaya" : {
+                "latitude" : 12.9723,
+                "longitude" : 121.4779
+            },
+            "Malubay" : {
+                "latitude" : 12.9396,
+                "longitude" : 121.4062
+            },
+            "Manguyang" : {
+                "latitude" : 12.9071,
+                "longitude" : 121.4278
+            },
+            "Maragooc" : {
+                "latitude" : 12.8958,
+                "longitude" : 121.4714
+            },
+            "Mirayan" : {
+                "latitude" : 12.9390,
+                "longitude" : 121.3827
+            },
+            "Narra" : {
+                "latitude" : 12.9533,
+                "longitude" : 121.4773
+            },
+            "Papandungin" : {
+                "latitude" : 12.9390,
+                "longitude" : 121.4463
+            },
+            "San Antonio" : {
+                "latitude" : 12.9483,
+                "longitude" : 121.4884
+            },
+            "Santa Maria" : {
+                "latitude" : 12.8993,
+                "longitude" : 121.4577
+            },
+            "Santa Theresa" : {
+                "latitude" : 12.9152,
+                "longitude" : 121.4815
+            },
+            "Tambong" : {
+                "latitude" : 12.9715,
+                "longitude" : 121.4866
+            }
+        },
+
+        "Bansud" : {
+            "Alcadesma" : {
+                "latitude" : 12.8345,
+                "longitude" : 121.4600
+            }, 
+            "Bato" : {
+                "latitude" : 12.7717,
+                "longitude" : 121.4157
+            },
+            "Conrazon" : {
+                "latitude" : 12.8594,
+                "longitude" : 121.4232
+            },
+            "Malo" : {
+                "latitude" : 12.7709,
+                "longitude" : 121.3929
+            },
+            "Manihala" : {
+                "latitude" : 12.8089,
+                "longitude" : 121.4046
+            },
+            "Pag-asa" : {
+                "latitude" : 12.8713,
+                "longitude" : 121.4525
+            },
+            "Poblacion" : {
+                "latitude" : 12.8595,
+                "longitude" : 121.4565
+            },
+            "Proper Bansud" : {
+                "latitude" : 12.8608,
+                "longitude" : 121.4888
+            },
+            "Proper Tiguisan" : {
+                "latitude" : 12.8307,
+                "longitude" : 121.4760
+            },
+            "Rosacara" : {
+                "latitude" : 12.8313,
+                "longitude" : 121.4220
+            },
+            "Salcedo" : {
+                "latitude" : 12.8111,
+                "longitude" : 121.4668
+            },
+            "Sumagui" : {
+                "latitude" : 12.7959,
+                "longitude" : 121.4744
+            },
+            "Villa Pag-asa" : {
+                "latitude" : 12.7924,
+                "longitude" : 121.4316
+            }
+        },
+
+        "Mansalay" : {
+            "B. del Mundo" : {
+                "latitude" : 12.5302,
+                "longitude" : 121.4720
+            },
+            "Balugo" : {
+                "latitude" : 12.5785,
+                "longitude" : 121.4593
+            },
+            "Bonbon" : {
+                "latitude" : 12.6114,
+                "longitude" : 121.4418
+            },
+            "Budburan" : {
+                "latitude" : 12.4180,
+                "longitude" : 121.4096
+            },
+            "Cabalwa" : {
+                "latitude" : 12.4655,
+                "longitude" : 121.4073
+            },
+            "Don Pedro" : {
+                "latitude" : 12.4894,
+                "longitude" : 121.4241
+            },
+            "Maliwanag" : {
+                "latitude" : 12.5900,
+                "longitude" : 121.4382
+            },
+            "Manaul" : {
+                "latitude" : 12.4459,
+                "longitude" : 121.4067
+            },
+            "Panaytayan" : {
+                "latitude" : 12.5427,
+                "longitude" : 121.3334
+            },
+            "Poblacion" : {
+                "latitude" : 12.5207,
+                "longitude" : 121.4398
+            },
+            "Roma" : {
+                "latitude" : 12.5913,
+                "longitude" : 121.4706
+            },
+            "Santa Brigida" : {
+                "latitude" : 12.5682,
+                "longitude" : 121.4897
+            },
+            "Santa Maria" : {
+                "latitude" : 12.5672,
+                "longitude" : 121.4677
+            },
+            "Santa Teresita" : {
+                "latitude" : 12.5187,
+                "longitude" : 121.4244
+            },
+            "Villa Celestial" : {
+                "latitude" : 12.5187,
+                "longitude" : 121.4244
+            },
+            "Wasig" : {
+                "latitude" : 12.5496,
+                "longitude" : 121.4846
+            },
+            "Waygan" : {
+                "latitude" : 12.5523,
+                "longitude" : 121.4276
+            }
+        },
+
+        "Pinamalayan" : {
+            "Anoling" : {
+                "latitude" : 13.0757,
+                "longitude" : 121.4566
+            },
+            "Bacungan" : {
+                "latitude" : 13.0624,
+                "longitude" : 121.4401
+            },
+            "Bangbang" : {
+                "latitude" : 13.0273,
+                "longitude" : 121.4253
+            },
+            "Banilad" : {
+                "latitude" : 13.0870,
+                "longitude" : 121.5526
+            },
+            "Buli" : {
+                "latitude" : 13.0763,
+                "longitude" : 121.4768
+            },
+            "Cacawan" : {
+                "latitude" : 13.0486,
+                "longitude" : 121.4834
+            },
+            "Calingag" : {
+                "latitude" : 13.0172,
+                "longitude" : 121.4336
+            },
+            "Del Razon" : {
+                "latitude" : 12.9848,
+                "longitude" : 121.4677
+            },
+            "Guinhawa" : {
+                "latitude" : 13.0652,
+                "longitude" : 121.5050
+            },
+            "Inclanay" : {
+                "latitude" : 12.9966,
+                "longitude" : 121.3938
+            },
+            "Lumangbayan" : {
+                "latitude" : 13.0500,
+                "longitude" : 121.4994
+            },
+            "Malaya" : {
+                "latitude" : 12.9894,
+                "longitude" : 121.4561
+            },
+            "Maliangcog" : {
+                "latitude" : 12.9937,
+                "longitude" : 121.4139
+            },
+            "Maningcol" : {
+                "latitude" : 13.0259,
+                "longitude" : 121.4565
+            },
+            "Marayos" : {
+                "latitude" : 12.9953,
+                "longitude" : 121.3808
+            },
+            "Marfrancisco" : {
+                "latitude" : 13.0337,
+                "longitude" : 121.4801
+            },
+            "Nabuslot" : {
+                "latitude" : 13.0493,
+                "longitude" : 121.4354
+            },
+            "Pagalagala" : {
+                "latitude" : 13.0360,
+                "longitude" : 121.4164
+            },
+            "Palayan" : {
+                "latitude" : 13.0494,
+                "longitude" : 121.4535
+            },
+            "Pambisan Malaki" : {
+                "latitude" : 13.0108,
+                "longitude" : 121.4145
+            },
+            "Pambisan Munti" : {
+                "latitude" : 12.9797,
+                "longitude" : 121.4260
+            },
+            "Panggulayan" : {
+                "latitude" : 13.0479,
+                "longitude" : 121.4585
+            },
+            "Papandayan" : {
+                "latitude" : 13.0124,
+                "longitude" : 121.4793
+            },
+            "Pili" : {
+                "latitude" : 13.0691,
+                "longitude" : 121.5185
+            },
+            "Quinabigan" : {
+                "latitude" : 12.9927,
+                "longitude" : 121.4858
+            },
+            "Ranzo" : {
+                "latitude" : 13.1116,
+                "longitude" : 121.5538
+            },
+            "Rosario" : {
+                "latitude" : 13.0092,
+                "longitude" : 121.4630
+            },
+            "Sabang" : {
+                "latitude" : 12.9943,
+                "longitude" : 121.3493
+            },
+            "Santa Isabel" : {
+                "latitude" : 13.0678,
+                "longitude" : 121.4898
+            },
+            "Santa Maria" : {
+                "latitude" : 13.0224,
+                "longitude" : 121.4126
+            },
+            "Santa Rita" : {
+                "latitude" : 13.0417,
+                "longitude" : 121.4740
+            },
+            "Santo Niño" : {
+                "latitude" : 13.0439,
+                "longitude" : 121.4251
+            },
+            "Wawa" : {
+                "latitude" : 13.0347,
+                "longitude" : 121.4928
+            },
+            "Zone I" : {
+                "latitude" : 13.0299,
+                "longitude" : 121.4895
+            },
+            "Zone II" : {
+                "latitude" : 13.0335,
+                "longitude" : 121.4881
+            },
+            "Zone III" : {
+                "latitude" : 13.0350,
+                "longitude" : 121.4847
+            },
+            "Zone IV" : {
+                "latitude" : 13.0375,
+                "longitude" : 121.4867
+            }
+        },
+
+        "Pola" : {
+            "Bacawan" : {
+                "latitude" : 13.1317,
+                "longitude" : 121.5365
+            },
+            "Bacungan" : {
+                "latitude" : 13.0684,
+                "longitude" : 121.4341
+            },
+            "Batuhan" : {
+                "latitude" : 13.1395,
+                "longitude" : 121.4471
+            },
+            "Bayanan" : {
+                "latitude" : 13.1531,
+                "longitude" : 121.4305
+            },
+            "Biga" : {
+                "latitude" : 13.0969,
+                "longitude" : 121.4693
+            },
+            "Buhay na Tubig" : {
+                "latitude" : 13.1427,
+                "longitude" : 121.5150
+            },
+            "Calima" : {
+                "latitude" : 13.1351,
+                "longitude" : 121.4778
+            },
+            "Calubasanhon" : {
+                "latitude" : 13.1235,
+                "longitude" : 121.4055
+            },
+            "Campamento" : {
+                "latitude" : 13.1138,
+                "longitude" : 121.4680
+            },
+            "Casiligan" : {
+                "latitude" : 13.1184,
+                "longitude" : 121.4253
+            },
+            "Malibago" : {
+                "latitude" : 13.0986,
+                "longitude" : 121.4423
+            },
+            "Maluanluan" : {
+                "latitude" : 13.0969,
+                "longitude" : 121.4243
+            },
+            "Matulatula" : {
+                "latitude" : 13.1361,
+                "longitude" : 121.3869
+            },
+            "Misong" : {
+                "latitude" : 13.2183,
+                "longitude" : 121.4241
+            },
+            "Pahilahan" : {
+                "latitude" : 13.1722,
+                "longitude" : 121.4113
+            },
+            "Panikihan" : {
+                "latitude" : 13.1315,
+                "longitude" : 13.1315
+            },
+            "Pula" : {
+                "latitude" : 13.1088,
+                "longitude" : 121.4589
+            },
+            "Puting Cacao" : {
+                "latitude" : 13.1864,
+                "longitude" : 121.4346
+            },
+            "Tagbakin" : {
+                "latitude" : 13.1744,
+                "longitude" : 121.3923
+            },
+            "Tagumpay" : {
+                "latitude" : 13.2031,
+                "longitude" : 121.4242
+            },
+            "Tiguihan" : {
+                "latitude" : 13.1717,
+                "longitude" : 121.4320
+            },
+            "Zone I" : {
+                "latitude" : 13.1446,
+                "longitude" : 121.4412
+            },
+            "Zone II" : {
+                "latitude" : 13.1435,
+                "longitude" : 121.4413
+            }
+        },
+
+        "Puerto Galera" : {
+            "Aninuan" : {
+                "latitude" : 13.4992,
+                "longitude" : 120.8974
+            },
+            "Baclayan" : {
+                "latitude" : 13.4747,
+                "longitude" : 120.9381
+            },
+            "Balatero" : {
+                "latitude" : 13.5043,
+                "longitude" : 120.9316
+            },
+            "Dulangan" : {
+                "latitude" : 13.4683,
+                "longitude" : 120.9739
+            },
+            "Palangan" : {
+                "latitude" : 13.5067,
+                "longitude" : 120.9672
+            },
+            "Poblacion" : {
+                "latitude" : 13.5008,
+                "longitude" : 120.9544
+            },
+            "Sabang" : {
+                "latitude" : 13.5203,
+                "longitude" : 120.9760
+            },
+            "San Antonio" : {
+                "latitude" : 13.5239,
+                "longitude" : 120.9530
+            },
+            "San Isidro" : {
+                "latitude" : 13.5038,
+                "longitude" : 120.9075
+            },
+            "Santo Niño" : {
+                "latitude" : 13.5029,
+                "longitude" : 120.9472
+            },
+            "Sinandigan" : {
+                "latitude" : 13.5187,
+                "longitude" : 120.9831
+            },
+            "Tabinay" : {
+                "latitude" : 13.4801,
+                "longitude" : 120.9600
+            },
+            "Villaflor" : {
+                "latitude" : 13.4433,
+                "longitude" : 120.9847
+            }
+        },
+
+        "Roxas" : {
+            "Bagumbayan" : {
+                "latitude" : 12.5906,
+                "longitude" : 121.5176
+            },
+            "Cantil" : {
+                "latitude" : 12.6152,
+                "longitude" : 121.5163
+            },
+            "Dangay" : {
+                "latitude" : 12.5964,
+                "longitude" : 121.5266
+            },
+            "Happy Valley" : {
+                "latitude" : 12.6462,
+                "longitude" : 121.4100
+            },
+            "Libertad" : {
+                "latitude" : 12.6142,
+                "longitude" : 121.4736
+            },
+            "Libtong" : {
+                "latitude" : 12.6319,
+                "longitude" : 121.4846
+            },
+            "Little Tanauan" : {
+                "latitude" : 12.6235,
+                "longitude" : 121.4602
+            },
+            "Mabuhay" : {
+                "latitude" : 12.6393,
+                "longitude" : 121.4644
+            },
+            "Maraska" : {
+                "latitude" : 12.6474,
+                "longitude" : 121.4466
+            },
+            "Odiong" : {
+                "latitude" : 12.5983,
+                "longitude" : 121.4984
+            },
+            "Paclasan" : {
+                "latitude" : 12.5840,
+                "longitude" : 121.5181
+            },
+            "San Aquilino" : {
+                "latitude" : 12.5967,
+                "longitude" : 121.4841
+            },
+            "San Isidro" : {
+                "latitude" : 12.5764,
+                "longitude" : 121.5061
+            },
+            "San Jose" : {
+                "latitude" : 12.6164,
+                "longitude" : 121.5309
+            },
+            "San Mariano" : {
+                "latitude" : 12.6393,
+                "longitude" : 121.4390
+            },
+            "San Miguel" : {
+                "latitude" : 12.6065,
+                "longitude" : 121.4707
+            },
+            "San Rafael" : {
+                "latitude" : 12.6527,
+                "longitude" : 121.4143
+            },
+            "San Vicente" : {
+                "latitude" : 12.6261,
+                "longitude" : 121.3855
+            },
+            "Uyao" : {
+                "latitude" : 12.6209,
+                "longitude" : 121.4720
+            },
+            "Victoria" : {
+                "latitude" : 12.6101,
+                "longitude" : 121.4862
+            }
+        },
+
+        "San Teodoro" : {
+            "Bigaan" : {
+                "latitude" : 13.4151,
+                "longitude" : 121.0115
+            },
+            "Caagutayan" : {
+                "latitude" : 13.4140,
+                "longitude" : 120.9894
+            },
+            "Calangatan" : {
+                "latitude" : 13.3909,
+                "longitude" : 121.0358
+            },
+            "Calsapa" : {
+                "latitude" : 13.4181,
+                "longitude" : 121.0008
+            },
+            "Ilag" : {
+                "latitude" : 13.4402,
+                "longitude" : 121.0171
+            },
+            "Lumangbayan" : {
+                "latitude" : 13.4192,
+                "longitude" : 121.0326
+            },
+            "Poblacion" : {
+                "latitude" : 13.4354,
+                "longitude" : 121.0197
+            },
+            "Tacligan" : {
+                "latitude" : 13.4037,
+                "longitude" : 121.0560
+            }
+        },
+
+        "Socorro" : {
+            "Bagsok" : {
+                "latitude" : 13.0730,
+                "longitude" : 121.4152
+            },
+            "Batong Dalig" : {
+                "latitude" : 13.1041,
+                "longitude" : 121.3309
+            },
+            "Bayuin" : {
+                "latitude" : 13.0423,
+                "longitude" : 121.3900
+            },
+            "Bugtong na Tuog" : {
+                "latitude" : 13.0598,
+                "longitude" : 121.2832
+            },
+            "Calocmoy" : {
+                "latitude" : 13.0387,
+                "longitude" : 121.4069
+            },
+            "Calubayan" : {
+                "latitude" : 13.0491,
+                "longitude" : 121.3607
+            },
+            "Catiningan" : {
+                "latitude" : 13.0513,
+                "longitude" : 121.4221
+            },
+            "Fortuna" : {
+                "latitude" : 13.0272,
+                "longitude" : 121.3389
+            },
+            "Happy Valley" : {
+                "latitude" : 13.0923,
+                "longitude" : 121.3255
+            },
+            "Leuteboro I" : {
+                "latitude" : 13.0680,
+                "longitude" : 121.3923
+            },
+            "Leuteboro II" : {
+                "latitude" : 13.0731,
+                "longitude" : 121.3827
+            },
+            "Ma. Concepcion" : {
+                "latitude" : 13.0833,
+                "longitude" : 121.2884
+            },
+            "Mabuhay I" : {
+                "latitude" : 13.0965,
+                "longitude" : 121.3455
+            },
+            "Mabuhay II" : {
+                "latitude" : 13.1072,
+                "longitude" : 121.3617
+            },
+            "Malugay" : {
+                "latitude" : 13.0147,
+                "longitude" : 121.3691
+            },
+            "Matungao" : {
+                "latitude" : 13.0965,
+                "longitude" : 121.3891
+            },
+            "Monteverde" : {
+                "latitude" : 13.0644,
+                "longitude" : 121.3477
+            },
+            "Pasi I" : {
+                "latitude" : 13.1105,
+                "longitude" : 121.3135
+            },
+            "Pasi II" : {
+                "latitude" : 13.1089,
+                "longitude" : 121.3193
+            },
+            "Santo Domingo" : {
+                "latitude" : 13.1198,
+                "longitude" : 121.3759
+            },
+            "Subaan" : {
+                "latitude" : 13.0718,
+                "longitude" : 121.3680
+            },
+            "Villareal" : {
+                "latitude" : 13.0095,
+                "longitude" : 121.3923
+            },
+            "Zone 1" : {
+                "latitude" : 13.0591,
+                "longitude" : 121.4066
+            },
+            "Zone II" : {
+                "latitude" : 13.0565,
+                "longitude" : 121.4101
+            },
+            "Zone III" : {
+                "latitude" : 13.0546,
+                "longitude" : 121.4070
+            },
+            "Zone IV" : {
+                "latitude" : 13.0565,
+                "longitude" : 121.4032
+            }
+        },
+
+        "Victoria" : {
+            "Alcate" : {
+                "latitude" : 13.1603,
+                "longitude" : 121.1866
+            },
+            "Antonino" : {
+                "latitude" : 13.1894,
+                "longitude" : 121.2146
+            },
+            "Babangonan" : {
+                "latitude" : 13.1944,
+                "longitude" : 121.2671
+            },
+            "Bagong Buhay" : {
+                "latitude" : 13.2002,
+                "longitude" : 121.2056
+            },
+            "Bagong Silang" : {
+                "latitude" : 13.1757,
+                "longitude" : 121.2268
+            },
+            "Bambanin" : {
+                "latitude" : 13.1149,
+                "longitude" : 121.3004
+            },
+            "Bethel" : {
+                "latitude" : 13.1448,
+                "longitude" : 121.2803
+            },
+            "Canaan" : {
+                "latitude" : 13.1417,
+                "longitude" : 121.2820
+            },
+            "Concepcion" : {
+                "latitude" : 13.0948,
+                "longitude" : 121.2763
+            },
+            "Duongan" : {
+                "latitude" : 13.1478,
+                "longitude" : 121.3021
+            },
+            "Jose Leido Jr." : {
+                "latitude" : 13.1236,
+                "longitude" : 121.2920
+            },
+            "Loyal" : {
+                "latitude" : 13.1547,
+                "longitude" : 121.2277
+            },
+            "Mabini" : {
+                "latitude" : 13.1982,
+                "longitude" : 121.2741
+            },
+            "Macatoc" : {
+                "latitude" : 13.1962,
+                "longitude" : 121.2444
+            },
+            "Malabo" : {
+                "latitude" : 13.1647,
+                "longitude" : 121.3046
+            },
+            "Merit" : {
+                "latitude" : 13.1087,
+                "longitude" : 121.3038
+            },
+            "Ordovilla" : {
+                "latitude" : 13.1687,
+                "longitude" : 121.2668
+            },
+            "Pakyas" : {
+                "latitude" : 13.1328,
+                "longitude" : 121.2870
+            },
+            "Poblacion I" : {
+                "latitude" : 13.1734,
+                "longitude" : 121.2777
+            },
+            "Poblacion II" : {
+                "latitude" : 13.1778,
+                "longitude" : 121.2770
+            },
+            "Poblacion III" : {
+                "latitude" : 13.1690,
+                "longitude" : 121.2788
+            },
+            "Poblacion IV" : {
+                "latitude" : 13.1842,
+                "longitude" : 121.2761
+            },
+            "Sampaguita" : {
+                "latitude" : 13.1566,
+                "longitude" : 121.2601
+            },
+            "San Antonio" : {
+                "latitude" : 13.1518,
+                "longitude" : 121.2696
+            },
+            "San Cristobal" : {
+                "latitude" : 13.1238,
+                "longitude" : 121.2609
+            },
+            "San Gabriel" : {
+                "latitude" : 13.1733,
+                "longitude" : 121.2445
+            },
+            "San Gelacio" : {
+                "latitude" : 13.1507,
+                "longitude" : 121.2786
+            },
+            "San Isidro" : {
+                "latitude" : 13.1604,
+                "longitude" : 121.2836
+            },
+            "San Juan" : {
+                "latitude" : 13.1877,
+                "longitude" : 121.2602
+            },
+            "San Narciso" : {
+                "latitude" : 13.1874,
+                "longitude" : 121.2977
+            },
+            "Urdaneta" : {
+                "latitude" : 13.1983,
+                "longitude" : 121.2974
+            },
+            "Villa Cerveza" : {
+                "latitude" : 13.1091,
+                "longitude" : 121.1726
+            }
+        }
+
+
+
+
+
+
+
+    }
+
+}
+
+
+
